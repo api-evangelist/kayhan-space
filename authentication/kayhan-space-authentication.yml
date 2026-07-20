@@ -1,0 +1,21 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kayhan-space-satcat-openapi-original.json
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - clientCredentials
+  - password
+schemes:
+- name: Oauth2Scheme
+  type: oauth2
+  flows:
+  - flow: password
+    tokenUrl: login
+    scopes: 1
+  - flow: clientCredentials
+    tokenUrl: oauth/token
+    scopes: 1
+  sources:
+  - openapi/kayhan-space-satcat-openapi-original.json
