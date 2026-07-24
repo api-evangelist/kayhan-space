@@ -1,0 +1,1496 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Mitigation API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Mitigation
+paths:
+  /conjunction_messages/{cdm_id}/mitigation_scenarios:
+    get:
+      tags:
+      - Mitigation
+      summary: List Mitigation Scenarios
+      description: List mitigation scenarios available for a conjunction message.
+      operationId: list_mitigation_scenarios_conjunction_messages__cdm_id__mitigation_scenarios_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key or cdm_id of conjunction message
+          title: Cdm Id
+        description: key or cdm_id of conjunction message
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_MitigationScenarioRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Mitigation
+      summary: Create Mitigation Scenario
+      description: Create a mitigation scenario on the cdm id from an ephemeris id
+      operationId: create_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Cdm Id
+      - name: ephem_id
+        in: query
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Ephem Id
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /conjunction_messages/{cdm_id}/mitigation_scenarios/{scenario_id}:
+    get:
+      tags:
+      - Mitigation
+      summary: Get Mitigation Scenario
+      description: Get a mitigation scenario by ID.
+      operationId: get_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Cdm Id
+      - name: scenario_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scenario Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /conjunction_messages/{cdm_id}/mitigation_scenarios/opm:
+    post:
+      tags:
+      - Mitigation
+      summary: Create Mitigation Scenario From Opm
+      description: Create a mitigation scenario on the cdm id from opm file
+      operationId: create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Cdm Id
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScenarioRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /conjunction_messages/{cdm_id}/mitigation_scenarios/{scenario_id}/screening:
+    post:
+      tags:
+      - Mitigation
+      summary: Add Scenario Screening
+      description: Post screening associated with a theoretical CDM scenario.<br/>
+      operationId: add_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Cdm Id
+      - name: scenario_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Scenario Id
+      requestBody:
+        content:
+          application/json:
+            schema:
+              anyOf:
+              - $ref: '#/components/schemas/ScreeningSubmit'
+              - type: 'null'
+              description: Screening Submission Parameters
+              title: Screening
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Mitigation
+      summary: Get Scenario Screening
+      description: Get screening associated with a theoretical CDM scenario.<br/>
+      operationId: get_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Cdm Id
+      - name: scenario_key
+        in: query
+        required: true
+        schema:
+          type: string
+          title: Scenario Key
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScreeningRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    UserProfilePreview:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+      type: object
+      required:
+      - id
+      title: UserProfilePreview
+    ScenarioFailureType:
+      type: string
+      enum:
+      - SATCAT
+      - NO_EPHEMERIS_OVERLAP
+      - PROPAGATION
+      title: ScenarioFailureType
+    ScreeningRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        owner:
+          anyOf:
+          - $ref: '#/components/schemas/UserProfilePreview'
+          - type: 'null'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+        threshold_radius_manned_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Manned Km
+        threshold_radius_active_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Active Km
+        threshold_radius_debris_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Debris Km
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+        auto_archive:
+          type: boolean
+          title: Auto Archive
+        include_primary_vs_primary:
+          type: boolean
+          title: Include Primary Vs Primary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+        screening_type:
+          $ref: '#/components/schemas/ScreeningType'
+        hard_body_shape:
+          $ref: '#/components/schemas/HardBodyShape'
+        strict_coverage:
+          type: boolean
+          title: Strict Coverage
+        publish_cdms:
+          type: boolean
+          title: Publish Cdms
+        screen_count_expected:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Expected
+        screen_count_current:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Current
+        launch_window_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window Start
+        launch_window_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window End
+        launch_window_cadence_s:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Launch Window Cadence S
+        archived:
+          type: boolean
+          title: Archived
+        percent_complete:
+          type: number
+          title: Percent Complete
+        primary_sources_count:
+          type: integer
+          title: Primary Sources Count
+        secondary_sources_count:
+          type: integer
+          title: Secondary Sources Count
+        primaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Primaries Count
+        secondaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Secondaries Count
+        lowest_miss_distance_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowest Miss Distance Km
+        highest_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Highest Pc
+        next_tca:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Tca
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        secondary_any_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage End
+        secondary_any_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage Start
+        secondary_full_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage End
+        secondary_full_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage Start
+        failure_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Message
+      type: object
+      required:
+      - id
+      - status
+      - threshold_radius_km
+      - default_secondary_hbr_m
+      - auto_archive
+      - include_primary_vs_primary
+      - screening_type
+      - hard_body_shape
+      - strict_coverage
+      - publish_cdms
+      - archived
+      - percent_complete
+      - primary_sources_count
+      - secondary_sources_count
+      title: ScreeningRead
+    SpacecraftConjunctionStateRead:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        comment_screening_data_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Screening Data Source
+        ephemeris_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ephemeris Name
+        covariance_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Covariance Method
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        gravity_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gravity Model
+        atmospheric_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Atmospheric Model
+        n_body_perturbations:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: N Body Perturbations
+        solar_rad_pressure:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Solar Rad Pressure
+        earth_tides:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Tides
+        intrack_thrust:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Intrack Thrust
+        comment_covariance_scale_factor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Covariance Scale Factor
+        comment_exclusion_volume_radius:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Exclusion Volume Radius
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        time_lastob_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Lastob Start
+        time_lastob_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Lastob End
+        recommended_od_span:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Recommended Od Span
+        actual_od_span:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Actual Od Span
+        obs_available:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Obs Available
+        obs_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Obs Used
+        tracks_available:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tracks Available
+        tracks_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tracks Used
+        residuals_accepted:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Residuals Accepted
+        weighted_rms:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Weighted Rms
+        od_quality_rating:
+          anyOf:
+          - additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          - type: 'null'
+          title: Od Quality Rating
+        comment_apogee:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Apogee
+        comment_perigee:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Perigee
+        comment_inclination:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Inclination
+        comment_operator_hard_body_radius:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Operator Hard Body Radius
+        area_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Pc
+        cd_area_over_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cd Area Over Mass
+        cr_area_over_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cr Area Over Mass
+        thrust_acceleration_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Acceleration M
+        sedr:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Sedr
+        x_km:
+          type: number
+          title: X Km
+        y_km:
+          type: number
+          title: Y Km
+        z_km:
+          type: number
+          title: Z Km
+        x_dot_km:
+          type: number
+          title: X Dot Km
+        y_dot_km:
+          type: number
+          title: Y Dot Km
+        z_dot_km:
+          type: number
+          title: Z Dot Km
+        comment_dcp_density_forecast_uncertainty:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Density Forecast Uncertainty
+        comment_dcp_sensitivity_vector_position:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Sensitivity Vector Position
+        comment_dcp_sensitivity_vector_velocity:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Sensitivity Vector Velocity
+        cr_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cr R
+        ct_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ct R
+        ct_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ct T
+        cn_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn R
+        cn_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn T
+        cn_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn N
+        crdot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot R
+        crdot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot T
+        crdot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot N
+        crdot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot Rdot
+        ctdot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot R
+        ctdot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot T
+        ctdot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot N
+        ctdot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot Rdot
+        ctdot_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot Tdot
+        cndot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot R
+        cndot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot T
+        cndot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot N
+        cndot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Rdot
+        cndot_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Tdot
+        cndot_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Ndot
+        cdrg_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg R
+        cdrg_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg T
+        cdrg_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg N
+        cdrg_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Rdot
+        cdrg_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Tdot
+        cdrg_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Ndot
+        cdrg_drg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Drg
+        csrp_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp R
+        csrp_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp T
+        csrp_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp N
+        csrp_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Rdot
+        csrp_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Tdot
+        csrp_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Ndot
+        csrp_drg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Drg
+        csrp_srp:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Srp
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        screening_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Screening Id
+        derived_from_spacecraft_state_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Derived From Spacecraft State Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+      type: object
+      required:
+      - x_km
+      - y_km
+      - z_km
+      - x_dot_km
+      - y_dot_km
+      - z_dot_km
+      title: SpacecraftConjunctionStateRead
+    FailingValidityCause:
+      type: string
+      enum:
+      - 'NULL'
+      - LOW_DV
+      - DILUTION
+      - MANUAL
+      - VIOLATION
+      - SINGLE_COVARIANCE
+      title: FailingValidityCause
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    HardBodyShape:
+      type: string
+      enum:
+      - SQUARE
+      - CIRCLE
+      title: HardBodyShape
+    Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
+      type: object
+      title: Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
+    MitigationScenarioRead:
+      properties:
+        key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key
+        event_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Key
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        primary_solution_type:
+          type: string
+          title: Primary Solution Type
+        secondary_solution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Secondary Solution Type
+        originator:
+          type: string
+          title: Originator
+        designation:
+          $ref: '#/components/schemas/satcat__schemas__models__Designation'
+        derived_from_cdm_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Derived From Cdm Key
+        avm_status:
+          anyOf:
+          - $ref: '#/components/schemas/JobStatus'
+          - type: 'null'
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        original_cdm_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Cdm Pc
+        collision_probability_valid:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Collision Probability Valid
+        original_cdm_pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Cdm Pc Method
+        failing_validity_cause:
+          anyOf:
+          - $ref: '#/components/schemas/FailingValidityCause'
+          - type: 'null'
+        updated_pc_available:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Updated Pc Available
+        updated_pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated Pc Method
+        miss_distance_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Miss Distance Km
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        creation_date:
+          type: string
+          format: date-time
+          title: Creation Date
+        latest:
+          type: boolean
+          title: Latest
+        stale_primary_data_warning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stale Primary Data Warning
+        has_history:
+          type: boolean
+          title: Has History
+        angle_of_approach:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Of Approach
+        mahalanobis_distance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mahalanobis Distance
+        relative_speed_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Speed M
+        relative_miss_sig_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Miss Sig M
+        relative_position_r_km:
+          type: number
+          title: Relative Position R Km
+        relative_sig_r_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig R U M
+        relative_position_i_km:
+          type: number
+          title: Relative Position I Km
+        relative_sig_it_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig It U M
+        relative_position_c_km:
+          type: number
+          title: Relative Position C Km
+        relative_sig_ct_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig Ct U M
+        primary_rso_id:
+          type: string
+          format: uuid
+          title: Primary Rso Id
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        primary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        secondary_rso_id:
+          type: string
+          format: uuid
+          title: Secondary Rso Id
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        secondary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        constellation_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation Name
+        constellation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation Id
+        scenario:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioRead'
+          - type: 'null'
+        is_robust:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Robust
+      type: object
+      required:
+      - primary_solution_type
+      - originator
+      - designation
+      - tca
+      - creation_date
+      - latest
+      - has_history
+      - relative_position_r_km
+      - relative_position_i_km
+      - relative_position_c_km
+      - primary_rso_id
+      - secondary_rso_id
+      title: MitigationScenarioRead
+    ScreeningSubmit:
+      properties:
+        screening_params:
+          anyOf:
+          - $ref: '#/components/schemas/ScreeningParams'
+          - type: 'null'
+          default:
+            threshold_radius_km: 15.0
+            default_secondary_hbr_m: 5.0
+        screening_secondaries_catalog:
+          type: string
+          title: Screening Secondaries Catalog
+          default: SP
+      type: object
+      title: ScreeningSubmit
+    ScreeningParams:
+      properties:
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+          default: 15
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+          default: 5
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+      type: object
+      title: ScreeningParams
+    OffsetPageResult_MitigationScenarioRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/MitigationScenarioRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[MitigationScenarioRead]
+    ScreeningType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: ScreeningType
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ScenarioRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        cdm_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cdm Key
+        status:
+          type: string
+          title: Status
+        constellation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation
+        asset_norad_cat_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Asset Norad Cat Id
+        autogenerated:
+          type: boolean
+          title: Autogenerated
+        completed_tradespaces:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Completed Tradespaces
+          default: 0
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        failure_message:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioFailureType'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - status
+      - autogenerated
+      title: ScenarioRead
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

@@ -1,0 +1,606 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Authentication
+paths:
+  /login:
+    post:
+      tags:
+      - Authentication
+      summary: Login
+      operationId: login_login_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_login_login_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /health_authenticated:
+    get:
+      tags:
+      - Authentication
+      summary: Health Authenticated
+      operationId: health_authenticated_health_authenticated_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: string
+                title: Response Health Authenticated Health Authenticated Get
+      security:
+      - Oauth2Scheme: []
+  /groups:
+    get:
+      tags:
+      - Authentication
+      summary: List Groups
+      description: List groups to which the currently authenticated user has access.
+      operationId: list_groups_groups_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                items:
+                  $ref: '#/components/schemas/GroupListItem'
+                type: array
+                title: Response List Groups Groups Get
+      security:
+      - Oauth2Scheme: []
+  /api_keys:
+    post:
+      tags:
+      - Authentication
+      summary: Create Api Key
+      operationId: create_api_key_api_keys_post
+      security:
+      - Oauth2Scheme: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyCreateRequest'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Authentication
+      summary: List Api Keys
+      operationId: list_api_keys_api_keys_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_APIKeyView_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api_keys/{client_id}/rotate:
+    post:
+      tags:
+      - Authentication
+      summary: Rotate Api Key
+      operationId: rotate_api_key_api_keys__client_id__rotate_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Client Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /api_keys/{client_id}:
+    patch:
+      tags:
+      - Authentication
+      summary: Update Api Key
+      operationId: update_api_key_api_keys__client_id__patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Client Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/APIKeyUpdate'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/APIKeyUpdate'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Authentication
+      summary: Delete Api Key
+      operationId: delete_api_key_api_keys__client_id__delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: client_id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Client Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /oauth/token:
+    post:
+      tags:
+      - Authentication
+      summary: Authenticate Token
+      operationId: authenticate_token_oauth_token_post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_authenticate_token_oauth_token_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /oauth/token/:
+    post:
+      tags:
+      - Authentication
+      summary: Authenticate Token
+      operationId: authenticate_token_oauth_token__post
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Body_authenticate_token_oauth_token__post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    Body_login_login_post:
+      properties:
+        grant_type:
+          type: string
+          pattern: ^password$
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      required:
+      - grant_type
+      - username
+      - password
+      title: Body_login_login_post
+    TokenResponse:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+        expires_in:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires In
+        token_type:
+          type: string
+          title: Token Type
+        scope:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Scope
+      type: object
+      required:
+      - access_token
+      - token_type
+      title: TokenResponse
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    APIKeyView:
+      properties:
+        client_id:
+          type: string
+          title: Client Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - client_id
+      - created_at
+      - name
+      title: APIKeyView
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    OffsetPageResult_APIKeyView_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/APIKeyView'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[APIKeyView]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    GroupListItem:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          type: string
+          title: Name
+        slug:
+          type: string
+          title: Slug
+        space_track_org_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Space Track Org Name
+        space_track_org_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Space Track Org Id
+        feature_tier:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Feature Tier
+        group_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Group Type
+        level:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Level
+        from_parent_group:
+          type: boolean
+          title: From Parent Group
+          default: false
+      type: object
+      required:
+      - id
+      - name
+      - slug
+      title: GroupListItem
+    Body_authenticate_token_oauth_token_post:
+      properties:
+        grant_type:
+          type: string
+          pattern: client_credentials
+          title: Grant Type
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      title: Body_authenticate_token_oauth_token_post
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    APIKeyUpdate:
+      properties:
+        name:
+          type: string
+          title: Name
+      type: object
+      required:
+      - name
+      title: APIKeyUpdate
+    Body_authenticate_token_oauth_token__post:
+      properties:
+        grant_type:
+          type: string
+          pattern: client_credentials
+          title: Grant Type
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      title: Body_authenticate_token_oauth_token__post
+    APIKeyCreateRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        type:
+          type: string
+          enum:
+          - personal
+          - group
+          title: Type
+          default: personal
+      type: object
+      required:
+      - name
+      title: APIKeyCreateRequest
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

@@ -1,0 +1,359 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication LEOP API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: LEOP
+paths:
+  /leop/ccsds_opm:
+    post:
+      tags:
+      - LEOP
+      summary: Opm To Tle
+      operationId: opm_to_tle_leop_ccsds_opm_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_opm_to_tle_leop_ccsds_opm_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+  /leop/oem:
+    post:
+      tags:
+      - LEOP
+      summary: Oem To Tle
+      operationId: oem_to_tle_leop_oem_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_oem_to_tle_leop_oem_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+  /leop/spacex_opm_transporter:
+    post:
+      tags:
+      - LEOP
+      summary: Spacex Transporter Opm To Tle
+      description: "Returns TLE for all the assets in the SpaceX OPM file.\nThe NORAD ID is assigned as either:\n  - The provided norad_id field in the YAML (if present)\n  - Otherwise 99001, 99002, ...\nThe COSPAR ID is 2024-152A, 2024-152B, ...\nTLE can be derived from ECEF state or \"mean\" orbital elements.\n\n.. note:\nThe SpaceX OPM does not clarify what the \"mean\" elements mean. Here, they are\nassumed to be Kozai mean elements."
+      operationId: spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: from_mean_elements_instead_of_osculating_ecef
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: From Mean Elements Instead Of Osculating Ecef
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /leop/spacex_opm_transporter_single:
+    post:
+      tags:
+      - LEOP
+      summary: Spacex Transporter Single Opm To Tle
+      description: Returns a single TLE for one deployment entry from a SpaceX transporter OPM.
+      operationId: spacex_transporter_single_opm_to_tle_leop_spacex_opm_transporter_single_post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpaceXTransporterDeployment'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+  /leop/spacex_opm_operator:
+    post:
+      tags:
+      - LEOP
+      summary: Spacex Operator Opm To Tle
+      operationId: spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+components:
+  schemas:
+    SpaceXTransporterDeployment:
+      properties:
+        name:
+          type: string
+          title: Name
+        sequence_number:
+          type: integer
+          exclusiveMinimum: 0.0
+          title: Sequence Number
+        date:
+          type: string
+          title: Date
+        launch_date:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Launch Date
+        mission_time_s:
+          anyOf:
+          - type: number
+            minimum: 0.0
+          - type: 'null'
+          title: Mission Time S
+        r_ecef_m:
+          items:
+            type: number
+          type: array
+          title: R Ecef M
+        v_ecef_m_per_s:
+          items:
+            type: number
+          type: array
+          title: V Ecef M Per S
+        ballistic_coef_kg_per_m2:
+          type: number
+          exclusiveMinimum: 0.0
+          title: Ballistic Coef Kg Per M2
+        catid:
+          anyOf:
+          - type: integer
+          - type: string
+          - type: 'null'
+          title: Catid
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: string
+          - type: 'null'
+          title: Norad Id
+        propagation_duration_hours:
+          type: number
+          title: Propagation Duration Hours
+          default: 12
+      type: object
+      required:
+      - name
+      - sequence_number
+      - date
+      - r_ecef_m
+      - v_ecef_m_per_s
+      - ballistic_coef_kg_per_m2
+      title: SpaceXTransporterDeployment
+    Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+      type: object
+      required:
+      - opm_file
+      title: Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
+    Body_opm_to_tle_leop_ccsds_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - opm_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_opm_to_tle_leop_ccsds_opm_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - opm_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_oem_to_tle_leop_oem_post:
+      properties:
+        oem_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Oem File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - oem_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_oem_to_tle_leop_oem_post
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

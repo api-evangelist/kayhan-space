@@ -1,0 +1,738 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Catalog API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Catalog
+paths:
+  /catalogs/{id}:
+    get:
+      tags:
+      - Catalog
+      summary: Get Catalog
+      description: Retrieve metadata about a catalog.
+      operationId: get_catalog_catalogs__id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the catalog to get
+          title: Id
+        description: ID of the catalog to get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CatalogPreviewRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /catalogs:
+    get:
+      tags:
+      - Catalog
+      summary: List Catalogs
+      description: List the catalogs available on the server, optionally for a specific catalog type. If using the `latest` parameter, return only the latest catalog available for each individual catalog type available. Pagination parameters are ignored when using the `latest` parameter. Additionally, archived and unready catalogs are not returned when using the `latest` parameter.
+      operationId: list_catalogs_catalogs_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: latest
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to retrieve only the latest catalog for each applicable catalog_type.
+          default: false
+          title: Latest
+        description: Whether to retrieve only the latest catalog for each applicable catalog_type.
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_CatalogPreviewRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /catalogs/{id}/ephemerides:
+    get:
+      tags:
+      - Catalog
+      summary: List Ephemerides In Catalog
+      operationId: list_ephemerides_in_catalog_catalogs__id__ephemerides_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: ID of the catalog to list
+          title: Id
+        description: ID of the catalog to list
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_EphemerisMetadataWithRSO_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    CatalogPreviewRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+        ephemerides_preview:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Ephemerides Preview
+        object_overview:
+          $ref: '#/components/schemas/CatalogObjectOverview'
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      - ephemerides_preview
+      - object_overview
+      title: CatalogPreviewRead
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    EphemerisType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: EphemerisType
+    OffsetPageResult_EphemerisMetadataWithRSO_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EphemerisMetadataWithRSO]
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    EphemerisMetadataWithRSO:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data_format:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisDataFormat'
+          - type: 'null'
+        custom_storage_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Storage Path
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+        repository_public:
+          type: boolean
+          title: Repository Public
+          default: false
+        event_public:
+          type: boolean
+          title: Event Public
+          default: false
+        shared_event_keys:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EphemerisViewer'
+            type: array
+          - type: 'null'
+          title: Shared Event Keys
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        covariance_corrected:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Covariance Corrected
+        source_ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Ephemeris Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        ephemeris_source:
+          $ref: '#/components/schemas/EphemerisSource'
+        solution_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Solution Time
+        has_covariance:
+          type: boolean
+          title: Has Covariance
+        ephemeris_type:
+          $ref: '#/components/schemas/EphemerisType'
+        discontinuities:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Discontinuities
+          default: []
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        apogee_km:
+          type: number
+          title: Apogee Km
+        perigee_km:
+          type: number
+          title: Perigee Km
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        current_operational:
+          type: boolean
+          title: Current Operational
+          default: false
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        context:
+          anyOf:
+          - $ref: '#/components/schemas/Context'
+          - type: 'null'
+        designation:
+          anyOf:
+          - $ref: '#/components/schemas/satcat__schemas__models__Designation'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogMinimalRead'
+          - type: 'null'
+      type: object
+      required:
+      - ephemeris_source
+      - has_covariance
+      - ephemeris_type
+      - apogee_km
+      - perigee_km
+      title: EphemerisMetadataWithRSO
+    EphemerisSource:
+      type: string
+      enum:
+      - CATALOG
+      - SPACE_TRACK_PUBLIC
+      - SPACE_TRACK_PUBLIC_SATCAT
+      - PATHFINDER_API
+      - SATCAT_API
+      - USER_SCREENER
+      - TERTIARY_SCREENER
+      - PATHFINDER_AUTO_THIRDPARTY
+      - KAYHAN_INTERNAL_PROCESS
+      - PATHFINDER_SCREENER_THIRDPARTY
+      - STARLINK_API_PUBLIC
+      - PUBLIC_REPOSITORY
+      - STARLINK_STC_API
+      title: EphemerisSource
+    OrbitRegimeOverview:
+      properties:
+        total_count:
+          type: integer
+          title: Total Count
+        deb_count:
+          type: integer
+          title: Deb Count
+        total_count_percent_change_month:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Count Percent Change Month
+      type: object
+      required:
+      - total_count
+      - deb_count
+      title: OrbitRegimeOverview
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    OffsetPageResult_CatalogPreviewRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/CatalogPreviewRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[CatalogPreviewRead]
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CatalogMinimalRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      title: CatalogMinimalRead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+    CatalogObjectOverview:
+      properties:
+        leo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        meo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        geo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+      type: object
+      required:
+      - leo
+      - meo
+      - geo
+      title: CatalogObjectOverview
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

@@ -1,0 +1,257 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Two Line Elements (TLEs) API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Two Line Elements (TLEs)
+paths:
+  /tles:
+    post:
+      tags:
+      - Two Line Elements (TLEs)
+      summary: Add Tle
+      description: "Submit TLE to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      operationId: add_tle_tles_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLE'
+              description: Initial TLE for propagation job.
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLERead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /tles/{id}:
+    get:
+      tags:
+      - Two Line Elements (TLEs)
+      summary: Get Tle
+      description: Retrieve TLE from Kayhan's system.<br/>
+      operationId: get_tle_tles__id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLERead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Two Line Elements (TLEs)
+      summary: Update Tle
+      description: "Update TLE to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      operationId: update_tle_tles__id__patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TLE'
+              description: Initial TLE for propagation job.
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLERead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Two Line Elements (TLEs)
+      summary: Remove Tle
+      description: Delete TLE from Kayhan's system.<br/>
+      operationId: remove_tle_tles__id__delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    TLERead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+      type: object
+      required:
+      - id
+      title: TLERead
+    TLE:
+      properties:
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+          description: Object name.
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+          description: TLE First Line.
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+          description: TLE Second Line.
+      type: object
+      required:
+      - line1
+      - line2
+      title: TLE
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

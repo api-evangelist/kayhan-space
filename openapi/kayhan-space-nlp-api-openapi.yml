@@ -1,0 +1,168 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication NLP API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: NLP
+paths:
+  /nlp/advancesearch/:
+    post:
+      tags:
+      - NLP
+      summary: Converts human question into structured JSON for satcat
+      operationId: advanced_search_nlp_nlp_advancesearch__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+  /nlp/satreport/:
+    post:
+      tags:
+      - NLP
+      summary: Generates sat report based on facts.
+      operationId: generate_sat_report_nlp_satreport__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SatReportModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+  /nlp/request-satreport/:
+    post:
+      tags:
+      - NLP
+      summary: Generates request for a sat report based on facts.
+      operationId: request_sat_report_nlp_request_satreport__post
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SatReportModel'
+        required: true
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+      security:
+      - Oauth2Scheme: []
+components:
+  schemas:
+    SatReportModel:
+      properties:
+        norad_id:
+          type: integer
+          title: Norad Id
+      type: object
+      required:
+      - norad_id
+      title: SatReportModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    QuestionModel:
+      properties:
+        question:
+          type: string
+          title: Question
+      type: object
+      required:
+      - question
+      title: QuestionModel
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

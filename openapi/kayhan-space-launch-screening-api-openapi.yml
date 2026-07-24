@@ -1,0 +1,1461 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Launch Screening API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Launch Screening
+paths:
+  /screenings/{id}/launch_results/launch_options:
+    get:
+      tags:
+      - Launch Screening
+      summary: List Launch Options
+      description: 'Get the launch option results for a Launch Screening.
+
+
+        Note: filters applied to this endpoint apply to the Conjunction model.'
+      operationId: list_launch_options_screenings__id__launch_results_launch_options_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: conjunction_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Conjunction Filters
+      - name: launch_option_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Launch Option Filters
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: launch_time
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: asc
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_LaunchOption_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /screenings/{id}/launch_results/launch_window_periods:
+    get:
+      tags:
+      - Launch Screening
+      summary: List Launch Window Periods
+      description: Get the set of continuous blackout or clear launch periods for a Launch Screening.
+      operationId: list_launch_window_periods_screenings__id__launch_results_launch_window_periods_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: include_n_conjunctions_list
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: false
+          title: Include N Conjunctions List
+      - name: conjunction_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Conjunction Filters
+      - name: period_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Period Filters
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: start_time
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: asc
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LaunchWindowPeriodOffsetPageResult'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /screenings/{id}/launch_results/launch_window_primaries:
+    get:
+      tags:
+      - Launch Screening
+      summary: List Launch Window Primaries
+      description: Get the set of primaries for a Launch Screening, along with their respective affected launch options.
+      operationId: list_launch_window_primaries_screenings__id__launch_results_launch_window_primaries_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      - name: conjunction_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Conjunction Filters
+      - name: primary_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Primary Filters
+      - name: period_filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Period Filters
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: primary.interest_interval_start
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: asc
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_LaunchWindowPrimary_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /screenings/{id}/launch_results/file:
+    get:
+      tags:
+      - Launch Screening
+      summary: Get Launch Screening Results File
+      description: Retrieve launch screening conjunction results as a serialized file in a given file format.
+      operationId: get_launch_screening_results_file_screenings__id__launch_results_file_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the launch screening to get results for
+          title: Id
+        description: ID of the launch screening to get results for
+      - name: file_format
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/ConjunctionListFileFormat'
+          description: File format of the conjunction results to download
+          default: ALL_SORTED
+        description: File format of the conjunction results to download
+      - name: filename
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional custom filename. If not supplied, a default filename will be generated.
+          title: Filename
+        description: Optional custom filename. If not supplied, a default filename will be generated.
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /screenings/{id}/launch_results/file_multi:
+    get:
+      tags:
+      - Launch Screening
+      summary: Get Launch Screening Results File Multi
+      description: Retrieve launch screening conjunction results as a serialized file in all available file formats, with and without a set of filters.
+      operationId: get_launch_screening_results_file_multi_screenings__id__launch_results_file_multi_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the launch screening to get results for
+          title: Id
+        description: ID of the launch screening to get results for
+      - name: filename
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional custom filename. If not supplied, a default filename will be generated.
+          title: Filename
+        description: Optional custom filename. If not supplied, a default filename will be generated.
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    CatalogPreviewWithEphemeridesCount:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+      type: object
+      required:
+      - id
+      - catalog_type
+      - epoch
+      - ephemerides_count
+      title: CatalogPreviewWithEphemeridesCount
+    TLERead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+      type: object
+      required:
+      - id
+      title: TLERead
+    EphemerisType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: EphemerisType
+    OffsetPageResult_LaunchWindowPrimary_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/LaunchWindowPrimary'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[LaunchWindowPrimary]
+    PrimaryReadWithCoverage:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        catalog_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Catalog Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        ephemeris:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
+          - type: 'null'
+        propagation:
+          anyOf:
+          - $ref: '#/components/schemas/PropagationRead'
+          - type: 'null'
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        interest_interval_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval Start
+        interest_interval_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval End
+        coverage_level:
+          anyOf:
+          - $ref: '#/components/schemas/CoverageLevel'
+          - type: 'null'
+        coverage_ratio:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coverage Ratio
+      type: object
+      required:
+      - id
+      title: PrimaryReadWithCoverage
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    EphemerisMetadataWithRSO:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data_format:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisDataFormat'
+          - type: 'null'
+        custom_storage_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Storage Path
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+        repository_public:
+          type: boolean
+          title: Repository Public
+          default: false
+        event_public:
+          type: boolean
+          title: Event Public
+          default: false
+        shared_event_keys:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EphemerisViewer'
+            type: array
+          - type: 'null'
+          title: Shared Event Keys
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        covariance_corrected:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Covariance Corrected
+        source_ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Ephemeris Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        ephemeris_source:
+          $ref: '#/components/schemas/EphemerisSource'
+        solution_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Solution Time
+        has_covariance:
+          type: boolean
+          title: Has Covariance
+        ephemeris_type:
+          $ref: '#/components/schemas/EphemerisType'
+        discontinuities:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Discontinuities
+          default: []
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        apogee_km:
+          type: number
+          title: Apogee Km
+        perigee_km:
+          type: number
+          title: Perigee Km
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        current_operational:
+          type: boolean
+          title: Current Operational
+          default: false
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        context:
+          anyOf:
+          - $ref: '#/components/schemas/Context'
+          - type: 'null'
+        designation:
+          anyOf:
+          - $ref: '#/components/schemas/satcat__schemas__models__Designation'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogMinimalRead'
+          - type: 'null'
+      type: object
+      required:
+      - ephemeris_source
+      - has_covariance
+      - ephemeris_type
+      - apogee_km
+      - perigee_km
+      title: EphemerisMetadataWithRSO
+    EphemerisSource:
+      type: string
+      enum:
+      - CATALOG
+      - SPACE_TRACK_PUBLIC
+      - SPACE_TRACK_PUBLIC_SATCAT
+      - PATHFINDER_API
+      - SATCAT_API
+      - USER_SCREENER
+      - TERTIARY_SCREENER
+      - PATHFINDER_AUTO_THIRDPARTY
+      - KAYHAN_INTERNAL_PROCESS
+      - PATHFINDER_SCREENER_THIRDPARTY
+      - STARLINK_API_PUBLIC
+      - PUBLIC_REPOSITORY
+      - STARLINK_STC_API
+      title: EphemerisSource
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    LaunchWindowPrimary:
+      properties:
+        primary:
+          $ref: '#/components/schemas/PrimaryReadWithCoverage'
+        launch_window_periods:
+          items:
+            $ref: '#/components/schemas/LaunchWindowPeriod'
+          type: array
+          title: Launch Window Periods
+        secondary_types:
+          items:
+            $ref: '#/components/schemas/ObjectTypeCategory'
+          type: array
+          title: Secondary Types
+        percent_blackout:
+          type: number
+          maximum: 100.0
+          minimum: 0.0
+          title: Percent Blackout
+      type: object
+      required:
+      - primary
+      - launch_window_periods
+      - secondary_types
+      - percent_blackout
+      title: LaunchWindowPrimary
+    ManeuverRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          type: string
+          title: Type
+        ignition_epoch:
+          type: string
+          format: date-time
+          title: Ignition Epoch
+        delta_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Delta Mass
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        deltav_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav X
+        deltav_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Y
+        deltav_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Z
+        deltav_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deltav Unit
+        thrust_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust X
+        thrust_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Y
+        thrust_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Z
+        thrust_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thrust Unit
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+      type: object
+      required:
+      - id
+      - type
+      - ignition_epoch
+      title: ManeuverRead
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    ForceModelRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        earth_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Model
+        geopotential:
+          type: boolean
+          title: Geopotential
+          default: false
+        geopotential_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Degree
+        geopotential_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Order
+          default: 0
+        drag:
+          type: boolean
+          title: Drag
+          default: false
+        drag_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Drag Model
+        third_bodies:
+          type: boolean
+          title: Third Bodies
+          default: false
+        third_bodies_list:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Third Bodies List
+        solid_tides:
+          type: boolean
+          title: Solid Tides
+          default: false
+        solar_radiation_pressure:
+          type: boolean
+          title: Solar Radiation Pressure
+          default: false
+        ocean_tides:
+          type: boolean
+          title: Ocean Tides
+          default: false
+        oceantides_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Degree
+        oceantides_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Order
+      type: object
+      required:
+      - id
+      title: ForceModelRead
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    OffsetPageResult_LaunchOption_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/LaunchOption'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[LaunchOption]
+    LaunchWindowPeriod:
+      properties:
+        start_time:
+          type: string
+          format: date-time
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        duration_s:
+          type: number
+          title: Duration S
+        blackout:
+          type: boolean
+          title: Blackout
+        n_conjunctions_total:
+          type: integer
+          title: N Conjunctions Total
+        n_conjunctions_list:
+          anyOf:
+          - items:
+              type: integer
+            type: array
+          - type: 'null'
+          title: N Conjunctions List
+      type: object
+      required:
+      - start_time
+      - end_time
+      - duration_s
+      - blackout
+      - n_conjunctions_total
+      title: LaunchWindowPeriod
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    PropagationRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+        maneuver_count:
+          type: integer
+          title: Maneuver Count
+          default: 0
+        state_vector:
+          anyOf:
+          - $ref: '#/components/schemas/StateVectorRead'
+          - type: 'null'
+        forces:
+          anyOf:
+          - $ref: '#/components/schemas/ForceModelRead'
+          - type: 'null'
+        maneuvers:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ManeuverRead'
+            type: array
+          - type: 'null'
+          title: Maneuvers
+        tle:
+          anyOf:
+          - $ref: '#/components/schemas/TLERead'
+          - type: 'null'
+        tle_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tle Id
+        state_vector_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: State Vector Id
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - status
+      title: PropagationRead
+    ConjunctionListFileFormat:
+      type: string
+      enum:
+      - ALL_SORTED
+      - JSON
+      - CSV
+      title: ConjunctionListFileFormat
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
+    LaunchOption:
+      properties:
+        launch_time:
+          type: string
+          format: date-time
+          title: Launch Time
+        n_conjunctions:
+          type: integer
+          title: N Conjunctions
+      type: object
+      required:
+      - launch_time
+      - n_conjunctions
+      title: LaunchOption
+    CovarianceMatrixRead:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
+        length_unit:
+          type: string
+          title: Length Unit
+      type: object
+      required:
+      - data
+      - format
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
+    LaunchWindowPeriodOffsetPageResult:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items: {}
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+        percent_blackout:
+          type: number
+          title: Percent Blackout
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      - percent_blackout
+      title: LaunchWindowPeriodOffsetPageResult
+    CoverageLevel:
+      type: string
+      enum:
+      - NO_OVERLAP
+      - PARTIAL
+      - FULL
+      title: CoverageLevel
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ObjectTypeCategory:
+      type: string
+      enum:
+      - MANNED
+      - PAYLOAD
+      - DEBRIS
+      - UNKNOWN
+      title: ObjectTypeCategory
+    CatalogMinimalRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      title: CatalogMinimalRead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

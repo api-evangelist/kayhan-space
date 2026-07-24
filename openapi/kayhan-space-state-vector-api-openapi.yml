@@ -1,0 +1,554 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication State Vector API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: State Vector
+paths:
+  /states:
+    post:
+      tags:
+      - State Vector
+      summary: Add State Vector
+      description: "Submit state vector to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      operationId: add_state_vector_states_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FullSpacecraftState'
+              description: Initial state vector for propagation job.
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateVectorRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /states/{id}:
+    get:
+      tags:
+      - State Vector
+      summary: Get State Vector
+      description: Retrieve state vector from Kayhan's system.<br/>
+      operationId: get_state_vector_states__id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateVectorRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - State Vector
+      summary: Update State Vector
+      description: "Update state vector to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      operationId: update_state_vector_states__id__patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/FullSpacecraftState'
+              description: Initial state vector for propagation job.
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateVectorRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - State Vector
+      summary: Remove State Vector
+      description: Delete state vector from Kayhan's system.<br/>
+      operationId: remove_state_vector_states__id__delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /states/frames/state:
+    get:
+      tags:
+      - State Vector
+      summary: Get Available State Reference Frames
+      description: Retrieve all supported state vector reference frames from Kayhan's system.<br/>
+      operationId: get_available_state_reference_frames_states_frames_state_get
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateVectorReferenceFrames'
+      security:
+      - Oauth2Scheme: []
+  /states/frames/covariance:
+    get:
+      tags:
+      - State Vector
+      summary: Get Available Covariance Reference Frames
+      description: Retrieve all supported covariance reference frames from Kayhan's system.<br/>
+      operationId: get_available_covariance_reference_frames_states_frames_covariance_get
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CovarianceReferenceFrames'
+      security:
+      - Oauth2Scheme: []
+components:
+  schemas:
+    Vector3:
+      properties:
+        x:
+          type: number
+          title: X
+          description: The first element of the vector
+        y:
+          type: number
+          title: Y
+          description: The second element of the vector
+        z:
+          type: number
+          title: Z
+          description: The third element of the vector
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: The unit of the vector
+      type: object
+      required:
+      - x
+      - y
+      - z
+      title: Vector3
+      description: 3-dimensional physical quantity
+    CovarianceMatrix:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        ref_frame:
+          $ref: '#/components/schemas/Frame'
+        length_unit:
+          type: string
+          title: Length Unit
+        format:
+          $ref: '#/components/schemas/CovMatrixFormat'
+      type: object
+      required:
+      - data
+      - ref_frame
+      - length_unit
+      - format
+      title: CovarianceMatrix
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    FullSpacecraftState:
+      properties:
+        pos:
+          $ref: '#/components/schemas/Vector3'
+          description: The position of the object
+        vel:
+          $ref: '#/components/schemas/Vector3'
+          description: The velocity of the object
+        timestamp:
+          type: string
+          title: Timestamp
+          description: The timestamp of the state vector
+        ref_frame:
+          $ref: '#/components/schemas/Frame'
+          description: The reference frame with which the state vector is described
+        covariance_matrix:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrix'
+          - type: 'null'
+        spacecraft_parameters:
+          $ref: '#/components/schemas/Spacecraft'
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+          description: Name of object
+          default: OBJECT NAME
+        norad_cat_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Cat Id
+          description: NORAD ID of object.
+      type: object
+      required:
+      - pos
+      - vel
+      - timestamp
+      - ref_frame
+      - spacecraft_parameters
+      title: FullSpacecraftState
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CovarianceReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - RIC
+          - PTW
+          - TNW
+      type: object
+      title: CovarianceReferenceFrames
+    StateVectorReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - TEME
+          - ITRF
+          - GCRF
+          - GTOD
+          - EFG
+      type: object
+      title: StateVectorReferenceFrames
+    Spacecraft:
+      properties:
+        mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mass
+          description: Mass of the Spacecraft, specified in kg
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+          description: Coefficient of drag, unitless. Not to be confused with the Ballistic coefficient (coeff_drag * cross_section_area / mass).
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+          description: Coefficient of solar radiation pressure, unitless.Not to be confused with the SRP Area / Mass coefficient(coeff_srp * cross_section_area / mass).
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+          description: Effective  area  of  the  object  exposed  to  atmospheric drag.Specified in m**2.
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+          description: Effective  area  of  the  object  exposed  to  solar  radiation  pressure.Specified in an area unit, e.g. u.m**2.
+      type: object
+      title: Spacecraft
+    CovarianceMatrixRead:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
+        length_unit:
+          type: string
+          title: Length Unit
+      type: object
+      required:
+      - data
+      - format
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
+    Frame:
+      type: string
+      enum:
+      - EME2000
+      - EME2000
+      - TEME
+      - GCRF
+      - CIRF
+      - ICRF
+      - TIRF
+      - ITRF
+      - ITRF_2014
+      - ITRF_2008
+      - ITRF_2005
+      - ITRF_2000
+      - ITRF_97
+      - ITRF_96
+      - ITRF_94
+      - ITRF_93
+      - ITRF_92
+      - ITRF_91
+      - ITRF_90
+      - ITRF_89
+      - ITRF_88
+      - ITRFEQUINOX
+      - MOD
+      - TOD
+      - GTOD
+      - EFG
+      - VEIS1950
+      - RIC
+      - PTW
+      - TNW
+      - VNB
+      - LVLH
+      - ENCOUNTER
+      - ENU
+      - SEZ
+      - CUSTOM
+      title: Frame
+    CovMatrixFormat:
+      type: string
+      enum:
+      - LT
+      - LT
+      - LT
+      - SQUARE
+      - SQUARE
+      title: CovMatrixFormat
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

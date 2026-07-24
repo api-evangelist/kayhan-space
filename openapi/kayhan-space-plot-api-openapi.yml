@@ -1,0 +1,1092 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Plot API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Plot
+paths:
+  /cdm_vis/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Plot Elements By Id
+      description: Get 3D viz points for given CDM by key or cdm_id.
+      operationId: get_plot_elements_by_id_cdm_vis__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key or cdm_id of conjunction message
+          title: Cdm Id
+        description: key or cdm_id of conjunction message
+      - name: timestep
+        in: query
+        required: false
+        schema:
+          type: number
+          description: Timestep for propagation. Defaults to duration / 300
+          title: Timestep
+        description: Timestep for propagation. Defaults to duration / 300
+      - name: duration
+        in: query
+        required: false
+        schema:
+          type: number
+          description: Duration of propagation. Defaults to smallest orbital period
+          title: Duration
+        description: Duration of propagation. Defaults to smallest orbital period
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Plot'
+                title: Response Get Plot Elements By Id Cdm Vis  Cdm Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /kep_elements/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Kepler Elements By Id
+      description: Get all Keplerian Elements for a given CDM.
+      operationId: get_kepler_elements_by_id_kep_elements__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key or cdm_id of conjunction message
+          title: Cdm Id
+        description: key or cdm_id of conjunction message
+      - name: mu
+        in: query
+        required: false
+        schema:
+          type: number
+          description: Earth gravitational constant. 398600.4418 km^3/s^2 will be used as the default.
+          title: Mu
+        description: Earth gravitational constant. 398600.4418 km^3/s^2 will be used as the default.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CDMKepElem'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /max_pc_curves/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Dilution Curves
+      description: Get dilution region max pc curves
+      operationId: get_dilution_curves_max_pc_curves__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key or cdm_id of conjunction message
+          title: Cdm Id
+        description: key or cdm_id of conjunction message
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SensitivityRegion'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /bplane/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Conjunction Message Bplane By Id
+      description: Retrieve BPlane Data for CDM by CDM ID.
+      operationId: get_conjunction_message_bplane_by_id_bplane__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of conjunction message
+          title: Cdm Id
+        description: ID of conjunction message
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanePointOrEllipse'
+                title: Response Get Conjunction Message Bplane By Id Bplane  Cdm Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /encounter_plane/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Conjunction Message Encounter Plane By Id
+      description: Retrieve Encounter Plane Data for CDM by CDM ID.
+      operationId: get_conjunction_message_encounter_plane_by_id_encounter_plane__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of conjunction message
+          title: Cdm Id
+        description: ID of conjunction message
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/PlanePointOrEllipse'
+                title: Response Get Conjunction Message Encounter Plane By Id Encounter Plane  Cdm Id  Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /hbr_sensitivity/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Conjunction Message Hbr Sensitivity By Id
+      description: Retrieve HBR sensitivity Data for CDM by CDM ID.
+      operationId: get_conjunction_message_hbr_sensitivity_by_id_hbr_sensitivity__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of conjunction message
+          title: Cdm Id
+        description: ID of conjunction message
+      - name: maximum_combined_hbr
+        in: query
+        required: false
+        schema:
+          type: number
+          description: This field is deprecated and is no longer considered.
+          default: 200.0
+          title: Maximum Combined Hbr
+        description: This field is deprecated and is no longer considered.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HBRSensitivityRegion'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /tracking_opportunities/{cdm_id}:
+    get:
+      tags:
+      - Plot
+      summary: Get Conjunction Message Tracking Opportunities By Id
+      description: Retrieve tracking opportunity visibility windows for CDM by CDM ID.
+      operationId: get_conjunction_message_tracking_opportunities_by_id_tracking_opportunities__cdm_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: cdm_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of conjunction message
+          title: Cdm Id
+        description: ID of conjunction message
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TrackingOpportunities'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    ElemSet:
+      properties:
+        semi_major_axis_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Semi Major Axis Km
+        eccentricity:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Eccentricity
+        inclination:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Inclination
+        true_anomaly:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: True Anomaly
+        argument_of_periapsis:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Argument Of Periapsis
+        raan:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Raan
+        apogee_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Apogee Km
+        perigee_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Perigee Km
+      type: object
+      title: ElemSet
+    GroundStationDefinition:
+      properties:
+        source_type:
+          type: string
+          const: GROUND_STATION
+          title: Source Type
+          default: GROUND_STATION
+        latitude_deg:
+          type: number
+          title: Latitude Deg
+        longitude_deg:
+          type: number
+          title: Longitude Deg
+        altitude_m:
+          type: number
+          title: Altitude M
+        min_elevation_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Elevation Deg
+      type: object
+      required:
+      - latitude_deg
+      - longitude_deg
+      - altitude_m
+      title: GroundStationDefinition
+    VisibilityWindow:
+      properties:
+        aos_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Aos Time
+        aos_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Aos El Deg
+        los_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Los Time
+        los_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Los El Deg
+        max_el_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max El Time
+        max_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max El Deg
+        observer_id:
+          type: string
+          title: Observer Id
+        duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration S
+          readOnly: true
+      type: object
+      required:
+      - observer_id
+      - duration_s
+      title: VisibilityWindow
+    UDLGroundSensorDefinition:
+      properties:
+        source_type:
+          type: string
+          const: UDL_GROUND_SENSOR
+          title: Source Type
+          default: UDL_GROUND_SENSOR
+        ground_sensor:
+          $ref: '#/components/schemas/UDLGroundSensor'
+      type: object
+      required:
+      - ground_sensor
+      title: UDLGroundSensorDefinition
+    TrackingOpportunities:
+      properties:
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
+          - type: 'null'
+      type: object
+      title: TrackingOpportunities
+    SensitivityCurve:
+      properties:
+        scales:
+          items:
+            type: number
+          type: array
+          title: Scales
+        values:
+          items:
+            type: number
+          type: array
+          title: Values
+        maxima:
+          items:
+            items: {}
+            type: array
+          type: array
+          title: Maxima
+        is_sensitive:
+          type: boolean
+          title: Is Sensitive
+      type: object
+      required:
+      - scales
+      - values
+      - maxima
+      - is_sensitive
+      title: SensitivityCurve
+    CDMKepElem:
+      properties:
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/KepElem'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/KepElem'
+          - type: 'null'
+      type: object
+      title: CDMKepElem
+    SensitivityRegion:
+      properties:
+        nominal_pc:
+          type: number
+          title: Nominal Pc
+        pc_error:
+          type: boolean
+          title: Pc Error
+        primary:
+          $ref: '#/components/schemas/PcSensitivity'
+        secondary:
+          $ref: '#/components/schemas/PcSensitivity'
+        combined:
+          $ref: '#/components/schemas/PcSensitivity'
+      type: object
+      required:
+      - nominal_pc
+      - pc_error
+      - primary
+      - secondary
+      - combined
+      title: SensitivityRegion
+    Plot:
+      properties:
+        name:
+          type: string
+          title: Name
+        norad_id:
+          type: integer
+          title: Norad Id
+        position_over_time:
+          items:
+            $ref: '#/components/schemas/PlotTrajectory'
+          type: array
+          title: Position Over Time
+        orbital_period_s:
+          type: number
+          title: Orbital Period S
+      type: object
+      required:
+      - name
+      - norad_id
+      - position_over_time
+      - orbital_period_s
+      title: Plot
+    PlanePointOrEllipse:
+      properties:
+        name:
+          type: string
+          title: Name
+        x_km:
+          type: number
+          title: X Km
+        y_km:
+          type: number
+          title: Y Km
+        angle_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Deg
+        semi_major_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Semi Major Km
+        semi_minor_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Semi Minor Km
+      type: object
+      required:
+      - name
+      - x_km
+      - y_km
+      title: PlanePointOrEllipse
+    NominalPC:
+      properties:
+        primary_hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Primary Hbr M
+        secondary_hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Secondary Hbr M
+        pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Pc
+        pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pc Method
+      type: object
+      title: NominalPC
+    PcSensitivity:
+      properties:
+        cov:
+          $ref: '#/components/schemas/SensitivityCurve'
+        hbr:
+          $ref: '#/components/schemas/SensitivityCurve'
+      type: object
+      required:
+      - cov
+      - hbr
+      title: PcSensitivity
+    UDLGroundSensorLocation:
+      properties:
+        lat:
+          type: number
+          title: Lat
+        lon:
+          type: number
+          title: Lon
+        altitude:
+          type: number
+          title: Altitude
+      type: object
+      required:
+      - lat
+      - lon
+      - altitude
+      title: UDLGroundSensorLocation
+    KepElem:
+      properties:
+        system:
+          anyOf:
+          - $ref: '#/components/schemas/SupportedSystems'
+          - type: 'null'
+        elem_set:
+          anyOf:
+          - $ref: '#/components/schemas/ElemSet'
+          - type: 'null'
+        cov:
+          anyOf:
+          - items:
+              items:
+                type: number
+              type: array
+            type: array
+          - type: 'null'
+          title: Cov
+      type: object
+      title: KepElem
+    HBRSensitivityRegion:
+      properties:
+        nominal_pc:
+          $ref: '#/components/schemas/NominalPC'
+        scales:
+          items:
+            $ref: '#/components/schemas/HBRSensitivity'
+          type: array
+          title: Scales
+        tradespace:
+          anyOf:
+          - $ref: '#/components/schemas/HBRSensitivityTradespace'
+          - type: 'null'
+      type: object
+      required:
+      - nominal_pc
+      - scales
+      title: HBRSensitivityRegion
+    HBRSensitivityTradespace:
+      properties:
+        points:
+          items:
+            $ref: '#/components/schemas/HBRSensitivityTradespacePoint'
+          type: array
+          title: Points
+      type: object
+      required:
+      - points
+      title: HBRSensitivityTradespace
+    SupportedSystems:
+      type: string
+      enum:
+      - EQUINOCITAL
+      - KEPLERIAN
+      - CARTESIAN
+      title: SupportedSystems
+    HBRSensitivity:
+      properties:
+        primary_hbr_m:
+          type: number
+          title: Primary Hbr M
+        secondary_hbr_m:
+          type: number
+          title: Secondary Hbr M
+        pc:
+          type: number
+          title: Pc
+      type: object
+      required:
+      - primary_hbr_m
+      - secondary_hbr_m
+      - pc
+      title: HBRSensitivity
+    UDLSensorAzElLimit:
+      properties:
+        upperLeftAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperleftazimuthlimit
+        upperRightAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperrightazimuthlimit
+        lowerLeftAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerleftazimuthlimit
+        lowerRightAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerrightazimuthlimit
+        upperLeftElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperleftelevationlimit
+        upperRightElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperrightelevationlimit
+        lowerLeftElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerleftelevationlimit
+        lowerRightElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerrightelevationlimit
+      type: object
+      title: UDLSensorAzElLimit
+    VisibilityRequestTLEDataSource:
+      properties:
+        source_type:
+          type: string
+          const: TLE
+          title: Source Type
+          default: TLE
+        line1:
+          type: string
+          title: Line1
+        line2:
+          type: string
+          title: Line2
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_stop_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Stop Time
+      type: object
+      required:
+      - line1
+      - line2
+      title: VisibilityRequestTLEDataSource
+    VisibilityRequestEphemerisDataSource:
+      properties:
+        source_type:
+          type: string
+          const: EPHEMERIS
+          title: Source Type
+          default: EPHEMERIS
+        ephemeris_id:
+          type: string
+          title: Ephemeris Id
+      type: object
+      required:
+      - ephemeris_id
+      title: VisibilityRequestEphemerisDataSource
+    ObjectTrackingOpportunities:
+      properties:
+        ephemeris_id:
+          type: string
+          title: Ephemeris Id
+        request:
+          $ref: '#/components/schemas/VisibilityWindowsRequest'
+        result:
+          $ref: '#/components/schemas/VisibilityWindowsResult'
+      type: object
+      required:
+      - ephemeris_id
+      - request
+      - result
+      title: ObjectTrackingOpportunities
+    SavedObserverSearchDefinition:
+      properties:
+        source_type:
+          type: string
+          const: SAVED_OBSERVER_SEARCH
+          title: Source Type
+          default: SAVED_OBSERVER_SEARCH
+        owner:
+          type: string
+          enum:
+          - group
+          - public
+          title: Owner
+          default: group
+        tags:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: SavedObserverSearchDefinition
+    VisibilityWindowsResult:
+      properties:
+        windows:
+          items:
+            $ref: '#/components/schemas/VisibilityWindow'
+          type: array
+          title: Windows
+      type: object
+      required:
+      - windows
+      title: VisibilityWindowsResult
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UDLSensorCharacteristic:
+      properties:
+        minRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Minrangelimit
+        maxRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxrangelimit
+        maxSunElevationAngle:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxsunelevationangle
+      type: object
+      title: UDLSensorCharacteristic
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UDLGroundSensor:
+      properties:
+        sensorName:
+          type: string
+          title: Sensorname
+        idSensor:
+          type: string
+          title: Idsensor
+        source:
+          type: string
+          title: Source
+        classificationMarking:
+          type: string
+          title: Classificationmarking
+        entity:
+          $ref: '#/components/schemas/UDLGroundSensorEntity'
+        sensorcharacteristics:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorCharacteristic'
+            type: array
+          - type: 'null'
+          title: Sensorcharacteristics
+        sensorlimitsCollection:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorAzElLimit'
+            type: array
+          - type: 'null'
+          title: Sensorlimitscollection
+      type: object
+      required:
+      - sensorName
+      - idSensor
+      - source
+      - classificationMarking
+      - entity
+      - sensorcharacteristics
+      - sensorlimitsCollection
+      title: UDLGroundSensor
+      description: 'Compatible with the UDL GroundSensor model.
+
+        Can be used for both ground stations and ground sensors such as radar / EO.'
+    PlotTrajectory:
+      properties:
+        time:
+          type: string
+          format: date-time
+          title: Time
+        cov_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cov Frame
+        x:
+          type: number
+          title: X
+        y:
+          type: number
+          title: Y
+        z:
+          type: number
+          title: Z
+        vx:
+          type: number
+          title: Vx
+        vy:
+          type: number
+          title: Vy
+        vz:
+          type: number
+          title: Vz
+        xyz_frame:
+          type: string
+          title: Xyz Frame
+        cov_radial:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Radial
+        cov_transverse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Transverse
+        cov_normal:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Normal
+        unit:
+          type: string
+          title: Unit
+        cov_radius_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Radius X
+        cov_radius_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Radius Y
+        cov_radius_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Radius Z
+        cov_quat_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Quat X
+        cov_quat_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Quat Y
+        cov_quat_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Quat Z
+        cov_quat_w:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cov Quat W
+      type: object
+      required:
+      - time
+      - x
+      - y
+      - z
+      - vx
+      - vy
+      - vz
+      - xyz_frame
+      - unit
+      title: PlotTrajectory
+    HBRSensitivityTradespacePoint:
+      properties:
+        primary_hbr_m:
+          type: number
+          title: Primary Hbr M
+        secondary_hbr_m:
+          type: number
+          title: Secondary Hbr M
+        pc:
+          type: number
+          title: Pc
+      type: object
+      required:
+      - primary_hbr_m
+      - secondary_hbr_m
+      - pc
+      title: HBRSensitivityTradespacePoint
+    VisibilityWindowsRequest:
+      properties:
+        primary_rso_data_source:
+          oneOf:
+          - $ref: '#/components/schemas/VisibilityRequestTLEDataSource'
+          - $ref: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+          title: Primary Rso Data Source
+          description: Data source for the RSO state.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              EPHEMERIS: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+              TLE: '#/components/schemas/VisibilityRequestTLEDataSource'
+        observers:
+          items:
+            $ref: '#/components/schemas/VisibilityRequestObserver'
+          type: array
+          title: Observers
+      type: object
+      required:
+      - primary_rso_data_source
+      - observers
+      title: VisibilityWindowsRequest
+    VisibilityRequestObserver:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        definition:
+          oneOf:
+          - $ref: '#/components/schemas/UDLGroundSensorDefinition'
+          - $ref: '#/components/schemas/GroundStationDefinition'
+          - $ref: '#/components/schemas/SavedObserverSearchDefinition'
+          title: Definition
+          description: Observer definition.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              GROUND_STATION: '#/components/schemas/GroundStationDefinition'
+              SAVED_OBSERVER_SEARCH: '#/components/schemas/SavedObserverSearchDefinition'
+              UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
+      type: object
+      required:
+      - id
+      - definition
+      title: VisibilityRequestObserver
+    UDLGroundSensorEntity:
+      properties:
+        location:
+          $ref: '#/components/schemas/UDLGroundSensorLocation'
+      type: object
+      required:
+      - location
+      title: UDLGroundSensorEntity
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

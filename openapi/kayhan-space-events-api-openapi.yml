@@ -1,0 +1,999 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Events API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Events
+paths:
+  /events/{event_key}/cdms:
+    get:
+      tags:
+      - Events
+      summary: List Event Cdms
+      description: List the CDMs in the event.
+      operationId: list_event_cdms_events__event_key__cdms_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: event_key
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key of the event
+          title: Event Key
+        description: key of the event
+      - name: operational
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true
+          default: true
+          title: Operational
+        description: Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_ConjunctionRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /events/{event_key}/latest_cdms:
+    get:
+      tags:
+      - Events
+      summary: List Event Latest Cdms
+      description: List the CDMs in the event.
+      operationId: list_event_latest_cdms_events__event_key__latest_cdms_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: event_key
+        in: path
+        required: true
+        schema:
+          type: string
+          description: key of the event
+          title: Event Key
+        description: key of the event
+      - name: operational
+        in: query
+        required: false
+        schema:
+          type: boolean
+          description: Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true
+          default: true
+          title: Operational
+        description: Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_ConjunctionRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    satcat__schemas__common__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - THEORETICAL
+      - PREDICTED
+      - DEFINITIVE
+      title: Designation
+    RSODetailedMetadataRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        rso_metadata:
+          anyOf:
+          - $ref: '#/components/schemas/RSOMetadataRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      title: RSODetailedMetadataRead
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ConjunctionRead:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        event:
+          anyOf:
+          - $ref: '#/components/schemas/EventReadSimple'
+          - type: 'null'
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        designation:
+          $ref: '#/components/schemas/satcat__schemas__common__Designation'
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        key_number:
+          type: integer
+          title: Key Number
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        insert_epoch:
+          type: string
+          format: date-time
+          title: Insert Epoch
+        creation_date:
+          type: string
+          format: date-time
+          title: Creation Date
+        originator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Originator
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        miss_distance_km:
+          type: number
+          title: Miss Distance Km
+        relative_velocity_mag_km_s:
+          type: number
+          title: Relative Velocity Mag Km S
+        relative_position_r_km:
+          type: number
+          title: Relative Position R Km
+        relative_position_i_km:
+          type: number
+          title: Relative Position I Km
+        relative_position_c_km:
+          type: number
+          title: Relative Position C Km
+        relative_velocity_r_km_s:
+          type: number
+          title: Relative Velocity R Km S
+        relative_velocity_i_km_s:
+          type: number
+          title: Relative Velocity I Km S
+        relative_velocity_c_km_s:
+          type: number
+          title: Relative Velocity C Km S
+        comment_screening_option:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Screening Option
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Collision Probability Method
+        frisbee_collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frisbee Collision Probability
+        frisbee_collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Frisbee Collision Probability Method
+        original_collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Collision Probability
+        original_collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Collision Probability Method
+        primary_rso_id:
+          type: string
+          format: uuid
+          title: Primary Rso Id
+        secondary_rso_id:
+          type: string
+          format: uuid
+          title: Secondary Rso Id
+        angle_of_approach:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Of Approach
+        mahalanobis_distance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mahalanobis Distance
+        relative_miss_sig_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Miss Sig M
+        relative_sig_r_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig R U M
+        relative_sig_it_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig It U M
+        relative_sig_ct_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig Ct U M
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/RSODetailedMetadataRead'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/RSODetailedMetadataRead'
+          - type: 'null'
+        is_intra_org:
+          type: boolean
+          title: Is Intra Org
+        recommendation_jsonb:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Recommendation Jsonb
+        primary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        secondary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+      type: object
+      required:
+      - designation
+      - key_number
+      - insert_epoch
+      - creation_date
+      - tca
+      - miss_distance_km
+      - relative_velocity_mag_km_s
+      - relative_position_r_km
+      - relative_position_i_km
+      - relative_position_c_km
+      - relative_velocity_r_km_s
+      - relative_velocity_i_km_s
+      - relative_velocity_c_km_s
+      - primary_rso_id
+      - secondary_rso_id
+      - is_intra_org
+      title: ConjunctionRead
+    SpacecraftConjunctionStateRead:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        comment_screening_data_source:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Screening Data Source
+        ephemeris_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ephemeris Name
+        covariance_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Covariance Method
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        gravity_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Gravity Model
+        atmospheric_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Atmospheric Model
+        n_body_perturbations:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: N Body Perturbations
+        solar_rad_pressure:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Solar Rad Pressure
+        earth_tides:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Tides
+        intrack_thrust:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Intrack Thrust
+        comment_covariance_scale_factor:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Covariance Scale Factor
+        comment_exclusion_volume_radius:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Exclusion Volume Radius
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        time_lastob_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Lastob Start
+        time_lastob_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Time Lastob End
+        recommended_od_span:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Recommended Od Span
+        actual_od_span:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Actual Od Span
+        obs_available:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Obs Available
+        obs_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Obs Used
+        tracks_available:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tracks Available
+        tracks_used:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Tracks Used
+        residuals_accepted:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Residuals Accepted
+        weighted_rms:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Weighted Rms
+        od_quality_rating:
+          anyOf:
+          - additionalProperties:
+              additionalProperties: true
+              type: object
+            type: object
+          - type: 'null'
+          title: Od Quality Rating
+        comment_apogee:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Apogee
+        comment_perigee:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Perigee
+        comment_inclination:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Inclination
+        comment_operator_hard_body_radius:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Operator Hard Body Radius
+        area_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Pc
+        cd_area_over_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cd Area Over Mass
+        cr_area_over_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cr Area Over Mass
+        thrust_acceleration_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Acceleration M
+        sedr:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Sedr
+        x_km:
+          type: number
+          title: X Km
+        y_km:
+          type: number
+          title: Y Km
+        z_km:
+          type: number
+          title: Z Km
+        x_dot_km:
+          type: number
+          title: X Dot Km
+        y_dot_km:
+          type: number
+          title: Y Dot Km
+        z_dot_km:
+          type: number
+          title: Z Dot Km
+        comment_dcp_density_forecast_uncertainty:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Density Forecast Uncertainty
+        comment_dcp_sensitivity_vector_position:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Sensitivity Vector Position
+        comment_dcp_sensitivity_vector_velocity:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Dcp Sensitivity Vector Velocity
+        cr_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cr R
+        ct_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ct R
+        ct_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ct T
+        cn_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn R
+        cn_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn T
+        cn_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cn N
+        crdot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot R
+        crdot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot T
+        crdot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot N
+        crdot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Crdot Rdot
+        ctdot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot R
+        ctdot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot T
+        ctdot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot N
+        ctdot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot Rdot
+        ctdot_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Ctdot Tdot
+        cndot_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot R
+        cndot_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot T
+        cndot_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot N
+        cndot_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Rdot
+        cndot_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Tdot
+        cndot_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cndot Ndot
+        cdrg_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg R
+        cdrg_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg T
+        cdrg_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg N
+        cdrg_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Rdot
+        cdrg_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Tdot
+        cdrg_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Ndot
+        cdrg_drg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Cdrg Drg
+        csrp_r:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp R
+        csrp_t:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp T
+        csrp_n:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp N
+        csrp_rdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Rdot
+        csrp_tdot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Tdot
+        csrp_ndot:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Ndot
+        csrp_drg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Drg
+        csrp_srp:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Csrp Srp
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        screening_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Screening Id
+        derived_from_spacecraft_state_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Derived From Spacecraft State Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+      type: object
+      required:
+      - x_km
+      - y_km
+      - z_km
+      - x_dot_km
+      - y_dot_km
+      - z_dot_km
+      title: SpacecraftConjunctionStateRead
+    RSOMetadataRead:
+      properties:
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        satname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Satname
+      type: object
+      title: RSOMetadataRead
+    EventReadSimple:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - key
+      title: EventReadSimple
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    OffsetPageResult_ConjunctionRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ConjunctionRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ConjunctionRead]
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

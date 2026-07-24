@@ -1,0 +1,1109 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Ephemeris API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Ephemeris
+paths:
+  /ephemerides:
+    post:
+      tags:
+      - Ephemeris
+      summary: Create Ephemeris
+      description: "Upload an ephemeris file to Kayhan's system.<br/>\n    Uploaded ephemerides can be added to a Screening using\n    `POST /screenings/{id}/primaries`.<br/>\n    **NOTE:** Only ephemerides using an inertial reference frame are\n    accepted at this time."
+      operationId: create_ephemeris_ephemerides_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_ephemeris_ephemerides_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Ephemeris
+      summary: List Ephemerides
+      description: List the ephemerides to which the currently authenticated user has read access.
+      operationId: list_ephemerides_ephemerides_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: fields
+        in: query
+        required: false
+        schema:
+          type: string
+          title: Fields
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_EphemerisMetadataWithRSO_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/{id}/operationalize:
+    put:
+      tags:
+      - Ephemeris
+      summary: Operationalize Ephemeris
+      description: Re-designate an existing ephemeris as the current OPERATIONAL.
+      operationId: operationalize_ephemeris_ephemerides__id__operationalize_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /rsos/{norad_id}/current_operational_ephemeris:
+    get:
+      tags:
+      - Ephemeris
+      summary: Get Current Operational Ephemeris
+      description: Get the current operational ephemeris for an RSO.
+      operationId: get_current_operational_ephemeris_rsos__norad_id__current_operational_ephemeris_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: norad_id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: NORAD ID of the object for which to retrieve operational ephemeris
+          title: Norad Id
+        description: NORAD ID of the object for which to retrieve operational ephemeris
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/{id}:
+    get:
+      tags:
+      - Ephemeris
+      summary: Get Ephemeris
+      description: Retrieve metadata of an ephemeris.
+      operationId: get_ephemeris_ephemerides__id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the ephemeris to get
+          title: Id
+        description: ID of the ephemeris to get
+      - name: organization_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Organization Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/{id}/archive:
+    put:
+      tags:
+      - Ephemeris
+      summary: Archive Ephemeris
+      description: Mark an ephemeris as archived. This retains metadata about the ephemeris, but renders the ephemeris data inaccessible.
+      operationId: archive_ephemeris_ephemerides__id__archive_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the ephemeris to get
+          title: Id
+        description: ID of the ephemeris to get
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/{id}/file:
+    get:
+      tags:
+      - Ephemeris
+      summary: Get Ephemeris Content
+      description: Retrieve file content of an ephemeris.
+      operationId: get_ephemeris_content_ephemerides__id__file_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the ephemeris to get
+          title: Id
+        description: ID of the ephemeris to get
+      - name: file_format
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/EphemerisWriteFileFormat'
+          description: File format of the ephemeris file being uploaded. ORIGINAL will fail if the data was stored in an HDF5 or other deprecated format.
+          default: OEM
+        description: File format of the ephemeris file being uploaded. ORIGINAL will fail if the data was stored in an HDF5 or other deprecated format.
+      - name: ref_frame
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisFrame'
+          - type: 'null'
+          description: Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the stored frame of the ephemeris.
+          title: Ref Frame
+        description: Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the stored frame of the ephemeris.
+      - name: cov_frame
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisFrame'
+          - type: 'null'
+          description: Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the frame the trajectory was originally uploaded with.
+          title: Cov Frame
+        description: Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the frame the trajectory was originally uploaded with.
+      - name: filename
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: Optional custom filename. If not supplied, a default or original filename will be generated.
+          title: Filename
+        description: Optional custom filename. If not supplied, a default or original filename will be generated.
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/{id}/jsonviz:
+    get:
+      tags:
+      - Ephemeris
+      summary: Get Ephemeris Json Viz
+      description: Retrieve file content of an ephemeris in a JSON format for data visualization.
+      operationId: get_ephemeris_json_viz_ephemerides__id__jsonviz_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the ephemeris to get
+          title: Id
+        description: ID of the ephemeris to get
+      - name: interpolate_to_unix_minutes_grid
+        in: query
+        required: false
+        schema:
+          type: boolean
+          default: true
+          title: Interpolate To Unix Minutes Grid
+      - name: dt_s
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Dt S
+      - name: pos_units
+        in: query
+        required: false
+        schema:
+          enum:
+          - m
+          - km
+          type: string
+          default: m
+          title: Pos Units
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+                title: Response Get Ephemeris Json Viz Ephemerides  Id  Jsonviz Get
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides/opm:
+    post:
+      tags:
+      - Ephemeris
+      summary: Create Ephemeris From Opm
+      description: Create ephemeris from an opm file
+      operationId: create_ephemeris_from_opm_ephemerides_opm_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_create_ephemeris_from_opm_ephemerides_opm_post'
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /ephemerides_summary:
+    get:
+      tags:
+      - Ephemeris
+      summary: Get Ephemeris Summary
+      description: Get a summary of current OPERATIONAL ephemeris in the respository.
+      operationId: get_ephemeris_summary_ephemerides_summary_get
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+      security:
+      - Oauth2Scheme: []
+  /ephemerides/{id}/covariance_tuning:
+    put:
+      tags:
+      - Ephemeris
+      summary: Trigger Covariance Tuning
+      description: Manually trigger covariance realism tuning of an ephemeris.
+      operationId: trigger_covariance_tuning_ephemerides__id__covariance_tuning_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          description: ID of the ephemeris to trigger
+          title: Id
+        description: ID of the ephemeris to trigger
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /trigger_covariance_tuning_bulk:
+    put:
+      tags:
+      - Ephemeris
+      summary: Trigger Covariance Tuning Bulk
+      description: Manually trigger covariance realism tuning of a list of ephemerides by id.
+      operationId: trigger_covariance_tuning_bulk_trigger_covariance_tuning_bulk_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: ids
+        in: query
+        required: true
+        schema:
+          type: array
+          items:
+            type: string
+          description: ID of the ephemeris to trigger
+          title: Ids
+        description: ID of the ephemeris to trigger
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+components:
+  schemas:
+    EphemerisWriteFileFormat:
+      type: string
+      enum:
+      - OEM
+      - OCM
+      - NASA
+      - HDF5
+      - ORIGINAL
+      - STK
+      - JSONVIZ
+      title: EphemerisWriteFileFormat
+      description: Supported Ephemeris file formats for writing
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    EphemerisReadFileFormat:
+      type: string
+      enum:
+      - OEM
+      - OCM
+      - NASA
+      - GOOE
+      - SP
+      - MOD_ITC
+      - CALIPER
+      - HDF5
+      - AUTOMATIC
+      - STK
+      title: EphemerisReadFileFormat
+      description: Supported Ephemeris file formats for reading
+    EphemerisType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: EphemerisType
+    OffsetPageResult_EphemerisMetadataWithRSO_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EphemerisMetadataWithRSO]
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    EphemerisMetadataWithRSO:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data_format:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisDataFormat'
+          - type: 'null'
+        custom_storage_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Storage Path
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+        repository_public:
+          type: boolean
+          title: Repository Public
+          default: false
+        event_public:
+          type: boolean
+          title: Event Public
+          default: false
+        shared_event_keys:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EphemerisViewer'
+            type: array
+          - type: 'null'
+          title: Shared Event Keys
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        covariance_corrected:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Covariance Corrected
+        source_ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Ephemeris Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        ephemeris_source:
+          $ref: '#/components/schemas/EphemerisSource'
+        solution_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Solution Time
+        has_covariance:
+          type: boolean
+          title: Has Covariance
+        ephemeris_type:
+          $ref: '#/components/schemas/EphemerisType'
+        discontinuities:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Discontinuities
+          default: []
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        apogee_km:
+          type: number
+          title: Apogee Km
+        perigee_km:
+          type: number
+          title: Perigee Km
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        current_operational:
+          type: boolean
+          title: Current Operational
+          default: false
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        context:
+          anyOf:
+          - $ref: '#/components/schemas/Context'
+          - type: 'null'
+        designation:
+          anyOf:
+          - $ref: '#/components/schemas/satcat__schemas__models__Designation'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogMinimalRead'
+          - type: 'null'
+      type: object
+      required:
+      - ephemeris_source
+      - has_covariance
+      - ephemeris_type
+      - apogee_km
+      - perigee_km
+      title: EphemerisMetadataWithRSO
+    EphemerisSource:
+      type: string
+      enum:
+      - CATALOG
+      - SPACE_TRACK_PUBLIC
+      - SPACE_TRACK_PUBLIC_SATCAT
+      - PATHFINDER_API
+      - SATCAT_API
+      - USER_SCREENER
+      - TERTIARY_SCREENER
+      - PATHFINDER_AUTO_THIRDPARTY
+      - KAYHAN_INTERNAL_PROCESS
+      - PATHFINDER_SCREENER_THIRDPARTY
+      - STARLINK_API_PUBLIC
+      - PUBLIC_REPOSITORY
+      - STARLINK_STC_API
+      title: EphemerisSource
+    Body_create_ephemeris_ephemerides_post:
+      properties:
+        norad_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Norad Id
+          description: NORAD catalog number of the object. If not provided, Satcat will attempt to infer the NORAD ID based on the filename of the uploaded file using the 18SpCS filename convention from the Spaceflight Safety Handbook.
+        file_format:
+          $ref: '#/components/schemas/EphemerisReadFileFormat'
+          description: File format of the ephemeris file being uploaded
+          default: OEM
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+          description: Hard Body Radius (in meters) to use when computing collision probability using this Ephemeris. Some ephemeris formats may include HBR information; if both are provided, this value is treated as an override. If not provided, HBR will be estimated based on the object type designation in the public catalog.
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+          description: User comments
+        ephemeris_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Ephemeris File
+          description: Ephemeris file to upload
+        context:
+          $ref: '#/components/schemas/Context'
+          default: ROUTINE
+        designation:
+          $ref: '#/components/schemas/Designation-Input'
+          default: THEORETICAL
+        originator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Originator
+          description: Originator of the ephemeris
+        repository_public:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Repository Public
+        event_public:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Event Public
+        owning_group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Owning Group Id
+          description: Group ID to own this ephemeris. Can only be set by super users and is intended to upload of PREDICTIVE ephemeris by Kayhan OD
+        ephemeris_type:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisType'
+          - type: 'null'
+          description: Whether the ephemeris describes an on-orbit satellite or a launch vehicle. If not provided, defaults to 'ON_ORBIT'. If LAUNCH is provided alongside a CCSDS OCM file, the `EPOCH_TZERO` will be interpreted as the nominal launch time. If LAUNCH is provided alongside a file format not explicitly designed for launch ephemeris, the first tabulated timestep of the ephemeris file will be considered the nominal launch time. LAUNCH ephemeris files must be specified in an Earth-fixed or pseudo Earth-fixed reference frame; an error will be raised otherwise.
+      type: object
+      title: Body_create_ephemeris_ephemerides_post
+    Body_create_ephemeris_from_opm_ephemerides_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+          description: Propagation Time Step between each reported epoch, in seconds.
+        purpose:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Purpose
+          description: Purpose of propagation (MANUAL or SCREENING)
+        infer_interval_from_screening:
+          type: boolean
+          title: Infer Interval From Screening
+          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
+          default: true
+      type: object
+      title: Body_create_ephemeris_from_opm_ephemerides_opm_post
+    Designation-Input:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    EphemerisFrame:
+      type: string
+      enum:
+      - EME2000
+      - GCRF
+      - TDR
+      - ITRF2000
+      - ITRF-93
+      - ITRF-97
+      - TEME
+      - TOD
+      - RTN
+      - TNW
+      title: EphemerisFrame
+      description: Supported Ephemeris file frames
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CatalogMinimalRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      title: CatalogMinimalRead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token

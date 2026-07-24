@@ -1,0 +1,1988 @@
+openapi: 3.1.0
+info:
+  title: Satcat Service Authentication Propagation API
+  description: '
+
+    Kayhan Space''s Satcat Service API.
+
+
+    ## Features
+
+    * **View** historical CDM data for an object.
+
+    * **View** latest CDM data for an object.
+
+    '
+  contact:
+    email: help@kayhan.space
+  version: 1.0.0
+servers:
+- url: /api/satcat
+tags:
+- name: Propagation
+paths:
+  /propagations:
+    get:
+      tags:
+      - Propagation
+      summary: Get All Propagations
+      description: Retrieve all propagation jobs.
+      operationId: get_all_propagations_propagations_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_PropagationRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    post:
+      tags:
+      - Propagation
+      summary: Create Propagation
+      description: "Submit propagation parameters to Kayhan's system and create propagation job.<br/>\n    Define: Propagation Duration, and Time Step."
+      operationId: create_propagation_propagations_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: norad_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+          - type: 'null'
+          description: NORAD ID to associate with propagation.
+          title: Norad Id
+        description: NORAD ID to associate with propagation.
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropagationJobParameters'
+              description: Configuration of the propagation job to create
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}:
+    get:
+      tags:
+      - Propagation
+      summary: Get Propagation
+      description: Retrieve current propagation job by ID.
+      operationId: get_propagation_propagations__id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Propagation
+      summary: Update Propagation
+      description: "Adjust propagation parameters to Kayhan's system and update propagation job.<br/>\n    Define: Propagation Duration, and Time Step. By default, only includes Two Body Force Model."
+      operationId: update_propagation_propagations__id__patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropagationJobParameters'
+              description: Configuration of the propagation job to create
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove Propagation
+      description: Delete propagation job from Kayhan's System.
+      operationId: remove_propagation_propagations__id__delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/states:
+    post:
+      tags:
+      - Propagation
+      summary: Add State Vector
+      description: Add state vector to propagation job.
+      operationId: add_state_vector_propagations__id__states_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_add_state_vector_propagations__id__states_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Propagation
+      summary: Get State Vector
+      description: Get state vector assigned to propagation job.
+      operationId: get_state_vector_propagations__id__states_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StateVectorRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Propagation
+      summary: Change State Vector
+      description: Change state vector assigned to propagation job.
+      operationId: change_state_vector_propagations__id__states_patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_change_state_vector_propagations__id__states_patch'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove State Vector
+      description: Removed state vector assigned to propagation job.
+      operationId: remove_state_vector_propagations__id__states_delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/forces:
+    post:
+      tags:
+      - Propagation
+      summary: Add Propagation Forces
+      description: Add force models to propagation job. By default, a standard "High-Fidelity" set of forces is provided.
+      operationId: add_propagation_forces_propagations__id__forces_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_add_propagation_forces_propagations__id__forces_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForceModelRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Propagation
+      summary: Get Propagation Forces
+      description: Get force models assigned to propagation job.
+      operationId: get_propagation_forces_propagations__id__forces_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForceModelRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Propagation
+      summary: Update Propagation Forces
+      description: Update force models to propagation job.
+      operationId: update_propagation_forces_propagations__id__forces_patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: group_id
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          description: Optional group ID to use for the request
+          title: Group Id
+        description: Optional group ID to use for the request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_update_propagation_forces_propagations__id__forces_patch'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ForceModelRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove Propagation Forces
+      description: Remove force models to propagation job.
+      operationId: remove_propagation_forces_propagations__id__forces_delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/maneuvers:
+    post:
+      tags:
+      - Propagation
+      summary: Add Propagation Maneuver
+      description: Add a single maneuver to a propagation job.
+      operationId: add_propagation_maneuver_propagations__id__maneuvers_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropagationManeuverAdd'
+              description: Configuration of the maneuver to create
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManeuverRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Propagation
+      summary: Get All Propagation Maneuvers
+      description: Get all maneuvers from propagation job.
+      operationId: get_all_propagation_maneuvers_propagations__id__maneuvers_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: filters
+        in: query
+        required: false
+        schema:
+          anyOf:
+          - type: string
+            contentMediaType: application/json
+            contentSchema: {}
+          - type: 'null'
+          title: Filters
+      - name: sort_field
+        in: query
+        required: false
+        schema:
+          type: string
+          default: created_at
+          title: Sort Field
+      - name: sort_direction
+        in: query
+        required: false
+        schema:
+          $ref: '#/components/schemas/SortDirection'
+          default: desc
+      - name: offset
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Offset
+      - name: count
+        in: query
+        required: false
+        schema:
+          type: integer
+          default: 0
+          title: Count
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OffsetPageResult_ManeuverRead_'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove All Maneuvers From Propagation
+      description: Remove all maneuvers from propagation job.
+      operationId: remove_all_maneuvers_from_propagation_propagations__id__maneuvers_delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/maneuvers/{maneuver_id}:
+    get:
+      tags:
+      - Propagation
+      summary: Get Specific Propagation Maneuver
+      description: Get maneuver from propagation job.
+      operationId: get_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: maneuver_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Maneuver Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManeuverRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Propagation
+      summary: Update Propagation Maneuver
+      description: Update maneuver assigned to propagation job.
+      operationId: update_propagation_maneuver_propagations__id__maneuvers__maneuver_id__patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: maneuver_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Maneuver Id
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PropagationManeuverAdd'
+              description: Configuration of the maneuver to update
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManeuverRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove Specific Propagation Maneuver
+      description: Remove specific maneuver from propagation job.
+      operationId: remove_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      - name: maneuver_id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Maneuver Id
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema: {}
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/tle:
+    post:
+      tags:
+      - Propagation
+      summary: Add Tle
+      description: Add tle to propagation job.
+      operationId: add_tle_propagations__id__tle_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_add_tle_propagations__id__tle_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    get:
+      tags:
+      - Propagation
+      summary: Get Tle
+      description: Get tle assigned to propagation job.
+      operationId: get_tle_propagations__id__tle_get
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TLERead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    patch:
+      tags:
+      - Propagation
+      summary: Change Tle
+      description: Change tle assigned to propagation job.
+      operationId: change_tle_propagations__id__tle_patch
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Body_change_tle_propagations__id__tle_patch'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+    delete:
+      tags:
+      - Propagation
+      summary: Remove Tle
+      description: Removed tle assigned to propagation job.
+      operationId: remove_tle_propagations__id__tle_delete
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/opm:
+    post:
+      tags:
+      - Propagation
+      summary: Add Opm
+      description: "Add an OPM file to propagation job.\n    Configures the propagation's initial state and maneuvers.\n\n    If the propagation is configured to use a target_duration instead of an end_time,\n    this endpoint will automatically update the start_time of the propagation to\n    match the epoch of the state vector from the OPM."
+      operationId: add_opm_propagations__id__opm_post
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          description: UUID of Propagation
+          title: Id
+        description: UUID of Propagation
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Body_add_opm_propagations__id__opm_post'
+      responses:
+        '201':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/submit:
+    put:
+      tags:
+      - Propagation
+      summary: Submit Propagation
+      description: Submit a propagation job for processing. Submitting a propagation job is an idempotent operation. Once a propagation job has been submitted and entered the PENDING state, submitting it again will have no further effect. <br/> If the propagation job as configured at submission fails validation, the propagation job will return HTTP status 422 (Unprocessable Entity) and the propagation job will not enter the PENDING state until the configuration is updated and the propagation job is submitted again.
+      operationId: submit_propagation_propagations__id__submit_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/cancel:
+    put:
+      tags:
+      - Propagation
+      summary: Cancel Propagation
+      description: Cancel a propagation job which has the status RUNNING, causing the propagation job operation to be abandoned and the job to enter the CANCELED status.
+      operationId: cancel_propagation_propagations__id__cancel_put
+      security:
+      - Oauth2Scheme: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          format: uuid
+          title: Id
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+        '422':
+          description: Validation Error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HTTPValidationError'
+  /propagations/{id}/archive:
+    put:
+      tags:
+      - Propagation
+      summary: Archive Propagation
+      description: Mark a propagation as archived.
+      operationId: archive_propagation_propagations__id__archive_put
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PropagationRead'
+      security:
+      - Oauth2Scheme: []
+components:
+  schemas:
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    Body_add_propagation_forces_propagations__id__forces_post:
+      properties:
+        force_models:
+          $ref: '#/components/schemas/PropagationForceModels'
+          description: Configuration of the propagation job to create
+      type: object
+      required:
+      - force_models
+      title: Body_add_propagation_forces_propagations__id__forces_post
+    TLERead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+      type: object
+      required:
+      - id
+      title: TLERead
+    OceanTides:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Degree
+          description: The degree of OceanTides effect to use.
+          default: 10
+        order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order
+          description: The order of OceanTides effect to use.
+          default: 10
+      type: object
+      title: OceanTides
+    EarthModel:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: 'Physical characteristics of Earth as described by an Earth Model. Currently supports: "WGS84", "GRS80", "EGM96"'
+          default: EGM96
+      type: object
+      title: EarthModel
+    Body_change_state_vector_propagations__id__states_patch:
+      properties:
+        state_id:
+          type: string
+          format: uuid
+          title: State Id
+          description: UUID of state vector.
+      type: object
+      required:
+      - state_id
+      title: Body_change_state_vector_propagations__id__states_patch
+    PropagationManeuverAdd:
+      properties:
+        type:
+          $ref: '#/components/schemas/ManeuverType'
+          description: Maneuver type (IMPULSE, INSTANTANEOUS, CONSTANTTHRUST
+          default: IMPULSE
+        ignition_epoch:
+          type: string
+          format: date-time
+          title: Ignition Epoch
+          description: Ignition epoch for maneuver.
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+          description: Duration of maneuver burn (sec), defaults to 0.0 for an impulse/instantaneous maneuver.
+          default: 0.0
+        ref_frame:
+          anyOf:
+          - $ref: '#/components/schemas/Frame'
+          - type: 'null'
+          description: The reference frame with which the maneuver vector is described
+          default: RIC
+        delta_v:
+          anyOf:
+          - $ref: '#/components/schemas/Vector3'
+          - type: 'null'
+        thrust_vector:
+          anyOf:
+          - $ref: '#/components/schemas/Vector3'
+          - type: 'null'
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        delta_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Delta Mass
+      type: object
+      required:
+      - ignition_epoch
+      title: PropagationManeuverAdd
+    CelestialBody:
+      type: string
+      enum:
+      - SUN
+      - EARTH
+      - MOON
+      - MERCURY
+      - VENUS
+      - MARS
+      - JUPITER
+      - SATURN
+      - URANUS
+      - NEPTUNE
+      title: CelestialBody
+      description: 'Enumeration describing a specific celestial body
+
+        for use in computing third body gravitational perturbation.'
+    Drag:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        atmospheric_model:
+          anyOf:
+          - $ref: '#/components/schemas/AtmosphericModels'
+          - type: 'null'
+          description: Atmospheric model for drag force. Currently only supports "HARRISPRIESTER", "JB2008", "NRLMSISE00"
+          default: NRLMSISE00
+      type: object
+      title: Drag
+    PropagationForceModels:
+      properties:
+        earth_model:
+          anyOf:
+          - $ref: '#/components/schemas/EarthModel'
+          - type: 'null'
+        geopotential:
+          anyOf:
+          - $ref: '#/components/schemas/Geopotential'
+          - type: 'null'
+        third_bodies:
+          anyOf:
+          - $ref: '#/components/schemas/ThirdBodies'
+          - type: 'null'
+        drag:
+          anyOf:
+          - $ref: '#/components/schemas/Drag'
+          - type: 'null'
+        ocean_tides:
+          anyOf:
+          - $ref: '#/components/schemas/OceanTides'
+          - type: 'null'
+        solid_tides:
+          anyOf:
+          - $ref: '#/components/schemas/SolidTides'
+          - type: 'null'
+        solar_radiation_pressure:
+          anyOf:
+          - $ref: '#/components/schemas/SolarRadiationPressure'
+          - type: 'null'
+      type: object
+      title: PropagationForceModels
+    Body_update_propagation_forces_propagations__id__forces_patch:
+      properties:
+        force_models:
+          $ref: '#/components/schemas/PropagationForceModels'
+          description: Configuration of the propagation job to create
+      type: object
+      required:
+      - force_models
+      title: Body_update_propagation_forces_propagations__id__forces_patch
+    PropagationJobParameters:
+      properties:
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+          description: Propagation Time Step between each reported epoch, in seconds.
+          default: 120
+        purpose:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Purpose
+          description: Purpose of propagation (MANUAL or SCREENING)
+          default: MANUAL
+        infer_interval_from_screening:
+          type: boolean
+          title: Infer Interval From Screening
+          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
+          default: true
+      type: object
+      title: PropagationJobParameters
+    AtmosphericModels:
+      type: string
+      enum:
+      - HARRISPRIESTER
+      - JB2008
+      - NRLMSISE00
+      title: AtmosphericModels
+      description: Supported atmospheric models for drag force.
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    OffsetPageResult_PropagationRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/PropagationRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[PropagationRead]
+    ManeuverRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          type: string
+          title: Type
+        ignition_epoch:
+          type: string
+          format: date-time
+          title: Ignition Epoch
+        delta_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Delta Mass
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        deltav_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav X
+        deltav_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Y
+        deltav_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Z
+        deltav_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deltav Unit
+        thrust_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust X
+        thrust_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Y
+        thrust_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Z
+        thrust_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thrust Unit
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+      type: object
+      required:
+      - id
+      - type
+      - ignition_epoch
+      title: ManeuverRead
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    SolidTides:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+      type: object
+      title: SolidTides
+    Body_add_tle_propagations__id__tle_post:
+      properties:
+        tle_id:
+          type: string
+          format: uuid
+          title: Tle Id
+          description: TLE ID
+      type: object
+      required:
+      - tle_id
+      title: Body_add_tle_propagations__id__tle_post
+    Body_add_opm_propagations__id__opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
+      type: object
+      title: Body_add_opm_propagations__id__opm_post
+    ForceModelRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        earth_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Model
+        geopotential:
+          type: boolean
+          title: Geopotential
+          default: false
+        geopotential_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Degree
+        geopotential_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Order
+          default: 0
+        drag:
+          type: boolean
+          title: Drag
+          default: false
+        drag_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Drag Model
+        third_bodies:
+          type: boolean
+          title: Third Bodies
+          default: false
+        third_bodies_list:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Third Bodies List
+        solid_tides:
+          type: boolean
+          title: Solid Tides
+          default: false
+        solar_radiation_pressure:
+          type: boolean
+          title: Solar Radiation Pressure
+          default: false
+        ocean_tides:
+          type: boolean
+          title: Ocean Tides
+          default: false
+        oceantides_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Degree
+        oceantides_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Order
+      type: object
+      required:
+      - id
+      title: ForceModelRead
+    OffsetPageResult_ManeuverRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ManeuverRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ManeuverRead]
+    Body_change_tle_propagations__id__tle_patch:
+      properties:
+        tle_id:
+          type: string
+          format: uuid
+          title: Tle Id
+          description: TLE ID
+      type: object
+      required:
+      - tle_id
+      title: Body_change_tle_propagations__id__tle_patch
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    PropagationRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+        maneuver_count:
+          type: integer
+          title: Maneuver Count
+          default: 0
+        state_vector:
+          anyOf:
+          - $ref: '#/components/schemas/StateVectorRead'
+          - type: 'null'
+        forces:
+          anyOf:
+          - $ref: '#/components/schemas/ForceModelRead'
+          - type: 'null'
+        maneuvers:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ManeuverRead'
+            type: array
+          - type: 'null'
+          title: Maneuvers
+        tle:
+          anyOf:
+          - $ref: '#/components/schemas/TLERead'
+          - type: 'null'
+        tle_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tle Id
+        state_vector_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: State Vector Id
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - status
+      title: PropagationRead
+    ThirdBodies:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        celestial_bodies:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CelestialBody'
+            type: array
+          - type: 'null'
+          title: Celestial Bodies
+          description: 'List of celestial third body force models. Currently supported: "SUN","EARTH", "MOON", "MERCURY", "VENUS", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE"'
+          default:
+          - SUN
+          - MOON
+      type: object
+      title: ThirdBodies
+    CovarianceMatrixRead:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
+        length_unit:
+          type: string
+          title: Length Unit
+      type: object
+      required:
+      - data
+      - format
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
+    SolarRadiationPressure:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+      type: object
+      title: SolarRadiationPressure
+    Body_add_state_vector_propagations__id__states_post:
+      properties:
+        state_id:
+          type: string
+          format: uuid
+          title: State Id
+          description: UUID of state vector.
+      type: object
+      required:
+      - state_id
+      title: Body_add_state_vector_propagations__id__states_post
+    ManeuverType:
+      type: string
+      enum:
+      - IMPULSE
+      - INSTANTANEOUS
+      - CONSTANTTHRUST
+      title: ManeuverType
+    Vector3:
+      properties:
+        x:
+          type: number
+          title: X
+          description: The first element of the vector
+        y:
+          type: number
+          title: Y
+          description: The second element of the vector
+        z:
+          type: number
+          title: Z
+          description: The third element of the vector
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: The unit of the vector
+      type: object
+      required:
+      - x
+      - y
+      - z
+      title: Vector3
+      description: 3-dimensional physical quantity
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Geopotential:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Degree
+          description: The degree of geopotential effect to use.
+          default: 70
+        order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order
+          description: The order of geopotential effect to use.
+          default: 70
+      type: object
+      title: Geopotential
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+    Frame:
+      type: string
+      enum:
+      - EME2000
+      - EME2000
+      - TEME
+      - GCRF
+      - CIRF
+      - ICRF
+      - TIRF
+      - ITRF
+      - ITRF_2014
+      - ITRF_2008
+      - ITRF_2005
+      - ITRF_2000
+      - ITRF_97
+      - ITRF_96
+      - ITRF_94
+      - ITRF_93
+      - ITRF_92
+      - ITRF_91
+      - ITRF_90
+      - ITRF_89
+      - ITRF_88
+      - ITRFEQUINOX
+      - MOD
+      - TOD
+      - GTOD
+      - EFG
+      - VEIS1950
+      - RIC
+      - PTW
+      - TNW
+      - VNB
+      - LVLH
+      - ENCOUNTER
+      - ENU
+      - SEZ
+      - CUSTOM
+      title: Frame
+  securitySchemes:
+    Oauth2Scheme:
+      type: oauth2
+      flows:
+        password:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: login
+        clientCredentials:
+          scopes:
+            internal: Access from an internal API.
+          tokenUrl: oauth/token
