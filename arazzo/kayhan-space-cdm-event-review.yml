@@ -1,0 +1,52 @@
+arazzo: 1.0.1
+info:
+  title: Ingest CDMs and inspect a conjunction event
+  version: 1.0.0
+  summary: >-
+    Upload CCSDS Conjunction Data Messages, attach one to a conjunction event,
+    and inspect a specific CDM to support a mitigation decision.
+sourceDescriptions:
+- name: satcat
+  url: ../openapi/kayhan-space-satcat-openapi-original.json
+  type: openapi
+workflows:
+- workflowId: reviewConjunctionEvent
+  summary: Upload CDMs, attach to an event, and inspect a CDM.
+  inputs:
+    type: object
+    properties:
+      cdms:
+        type: object
+        description: CCSDS CDM payload accepted by POST /conjunction_messages
+      eventKey:
+        type: string
+        description: The event_key of the conjunction event to work
+      cdmId:
+        type: string
+        description: Identifier of a specific CDM to inspect
+  steps:
+  - stepId: uploadCdms
+    description: Upload third-party CCSDS CDMs into Satcat.
+    operationId: upload_cdms_conjunction_messages_post
+    requestBody:
+      contentType: application/json
+      payload: $inputs.cdms
+  - stepId: listEvents
+    description: List conjunction events to locate the target event_key.
+    operationId: list_events_events_get
+  - stepId: attachCdmToEvent
+    description: Attach a CCSDS CDM to the conjunction event.
+    operationId: add_cdm_to_event_events__event_key__ccsds_cdm_post
+    parameters:
+    - name: event_key
+      in: path
+      value: $inputs.eventKey
+  - stepId: inspectCdm
+    description: Read a specific CDM's risk fields (miss distance, Pc, covariance).
+    operationId: get_conjunction_message_by_id_conjunction_messages__cdm_id__get
+    parameters:
+    - name: cdm_id
+      in: path
+      value: $inputs.cdmId
+  outputs:
+    eventKey: $inputs.eventKey

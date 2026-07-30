@@ -1,0 +1,20 @@
+generated: '2026-07-19'
+method: searched
+source: https://pypi.org/pypi/satcat/json
+note: >-
+  First-party Satcat SDK by Kayhan Space, distributed on PyPI. Source is hosted
+  on GitLab (kayhan-oss/satcat-sdk, Apache-2.0). The open-source repos on the
+  Kayhan-Space GitHub org (sgp4gl, sgp4gpu, nrlmsise-00) are astrodynamics/
+  visualization libraries, not Satcat Service API clients, so they are not
+  listed here as SDKs.
+packages:
+- language: python
+  registry: pypi
+  name: satcat
+  url: https://pypi.org/project/satcat/
+  install: pip install satcat
+  version: 1.5.0
+  summary: Satcat Software Development Kit by Kayhan Space
+  source: https://gitlab.com/kayhan-oss/satcat-sdk
+  license: Apache-2.0
+  official: true

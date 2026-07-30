@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: searched
+source:
+- https://docs.satcat.com/api-reference/
+- https://docs.satcat.com/sdk/configuration/
+- openapi/kayhan-space-satcat-openapi-original.json
+note: >-
+  Cross-cutting request/response semantics for the Satcat Service API, from the
+  docs and derived from the OpenAPI. No idempotency-key contract is documented
+  or present in the spec, so no Idempotency pointer is emitted.
+authentication:
+  style: oauth2-bearer
+  flows: [clientCredentials, password]
+  token_endpoint: https://api.satcat.com/api/satcat/oauth/token
+  header: 'Authorization: Bearer <access_token>'
+  credentials: >-
+    API keys (client id + client secret) are created in the Satcat Control
+    Center; the Python SDK reads SATCAT_AUTH_CLIENT_ID / SATCAT_AUTH_CLIENT_SECRET.
+  cross_ref: authentication/kayhan-space-authentication.yml
+idempotency:
+  supported: false
+  note: no Idempotency-Key header/parameter documented or present in the OpenAPI
+pagination:
+  style: offset
+  params: [offset]
+  note: list operations accept an offset query parameter
+versioning:
+  style: uri-path
+  base_path: /api/satcat
+  current: v1.0.0
+  cross_ref: lifecycle/kayhan-space-lifecycle.yml
+errors:
+  envelope_field: detail
+  shape: 'FastAPI validation envelope — {"detail": [{"loc": [...], "msg": "...", "type": "..."}]}'
+  format: http-status
+  documented_codes: [200, 201, 204, 422]
+  cross_ref: errors/kayhan-space-problem-types.yml
+rate_limiting:
+  documented: false
+  note: no rate-limit headers or quota documented in the API reference
+data_standards:
+  cross_ref: conformance/kayhan-space-conformance.yml
+  highlights: [ccsds-cdm, tle-norad, iers-conventions-2010]

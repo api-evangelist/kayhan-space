@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: generated
+source: openapi/kayhan-space-satcat-openapi-original.json
+note: >-
+  Agent Skills generated from the Satcat Service API OpenAPI (operationIds
+  verified against the spec) plus the repo conventions/errors/conformance
+  artifacts. Kayhan Space does not publish its own AGENTS.md / skill files as of
+  this pass.
+skills:
+- file: kayhan-space-screen-ephemeris.md
+  name: Screen an ephemeris for conjunctions
+  api: openapi/kayhan-space-satcat-openapi-original.json
+  operations:
+  - create_ephemeris_ephemerides_post
+  - operationalize_ephemeris_ephemerides__id__operationalize_put
+  - create_screening_screenings_post
+  - get_conjunction_plot_screenings_conjunction_plot_get
+  - list_conjunction_messages_conjunction_messages_get
+- file: kayhan-space-cdm-event-review.md
+  name: Ingest CDMs and review a conjunction event
+  api: openapi/kayhan-space-satcat-openapi-original.json
+  operations:
+  - upload_cdms_conjunction_messages_post
+  - list_events_events_get
+  - add_cdm_to_event_events__event_key__ccsds_cdm_post
+  - get_conjunction_message_by_id_conjunction_messages__cdm_id__get

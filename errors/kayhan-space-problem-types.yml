@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kayhan-space-satcat-openapi-original.json
+format: http-status   # Satcat returns FastAPI-style JSON error envelopes, not RFC 9457 problem+json
+envelope:
+  field: detail   # 422 body: {"detail": [{"loc": [...], "msg": "...", "type": "..."}]}
+documented_response_codes: ["200", "201", "204", "422"]
+problems:
+- status: 422
+  title: "Validation error"
+  description: "Request failed schema validation; the response body lists the invalid fields (loc), a message (msg), and a type. Returned by every write/parameterized operation."
+  schema: HTTPValidationError
+  remediation: "Correct the flagged request fields and resubmit."
+- status: 401
+  title: "Unauthorized"
+  description: "Missing or invalid OAuth2 bearer access token. Derived from the OAuth2 security requirement on protected operations (not explicitly enumerated in the OpenAPI responses)."
+  remediation: "Obtain a token from the client-credentials flow (tokenUrl oauth/token) and send it as Authorization: Bearer <token>."
+  evidence: "openapi securityScheme Oauth2Scheme"
+- status: 403
+  title: "Forbidden"
+  description: "Authenticated principal lacks access to the requested resource or group scope. Derived from the API key group model."
+  remediation: "Use an API key/group with access to the target object."
+  evidence: "openapi securityScheme Oauth2Scheme"

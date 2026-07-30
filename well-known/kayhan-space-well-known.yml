@@ -1,0 +1,35 @@
+generated: '2026-07-19'
+method: searched
+note: >-
+  No real /.well-known/ discovery documents were found. The API host
+  api.satcat.com and www.satcat.com return genuine 404s. The marketing host
+  kayhan.space returns HTTP 200 for every /.well-known/ path, but each is the
+  Vercel catch-all SPA (text/html, ~26 KB, identical body) — a soft-404, not a
+  real document — so none are indexed as present.
+hosts:
+- host: https://api.satcat.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+- host: https://www.satcat.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+- host: https://kayhan.space
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    note: soft-404 (Vercel catch-all HTML, not a real security.txt)
+  - path: /.well-known/openid-configuration
+    status: 200
+    note: soft-404 (catch-all HTML)

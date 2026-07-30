@@ -1,0 +1,50 @@
+arazzo: 1.0.1
+info:
+  title: Screen an ephemeris and review conjunctions
+  version: 1.0.0
+  summary: >-
+    Upload an operator ephemeris to Satcat, make it operational, run a
+    conjunction screening, and pull the resulting CDMs and plot.
+sourceDescriptions:
+- name: satcat
+  url: ../openapi/kayhan-space-satcat-openapi-original.json
+  type: openapi
+workflows:
+- workflowId: screenEphemeris
+  summary: Upload, operationalize, screen, and review conjunctions for an ephemeris.
+  inputs:
+    type: object
+    properties:
+      ephemeris:
+        type: object
+        description: Ephemeris payload / metadata accepted by POST /ephemerides
+  steps:
+  - stepId: uploadEphemeris
+    description: Upload the operator ephemeris.
+    operationId: create_ephemeris_ephemerides_post
+    requestBody:
+      contentType: application/json
+      payload: $inputs.ephemeris
+    outputs:
+      ephemerisId: $response.body#/id
+  - stepId: operationalizeEphemeris
+    description: Make the uploaded ephemeris the current operational ephemeris.
+    operationId: operationalize_ephemeris_ephemerides__id__operationalize_put
+    parameters:
+    - name: id
+      in: path
+      value: $steps.uploadEphemeris.outputs.ephemerisId
+  - stepId: createScreening
+    description: Screen the operational ephemeris against the catalog.
+    operationId: create_screening_screenings_post
+    outputs:
+      screeningId: $response.body#/id
+  - stepId: listConjunctions
+    description: Retrieve the conjunction messages (CDMs) produced by the screening.
+    operationId: list_conjunction_messages_conjunction_messages_get
+  - stepId: conjunctionPlot
+    description: Retrieve the conjunction plot for review.
+    operationId: get_conjunction_plot_screenings_conjunction_plot_get
+  outputs:
+    ephemerisId: $steps.uploadEphemeris.outputs.ephemerisId
+    screeningId: $steps.createScreening.outputs.screeningId

@@ -1,0 +1,16 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kayhan-space-satcat-openapi-original.json
+workflows:
+- file: kayhan-space-screen-ephemeris.yml
+  workflowId: screenEphemeris
+  title: Screen an ephemeris and review conjunctions
+  summary: >-
+    Upload an operator ephemeris, operationalize it, run a conjunction
+    screening, and pull the resulting CDMs and plot.
+- file: kayhan-space-cdm-event-review.yml
+  workflowId: reviewConjunctionEvent
+  title: Ingest CDMs and inspect a conjunction event
+  summary: >-
+    Upload CCSDS CDMs, attach one to a conjunction event, and inspect a specific
+    CDM to support a mitigation decision.

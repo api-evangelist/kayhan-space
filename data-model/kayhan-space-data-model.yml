@@ -1,0 +1,72 @@
+generated: '2026-07-19'
+method: derived
+source: openapi/kayhan-space-satcat-openapi-original.json
+note: >-
+  Entity-relationship graph derived from Satcat Service API OpenAPI schemas ($ref links
+  and id-reference fields). 193 component schemas; 151 operations across 17 tags.
+entities:
+- Catalog
+- RSO
+- Ephemeris
+- TLE
+- ConjunctionMessage (CDM)
+- Event
+- Screening
+- Propagation
+- StateVector
+- CovarianceMatrix
+- Maneuver
+- APIKey
+- Group
+relationships:
+- from: Group
+  to: APIKey
+  type: has_many
+  via: "client_id"
+- from: Catalog
+  to: Ephemeris
+  type: has_many
+  via: "catalog id"
+- from: RSO
+  to: Ephemeris
+  type: has_many
+  via: "norad_id"
+  note: "current operational ephemeris per resident space object"
+- from: RSO
+  to: TLE
+  type: has_many
+  via: "norad_id"
+- from: Ephemeris
+  to: StateVector
+  type: has_many
+  via: "ephemeris id"
+- from: Ephemeris
+  to: CovarianceMatrix
+  type: has_one
+  via: "covariance"
+- from: Event
+  to: ConjunctionMessage
+  type: has_many
+  via: "event_key"
+  note: "CDMs attached to a conjunction event"
+- from: Screening
+  to: ConjunctionMessage
+  type: has_many
+  via: "screening id"
+  note: "screening produces conjunctions/CDMs"
+- from: Screening
+  to: RSO
+  type: has_many
+  via: "primaries/secondaries"
+- from: Propagation
+  to: StateVector
+  type: has_many
+  via: "propagation id"
+- from: ConjunctionMessage
+  to: RSO
+  type: belongs_to
+  via: "primary/secondary object"
+- from: Event
+  to: Mitigation
+  type: has_many
+  via: "mitigation intent"

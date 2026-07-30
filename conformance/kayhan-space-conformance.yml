@@ -1,0 +1,45 @@
+generated: '2026-07-19'
+method: searched
+source:
+- openapi/kayhan-space-satcat-openapi-original.json
+- https://docs.satcat.com/data-standards/
+note: >-
+  Standards conformance for the Satcat Service API — cross-cutting API standards
+  derived from the OpenAPI plus the space-data domain standards Kayhan Space
+  documents. No published security-compliance program (SOC 2 / ISO 27001 / PCI /
+  HIPAA / FedRAMP) was found, so no Compliance pointer is emitted.
+standards:
+- id: oauth2
+  conforms: true
+  evidence: OpenAPI securityScheme type oauth2 (clientCredentials + password flows)
+- id: openid-connect
+  conforms: false
+  evidence: no openIdConnect scheme or discovery document
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: errors returned as FastAPI JSON envelope {detail:[...]}, not application/problem+json
+- id: json-api
+  conforms: false
+- id: pagination
+  conforms: true
+  evidence: offset query parameter on list operations
+- id: ccsds-cdm
+  conforms: true
+  evidence: >-
+    Conjunction Data Message ingestion and CCSDS-format CDM endpoints
+    (conjunction_messages ccsds), a CCSDS 508.0-B space-data standard
+- id: tle-norad
+  conforms: true
+  evidence: Two Line Element (TLE) catalog endpoints keyed on NORAD id
+- id: ccsds-oem-ephemeris
+  conforms: true
+  evidence: ephemeris file-format endpoints for standard trajectory exchange formats
+- id: iers-conventions-2010
+  conforms: true
+  evidence: reference frames documented as validated against IERS Conventions 2010
+- id: nasa-ca-cola-best-practices
+  conforms: true
+  evidence: docs state alignment with NASA Spacecraft CA and COLA Best Practices handbooks
+- id: sds-spaceflight-safety
+  conforms: true
+  evidence: docs claim alignment with 18/19 Space Data Standards (SDS) spaceflight-safety practices

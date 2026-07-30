@@ -1,0 +1,17 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for Kayhan Space Satcat Service API
+  version: 1.0.0
+extends: openapi/kayhan-space-satcat-openapi-original.json
+actions:
+- target: $.info
+  update:
+    x-apievangelist-provider: kayhan-space
+    x-apievangelist-product: satcat
+    x-apievangelist-domain: space-situational-awareness
+    x-apievangelist-standards: [ccsds-cdm, tle, oauth2]
+    x-apievangelist-auth: oauth2-client-credentials
+    x-apievangelist-status-page: https://status.satcat.com
+- target: $.servers
+  update:
+    x-apievangelist-base-url: https://api.satcat.com/api/satcat

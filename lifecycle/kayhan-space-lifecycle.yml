@@ -1,0 +1,29 @@
+generated: '2026-07-19'
+method: searched
+source:
+- https://status.satcat.com
+- openapi/kayhan-space-satcat-openapi-original.json
+versioning:
+  scheme: uri-path
+  current: v1.0.0
+  base_path: /api/satcat
+  note: >-
+    OpenAPI info.version is 1.0.0; the API is served under the /api/satcat path
+    prefix. No dated public changelog page was found (docs.satcat.com/changelog
+    returns 404), so no changelog artifact is emitted.
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: no published deprecation/sunset policy found
+status_page: https://status.satcat.com
+status_page_provider: instatus
+status_components:
+- Satcat.com
+- Satcat API
+- On-Demand Screening
+- Third-Party CDM Ingestion
+- CDM Notifications
+sla:
+  url: null
+  uptime_observed: '99.99% (per public status page, most components)'
+deprecated_operations: []
