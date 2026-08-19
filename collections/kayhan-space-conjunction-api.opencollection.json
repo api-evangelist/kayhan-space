@@ -1,0 +1,395 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Conjunction API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Conjunction",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Conjunction Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages",
+            "params": [
+              {
+                "name": "latest_for",
+                "value": "",
+                "type": "query",
+                "description": "key or cdm_id of conjunction message to get latest data for"
+              },
+              {
+                "name": "history_for",
+                "value": "",
+                "type": "query",
+                "description": "key or cdm_id of conjunction message to get history data for"
+              },
+              {
+                "name": "operational",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the conjunction messages to which the currently authenticated user has read access."
+        },
+        {
+          "info": {
+            "name": "Upload Cdms",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/conjunction_messages",
+            "params": [
+              {
+                "name": "group_slug",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload one or more CDMs as a Super Admin."
+        },
+        {
+          "info": {
+            "name": "List Conjunction Messages",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/ccsds",
+            "params": [
+              {
+                "name": "latest_for",
+                "value": "",
+                "type": "query",
+                "description": "key or cdm_id of conjunction message to get latest data for"
+              },
+              {
+                "name": "history_for",
+                "value": "",
+                "type": "query",
+                "description": "key or cdm_id of conjunction message to get history data for"
+              },
+              {
+                "name": "operational",
+                "value": "",
+                "type": "query",
+                "description": "Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the conjunction messages to which the currently authenticated user has read access in CCSDS format."
+        },
+        {
+          "info": {
+            "name": "List Events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/events",
+            "params": [
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the events to which the currently authenticated user has read access."
+        },
+        {
+          "info": {
+            "name": "Add Cdm To Event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/events/:event_key/ccsds_cdm",
+            "params": [
+              {
+                "name": "event_key",
+                "value": "",
+                "type": "path",
+                "description": "key of the event to add the CDM to"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Add a CCSDS JSON CDM to an event. The CDM must have the same primary and secondary objects as the associated event. Returns the created conjunction."
+        },
+        {
+          "info": {
+            "name": "Get Cdm File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/file",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              },
+              {
+                "name": "updated",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "file_format",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve raw conjunction messages with given key or cdm_id."
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key, cdm_id, or uuid of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve all conjunction messages with given key, cdm_id (18th SDS), or Satcat UUID."
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/ccsds",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve conjunction message with given key or cdm_id in CCSDS format."
+        },
+        {
+          "info": {
+            "name": "Request Pc Remediation",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/pc_remediation",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              },
+              {
+                "name": "method",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Manually request remediation of a CDM's collision probability value. Returns the updated conjunction message in CCSDS JSON format."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

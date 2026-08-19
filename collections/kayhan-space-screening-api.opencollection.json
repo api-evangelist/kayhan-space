@@ -1,0 +1,1133 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Screening API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Screening",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Conjunction Plot",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/conjunction_plot",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a summary of all the user's conjunctions."
+        },
+        {
+          "info": {
+            "name": "List Screenings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings",
+            "params": [
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the screenings to which the currently authenticated user has read access."
+        },
+        {
+          "info": {
+            "name": "Create Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/screenings",
+            "params": [
+              {
+                "name": "submit",
+                "value": "",
+                "type": "query",
+                "description": "Whether to automatically submit the screening for processing upon creation. If not used, the screening can be further configured and later submitted using the screening actions subresources."
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a screening.\n    Compares all points of the primary ephemerides which overlap in time with the\n    resolved assigned secondaries, and identify close-approaches which may require\n    the operator to perform collision avoidance action (conjunctions).\n    <br/>\n    Screenings are not automatically submitted for processing upon creation, unless the\n    `submit` query parameter is used. Screenings can be further configured using the\n    various `/screenings/{id}` endpoints and then submitted f"
+        },
+        {
+          "info": {
+            "name": "Get Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve metadata about a screening."
+        },
+        {
+          "info": {
+            "name": "Update Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "/api/satcat/screenings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Update the configuration of a screening. Can only be performed on Screenings that have not yet been submitted."
+        },
+        {
+          "info": {
+            "name": "Delete Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/satcat/screenings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Delete a screening. If the screening is running, causes the `cancel` operation to be taken on the screening, and the screening to be subsequently deleted. Any conjunctions associated with the screening are also deleted."
+        },
+        {
+          "info": {
+            "name": "List Screening Primaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/primaries",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the list of primaries for a screening."
+        },
+        {
+          "info": {
+            "name": "Add Screening Primary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/screenings/:id/primaries",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Add a Screenable to the list of primaries for a screening. If `norad_cat_id` is specified, must also be specified alongside `catalog_id`, and signifies that the ephemeris for object `norad_cat_id` from catalog `catalog_id` should be added."
+        },
+        {
+          "info": {
+            "name": "List Screening Secondaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/secondaries",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the list of primaries for a screening."
+        },
+        {
+          "info": {
+            "name": "Add Screening Secondary",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/screenings/:id/secondaries",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Add a Screenable to the list of secondaries for a screening. If `norad_cat_id` is specified, must also be specified alongside `catalog_id`, and signifies that the ephemeris for object `norad_cat_id` from catalog `catalog_id` should be added. If `catalog_id` is specified alone, signifies that the whole catalog should be used."
+        },
+        {
+          "info": {
+            "name": "Add Screenables Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/screenings/:id/screenables_batch",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Add Screenables Batch"
+        },
+        {
+          "info": {
+            "name": "Remove Screening Screenables Batch",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/satcat/screenings/:id/screenables_batch",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to modify"
+              },
+              {
+                "name": "primary_id",
+                "value": "",
+                "type": "query",
+                "description": "IDs of the primaries to remove from the screening. Specify the query parameter multiple times to delete multiple primaries."
+              },
+              {
+                "name": "secondary_id",
+                "value": "",
+                "type": "query",
+                "description": "IDs of the secondaries to remove from the screening. Specify the query parameter multiple times to delete multiple secondaries."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Remove a set of Screenables from a screening."
+        },
+        {
+          "info": {
+            "name": "Remove Screening Primary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/satcat/screenings/:id/primaries/:primary_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to modify"
+              },
+              {
+                "name": "primary_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the primary to remove from the screening"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Remove a Screenable from the list of primaries for a screening."
+        },
+        {
+          "info": {
+            "name": "Remove Screening Secondary",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "/api/satcat/screenings/:id/secondaries/:secondary_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to modify"
+              },
+              {
+                "name": "secondary_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the secondary to remove from the screening"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Remove a Screenable from the list of secondaries for a screening."
+        },
+        {
+          "info": {
+            "name": "Submit Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/screenings/:id/submit",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Submit a screening for processing. Submitting a screening is an idempotent operation. Once a screening has been submitted and entered the PENDING state, submitting it again will have no further effect. <br/> If the screening as configured at submission fails validation, the server will return HTTP status 422 (Unprocessable Entity) and the screening will not enter the PENDING state until the configuration is updated and the screening is submitted again."
+        },
+        {
+          "info": {
+            "name": "Cancel Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/screenings/:id/cancel",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Cancel a screening which has the status RUNNING, causing the screening operation to be abandoned and the job to enter the CANCELED status."
+        },
+        {
+          "info": {
+            "name": "Archive Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/screenings/:id/archive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Mark a screening as archived."
+        },
+        {
+          "info": {
+            "name": "List Screening Conjunctions",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/conjunctions",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the conjunctions which the screening generated."
+        },
+        {
+          "info": {
+            "name": "Get Screening Conjunction",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/conjunctions/:conjunction_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "conjunction_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve metadata about a single screening conjunction."
+        },
+        {
+          "info": {
+            "name": "List Ephemerides In Catalog By Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/catalogs/:catalog_id/ephemerides",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "catalog_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the ephemerides available in the catalog and their relationship to the screening, if any."
+        },
+        {
+          "info": {
+            "name": "Get Catalog By Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/catalogs/:catalog_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "catalog_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the catalog and its ephemerides' relationships to the screening, if any."
+        },
+        {
+          "info": {
+            "name": "List Catalogs By Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/catalogs",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "latest",
+                "value": "",
+                "type": "query",
+                "description": "Whether to retrieve only the latest catalog for each applicable catalog_type."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the available in the catalog and their ephemerides' relationships to the screening, if any. If using the `latest` parameter, return only the latest catalog available for each individual catalog type available. Pagination parameters are ignored when using the `latest` parameter. Additionally, archived and unready catalogs are not returned when using the `latest` parameter."
+        },
+        {
+          "info": {
+            "name": "Get Screening Results Ccsds List",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/results/ccsds",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to get results for"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve screening conjunction results as a list of serialized JSON objects in CCSDS format."
+        },
+        {
+          "info": {
+            "name": "Get Screening Results Ccsds Single",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/results/ccsds/:conjunction_id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to get results for"
+              },
+              {
+                "name": "conjunction_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the conjunction to get CCSDS format for"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a specific screening conjunction result as a serialized JSON object in CCSDS format."
+        },
+        {
+          "info": {
+            "name": "Get Screening Results File Multi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/results/file_multi",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to get results for"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom filename. If not supplied, a default filename will be generated."
+              },
+              {
+                "name": "file_format",
+                "value": "",
+                "type": "query",
+                "description": "Output file format: 'json' or 'csv'. Defaults to 'json'."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve screening conjunction results as a serialized file in all available file formats."
+        },
+        {
+          "info": {
+            "name": "Get Screening Conjunction Results File Multi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/conjunction/:conjunction_id/results/file_multi",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the screening to get results for"
+              },
+              {
+                "name": "conjunction_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the conjunction to get results for"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom filename. If not supplied, a default filename will be generated."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve a single screening conjunction result as a serialized file in all available file formats."
+        },
+        {
+          "info": {
+            "name": "List Scheduled Screenings",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/scheduled_screenings",
+            "params": [
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the scheduled screenings to which the currently authenticated user has read access."
+        },
+        {
+          "info": {
+            "name": "Get Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/scheduled_screenings/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve metadata about a scheduled screening."
+        },
+        {
+          "info": {
+            "name": "Run Scheduled Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/scheduled_screenings/:id/run",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Run a scheduled screening immediately."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

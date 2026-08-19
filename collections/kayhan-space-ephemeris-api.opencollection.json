@@ -1,0 +1,439 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Ephemeris API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Ephemeris",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Ephemerides",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/ephemerides",
+            "params": [
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List the ephemerides to which the currently authenticated user has read access."
+        },
+        {
+          "info": {
+            "name": "Create Ephemeris",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/ephemerides",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Upload an ephemeris file to Kayhan's system.<br/>\n    Uploaded ephemerides can be added to a Screening using\n    `POST /screenings/{id}/primaries`.<br/>\n    **NOTE:** Only ephemerides using an inertial reference frame are\n    accepted at this time."
+        },
+        {
+          "info": {
+            "name": "Operationalize Ephemeris",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/ephemerides/:id/operationalize",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Re-designate an existing ephemeris as the current OPERATIONAL."
+        },
+        {
+          "info": {
+            "name": "Get Current Operational Ephemeris",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/rsos/:norad_id/current_operational_ephemeris",
+            "params": [
+              {
+                "name": "norad_id",
+                "value": "",
+                "type": "path",
+                "description": "NORAD ID of the object for which to retrieve operational ephemeris"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the current operational ephemeris for an RSO."
+        },
+        {
+          "info": {
+            "name": "Get Ephemeris",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/ephemerides/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ephemeris to get"
+              },
+              {
+                "name": "organization_id",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve metadata of an ephemeris."
+        },
+        {
+          "info": {
+            "name": "Archive Ephemeris",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/ephemerides/:id/archive",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ephemeris to get"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Mark an ephemeris as archived. This retains metadata about the ephemeris, but renders the ephemeris data inaccessible."
+        },
+        {
+          "info": {
+            "name": "Get Ephemeris Content",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/ephemerides/:id/file",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ephemeris to get"
+              },
+              {
+                "name": "file_format",
+                "value": "",
+                "type": "query",
+                "description": "File format of the ephemeris file being uploaded. ORIGINAL will fail if the data was stored in an HDF5 or other deprecated format."
+              },
+              {
+                "name": "ref_frame",
+                "value": "",
+                "type": "query",
+                "description": "Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the stored frame of the ephemeris."
+              },
+              {
+                "name": "cov_frame",
+                "value": "",
+                "type": "query",
+                "description": "Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the frame the trajectory was originally uploaded with."
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom filename. If not supplied, a default or original filename will be generated."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve file content of an ephemeris."
+        },
+        {
+          "info": {
+            "name": "Get Ephemeris Json Viz",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/ephemerides/:id/jsonviz",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ephemeris to get"
+              },
+              {
+                "name": "interpolate_to_unix_minutes_grid",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "dt_s",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pos_units",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve file content of an ephemeris in a JSON format for data visualization."
+        },
+        {
+          "info": {
+            "name": "Create Ephemeris From Opm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/ephemerides/opm",
+            "params": [
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create ephemeris from an opm file"
+        },
+        {
+          "info": {
+            "name": "Get Ephemeris Summary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/ephemerides_summary",
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a summary of current OPERATIONAL ephemeris in the respository."
+        },
+        {
+          "info": {
+            "name": "Trigger Covariance Tuning",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/ephemerides/:id/covariance_tuning",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the ephemeris to trigger"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Manually trigger covariance realism tuning of an ephemeris."
+        },
+        {
+          "info": {
+            "name": "Trigger Covariance Tuning Bulk",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "/api/satcat/trigger_covariance_tuning_bulk",
+            "params": [
+              {
+                "name": "ids",
+                "value": "",
+                "type": "query",
+                "description": "ID of the ephemeris to trigger"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Manually trigger covariance realism tuning of a list of ephemerides by id."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

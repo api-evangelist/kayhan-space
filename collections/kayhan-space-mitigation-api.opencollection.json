@@ -1,0 +1,251 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Mitigation API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Mitigation",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Mitigation Scenarios",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "List mitigation scenarios available for a conjunction message."
+        },
+        {
+          "info": {
+            "name": "Create Mitigation Scenario",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "ephem_id",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a mitigation scenario on the cdm id from an ephemeris id"
+        },
+        {
+          "info": {
+            "name": "Get Mitigation Scenario",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios/:scenario_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scenario_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get a mitigation scenario by ID."
+        },
+        {
+          "info": {
+            "name": "Create Mitigation Scenario From Opm",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios/opm",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "group_id",
+                "value": "",
+                "type": "query",
+                "description": "Optional group ID to use for the request"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Create a mitigation scenario on the cdm id from opm file"
+        },
+        {
+          "info": {
+            "name": "Get Scenario Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios/:scenario_id/screening",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scenario_key",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get screening associated with a theoretical CDM scenario.<br/>"
+        },
+        {
+          "info": {
+            "name": "Add Scenario Screening",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/conjunction_messages/:cdm_id/mitigation_scenarios/:scenario_id/screening",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "scenario_id",
+                "value": "",
+                "type": "path"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Post screening associated with a theoretical CDM scenario.<br/>"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

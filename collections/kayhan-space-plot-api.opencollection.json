@@ -1,0 +1,238 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Plot API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Plot",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Plot Elements By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/cdm_vis/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              },
+              {
+                "name": "timestep",
+                "value": "",
+                "type": "query",
+                "description": "Timestep for propagation. Defaults to duration / 300"
+              },
+              {
+                "name": "duration",
+                "value": "",
+                "type": "query",
+                "description": "Duration of propagation. Defaults to smallest orbital period"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get 3D viz points for given CDM by key or cdm_id."
+        },
+        {
+          "info": {
+            "name": "Get Kepler Elements By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/kep_elements/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              },
+              {
+                "name": "mu",
+                "value": "",
+                "type": "query",
+                "description": "Earth gravitational constant. 398600.4418 km^3/s^2 will be used as the default."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get all Keplerian Elements for a given CDM."
+        },
+        {
+          "info": {
+            "name": "Get Dilution Curves",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/max_pc_curves/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "key or cdm_id of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get dilution region max pc curves"
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message Bplane By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/bplane/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve BPlane Data for CDM by CDM ID."
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message Encounter Plane By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/encounter_plane/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve Encounter Plane Data for CDM by CDM ID."
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message Hbr Sensitivity By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/hbr_sensitivity/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of conjunction message"
+              },
+              {
+                "name": "maximum_combined_hbr",
+                "value": "",
+                "type": "query",
+                "description": "This field is deprecated and is no longer considered."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve HBR sensitivity Data for CDM by CDM ID."
+        },
+        {
+          "info": {
+            "name": "Get Conjunction Message Tracking Opportunities By Id",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/tracking_opportunities/:cdm_id",
+            "params": [
+              {
+                "name": "cdm_id",
+                "value": "",
+                "type": "path",
+                "description": "ID of conjunction message"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve tracking opportunity visibility windows for CDM by CDM ID."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

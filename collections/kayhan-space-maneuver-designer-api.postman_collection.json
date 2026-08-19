@@ -1,0 +1,1454 @@
+{
+  "item": [
+    {
+      "id": "6fdf9242-da1d-4d80-ae29-f5a24144da5a",
+      "name": "Maneuver Designer",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c3c28da1-f736-4401-93c4-5a84ed499bce",
+          "name": "Create Maneuver Project",
+          "request": {
+            "name": "Create Maneuver Project",
+            "description": {},
+            "url": {
+              "path": [
+                "maneuver_projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"project_type\": \"simple\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "98bd4611-4639-43d4-b1ce-7e2995e6280c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_type\": \"simple\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "75bc1e12-73f5-4232-84c9-d0426d522346",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"project_type\": \"simple\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fe0ea895-8ac4-4e2c-9aca-ddf5c522a7bb",
+          "name": "List Maneuver Projects",
+          "request": {
+            "name": "List Maneuver Projects",
+            "description": {
+              "content": "List the maneuver projects to which the currently authenticated user has read access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "maneuver_projects"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4b2208ae-0cf5-4c40-8c91-c61b7f52aa23",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"id\": \"19068d71-c9b4-c88d-de0d-025dd5ee6650\",\n      \"created_at\": \"1990-07-27T16:52:00.728Z\",\n      \"name\": \"string\",\n      \"automatically_generated\": false,\n      \"project_type\": \"string\",\n      \"user_id\": \"38320689-8fea-c4ab-95e9-1bd82d380fb2\",\n      \"group_id\": \"6c4ab569-84ab-d000-1e5e-e464d2a5522e\"\n    },\n    {\n      \"id\": \"cf24b560-c6dc-0126-7990-67d9ff836517\",\n      \"created_at\": \"2021-05-09T18:59:27.132Z\",\n      \"name\": \"string\",\n      \"automatically_generated\": false,\n      \"project_type\": \"string\",\n      \"user_id\": \"5c17f53f-1e35-ffd6-4558-d9b1913a6cf9\",\n      \"group_id\": \"4ba2f7ae-e20e-8aa8-f8e9-903ca710a91c\"\n    }\n  ],\n  \"total_count\": 6957\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d78aac3b-bb6d-441b-a696-0a2facec451f",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4b593603-4932-4460-9fa3-b4f836f0f428",
+          "name": "List Cola Maneuver Variants",
+          "request": {
+            "name": "List Cola Maneuver Variants",
+            "description": {
+              "content": "List the COLA maneuver variants to which the currently authenticated user has read access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cola_maneuver_variants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "2735f857-57ca-4d6f-8f97-3b427c8222d5",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"id\": \"4ca97fca-b548-9c8e-d412-31280e6c4215\",\n      \"created_at\": \"1958-11-22T22:50:28.960Z\",\n      \"name\": \"string\",\n      \"project_id\": \"7297edee-bb12-690e-c41c-b66fbc8e388e\",\n      \"original_conjunction_id\": \"999535ba-016e-1cc7-5d9a-6b9832d1fe8c\",\n      \"settings_data\": {\n        \"key_0\": 4894.660899403205,\n        \"key_1\": false,\n        \"key_2\": 6119,\n        \"key_3\": 4472.3289590906315\n      },\n      \"status\": \"string\",\n      \"progress_stage\": \"string\",\n      \"progress_current\": 5392,\n      \"progress_expected\": 9903,\n      \"user_id\": \"82296c79-c6f1-8570-f758-5da752d6ff76\",\n      \"group_id\": \"6dcbd4a8-3b5c-4882-d3a9-bc87de35dcf4\",\n      \"tradespace_data\": {\n        \"key_0\": 936,\n        \"key_1\": false,\n        \"key_2\": \"string\",\n        \"key_3\": 5171\n      }\n    },\n    {\n      \"id\": \"ea8d529e-1a7e-5ee8-fa81-ce57761e6c25\",\n      \"created_at\": \"1984-05-05T17:26:58.696Z\",\n      \"name\": \"string\",\n      \"project_id\": \"f2e47aae-5c62-2c52-a270-582db0862918\",\n      \"original_conjunction_id\": \"5e9c338c-54fd-9f04-d6e5-5be02b420318\",\n      \"settings_data\": {\n        \"key_0\": \"string\"\n      },\n      \"status\": \"string\",\n      \"progress_stage\": \"string\",\n      \"progress_current\": 359,\n      \"progress_expected\": 6212,\n      \"user_id\": \"09588e2f-e525-f34c-e30c-3ad7fd375f3b\",\n      \"group_id\": \"2b9d7d9b-cd58-dc0f-b266-c47500792657\",\n      \"tradespace_data\": {\n        \"key_0\": 7459.351301236336,\n        \"key_1\": true\n      }\n    }\n  ],\n  \"total_count\": 5343\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f6f57b33-62c7-4dc0-91cc-de1823b404a5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "63b01199-1942-4a60-b974-02a9601e573a",
+          "name": "Get Cola Maneuver Variant",
+          "request": {
+            "name": "Get Cola Maneuver Variant",
+            "description": {
+              "content": "Retrieve a COLA maneuver variant by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cola_maneuver_variants",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) The UUID of the ManeuverDesignerSimpleVariant to retrieve."
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "72649d95-f6eb-42de-855d-150c8c94fe04",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_variants",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the ManeuverDesignerSimpleVariant to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"62b82e00-75b8-103d-a8e2-cc59040aa359\",\n  \"created_at\": \"1963-05-01T04:11:21.902Z\",\n  \"name\": \"string\",\n  \"project_id\": \"7c8df2ac-eb4c-1a4b-cd86-9bb8f7e76262\",\n  \"original_conjunction_id\": \"32c86418-e9c3-cdfa-c51d-bdc74c476df1\",\n  \"settings_data\": {\n    \"key_0\": false,\n    \"key_1\": \"string\"\n  },\n  \"status\": \"string\",\n  \"progress_stage\": \"string\",\n  \"progress_current\": 3875,\n  \"progress_expected\": 287,\n  \"user_id\": \"591bca0b-e4ee-b771-8831-cade74728139\",\n  \"group_id\": \"64d8762b-b148-cc3d-187e-d67744216ef1\",\n  \"tradespace_data\": {\n    \"key_0\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81b06101-e0cf-48ed-8380-1660092fb201",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_variants",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) The UUID of the ManeuverDesignerSimpleVariant to retrieve."
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c51586d-7798-47c1-b4ff-7559761d1ce9",
+          "name": "List Cola Maneuver Plans",
+          "request": {
+            "name": "List Cola Maneuver Plans",
+            "description": {
+              "content": "List the COLA maneuver plans to which the currently authenticated user has read access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "cola_maneuver_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb9e3cd8-d0eb-499f-aa1c-3561df8f6455",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"id\": \"09e582ae-e96c-bec3-55a3-2127c1f50a12\",\n      \"created_at\": \"1986-01-17T20:01:31.495Z\",\n      \"variant_id\": \"1240ae60-3bb4-126a-c273-3f818ef64061\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"user_id\": \"926158ec-0479-f9e2-a11c-f7407a1b3643\",\n      \"group_id\": \"bed82af6-7e39-1b76-5e98-6f336bc06927\",\n      \"parameters_data\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"opm_file_content\": \"string\",\n      \"conjunction_id\": \"e9487636-a06d-3a05-f56c-75d10df8277c\",\n      \"ephemeris_id\": \"f5e2f749-460f-90c9-c2a2-f39661682ede\",\n      \"conjunction\": {\n        \"tca\": \"1972-06-11T07:01:37.746Z\",\n        \"miss_distance_km\": 7257.030936078042,\n        \"launch_time\": \"2003-12-14T22:38:58.923Z\",\n        \"collision_probability\": 7707.688399497447,\n        \"primary\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"data_format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"custom_storage_path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"altitude_km\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"repository_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"event_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"shared_event_keys\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"covariance_corrected\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source_ephemeris_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"secondary\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"data_format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"custom_storage_path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"altitude_km\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"repository_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"event_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"shared_event_keys\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"covariance_corrected\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source_ephemeris_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    },\n    {\n      \"id\": \"2acc48a4-133d-aa11-df91-efd9a0cddb67\",\n      \"created_at\": \"2008-01-05T11:21:42.066Z\",\n      \"variant_id\": \"bd392a97-cf5b-c7e1-a0aa-9ad6e13f4a6b\",\n      \"name\": \"string\",\n      \"status\": \"string\",\n      \"user_id\": \"b1f6a0fa-02cf-e761-0e83-b9358a16294d\",\n      \"group_id\": \"780f2774-54e3-f718-4303-5df93eff745d\",\n      \"parameters_data\": {\n        \"key_0\": 1433,\n        \"key_1\": 780.8815972867145,\n        \"key_2\": true\n      },\n      \"opm_file_content\": \"string\",\n      \"conjunction_id\": \"beb4e4e2-7baf-3fcd-8c3b-25661586697b\",\n      \"ephemeris_id\": \"228d0b03-46ed-2d1b-e490-07cae409a1f3\",\n      \"conjunction\": {\n        \"tca\": \"2026-05-14T20:05:53.403Z\",\n        \"miss_distance_km\": 4215.736248620281,\n        \"launch_time\": \"1997-11-12T04:59:30.307Z\",\n        \"collision_probability\": 5712.5318582157415,\n        \"primary\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"data_format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"custom_storage_path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"altitude_km\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"repository_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"event_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"shared_event_keys\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"covariance_corrected\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source_ephemeris_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        },\n        \"secondary\": {\n          \"id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"filename\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"data_format\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"custom_storage_path\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"altitude_km\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"repository_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"event_public\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"shared_event_keys\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"rso\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"user_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"group_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"covariance_corrected\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"source_ephemeris_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      }\n    }\n  ],\n  \"total_count\": 1289\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "498e0baa-4a15-45e4-aa95-4ddc16094c26",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "cola_maneuver_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c7d1be47-e989-40fa-b13a-869854159d5c",
+          "name": "Run Simple Maneuver Variant",
+          "request": {
+            "name": "Run Simple Maneuver Variant",
+            "description": {},
+            "url": {
+              "path": [
+                "maneuver_projects",
+                "simple",
+                ":project_id",
+                "variants"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"original_conjunction_id\": \"<uuid>\",\n  \"original_conjunction_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"settings_data\": {\n    \"runner\": \"sensitivity\",\n    \"aggregate_tertiary_cdms\": true,\n    \"man_ignition_time_start_tca_minus_hours\": \"<integer>\",\n    \"man_ignition_time_end_tca_minus_hours\": 0,\n    \"tradespace_ignition_times_per_period\": 2,\n    \"man_dv_direction_x\": 0,\n    \"man_dv_direction_y\": 1,\n    \"man_dv_direction_z\": 0,\n    \"man_dv_frame\": \"RIC\",\n    \"man_dv_mag_min_m_s\": -0.1,\n    \"man_dv_mag_max_m_s\": 0.1,\n    \"man_execution_uncertainty\": {\n      \"type\": \"GATES\",\n      \"magnitude_fixed_error_m_s\": 0,\n      \"magnitude_proportional_error_frac\": 0,\n      \"pointing_fixed_error_m_s\": 0,\n      \"pointing_angle_error_rad\": 0\n    },\n    \"primary_propagation_attributes\": {\n      \"mass_kg\": \"<number>\",\n      \"area_drag_m2\": \"<number>\",\n      \"area_rad_m2\": \"<number>\",\n      \"coeff_drag\": \"<number>\",\n      \"coeff_rad\": \"<number>\",\n      \"hbr_m\": \"<number>\",\n      \"hbr_source\": \"cdm\"\n    },\n    \"secondary_propagation_attributes\": {\n      \"hbr_m\": \"<number>\",\n      \"hbr_source\": \"cdm\"\n    },\n    \"primary_data_source\": {\n      \"source_type\": \"CDM\"\n    },\n    \"agg_stats_skip_automaneuver_secondaries\": \"<boolean>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "f941cc9a-9344-457c-8f66-5428d429e85a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects",
+                    "simple",
+                    ":project_id",
+                    "variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"original_conjunction_id\": \"<uuid>\",\n  \"original_conjunction_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"settings_data\": {\n    \"runner\": \"sensitivity\",\n    \"aggregate_tertiary_cdms\": true,\n    \"man_ignition_time_start_tca_minus_hours\": 66,\n    \"man_ignition_time_end_tca_minus_hours\": 0,\n    \"tradespace_ignition_times_per_period\": 2,\n    \"man_dv_direction_x\": 0,\n    \"man_dv_direction_y\": 1,\n    \"man_dv_direction_z\": 0,\n    \"man_dv_frame\": \"RIC\",\n    \"man_dv_mag_min_m_s\": -0.1,\n    \"man_dv_mag_max_m_s\": 0.1,\n    \"man_execution_uncertainty\": {\n      \"type\": \"GATES\",\n      \"magnitude_fixed_error_m_s\": 0,\n      \"magnitude_proportional_error_frac\": 0,\n      \"pointing_fixed_error_m_s\": 0,\n      \"pointing_angle_error_rad\": 0\n    },\n    \"primary_propagation_attributes\": {\n      \"mass_kg\": 9143.311613878646,\n      \"area_drag_m2\": 6287.31590787273,\n      \"area_rad_m2\": 640.6309204865523,\n      \"coeff_drag\": 7557.7562705233095,\n      \"coeff_rad\": 1462.6313554604576,\n      \"hbr_m\": 8779.309404253856,\n      \"hbr_source\": \"cdm\"\n    },\n    \"secondary_propagation_attributes\": {\n      \"hbr_m\": 9588.35172758661,\n      \"hbr_source\": \"cdm\"\n    },\n    \"primary_data_source\": {\n      \"source_type\": \"CDM\"\n    },\n    \"agg_stats_skip_automaneuver_secondaries\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "127d0806-34d4-4cfe-a8c7-e2415fdb6212",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects",
+                    "simple",
+                    ":project_id",
+                    "variants"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"original_conjunction_id\": \"<uuid>\",\n  \"original_conjunction_key\": \"<string>\",\n  \"name\": \"<string>\",\n  \"settings_data\": {\n    \"runner\": \"sensitivity\",\n    \"aggregate_tertiary_cdms\": true,\n    \"man_ignition_time_start_tca_minus_hours\": 66,\n    \"man_ignition_time_end_tca_minus_hours\": 0,\n    \"tradespace_ignition_times_per_period\": 2,\n    \"man_dv_direction_x\": 0,\n    \"man_dv_direction_y\": 1,\n    \"man_dv_direction_z\": 0,\n    \"man_dv_frame\": \"RIC\",\n    \"man_dv_mag_min_m_s\": -0.1,\n    \"man_dv_mag_max_m_s\": 0.1,\n    \"man_execution_uncertainty\": {\n      \"type\": \"GATES\",\n      \"magnitude_fixed_error_m_s\": 0,\n      \"magnitude_proportional_error_frac\": 0,\n      \"pointing_fixed_error_m_s\": 0,\n      \"pointing_angle_error_rad\": 0\n    },\n    \"primary_propagation_attributes\": {\n      \"mass_kg\": 9143.311613878646,\n      \"area_drag_m2\": 6287.31590787273,\n      \"area_rad_m2\": 640.6309204865523,\n      \"coeff_drag\": 7557.7562705233095,\n      \"coeff_rad\": 1462.6313554604576,\n      \"hbr_m\": 8779.309404253856,\n      \"hbr_source\": \"cdm\"\n    },\n    \"secondary_propagation_attributes\": {\n      \"hbr_m\": 9588.35172758661,\n      \"hbr_source\": \"cdm\"\n    },\n    \"primary_data_source\": {\n      \"source_type\": \"CDM\"\n    },\n    \"agg_stats_skip_automaneuver_secondaries\": true\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3540a8c3-ea27-4fe0-921f-2cf6cf48eacf",
+          "name": "Generate Maneuver Plan",
+          "request": {
+            "name": "Generate Maneuver Plan",
+            "description": {},
+            "url": {
+              "path": [
+                "maneuver_projects",
+                "simple",
+                ":project_id",
+                "maneuver_plans"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "variant_id",
+                  "value": "<uuid>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "project_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"man_dv_mag_m_s\": \"<number>\",\n  \"time_utc\": \"<string>\",\n  \"man_dv_direction_x\": \"<number>\",\n  \"man_dv_direction_y\": \"<number>\",\n  \"man_dv_direction_z\": \"<number>\",\n  \"man_dv_frame\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "3d9602ab-4d07-4c47-8201-9189ecb7dc93",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects",
+                    "simple",
+                    ":project_id",
+                    "maneuver_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "variant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"man_dv_mag_m_s\": \"<number>\",\n  \"time_utc\": \"<string>\",\n  \"man_dv_direction_x\": \"<number>\",\n  \"man_dv_direction_y\": \"<number>\",\n  \"man_dv_direction_z\": \"<number>\",\n  \"man_dv_frame\": \"VNB\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d2152dea-891d-489e-829f-03391ccf1196",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "maneuver_projects",
+                    "simple",
+                    ":project_id",
+                    "maneuver_plans"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "variant_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "project_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"man_dv_mag_m_s\": \"<number>\",\n  \"time_utc\": \"<string>\",\n  \"man_dv_direction_x\": \"<number>\",\n  \"man_dv_direction_y\": \"<number>\",\n  \"man_dv_direction_z\": \"<number>\",\n  \"man_dv_frame\": \"VNB\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/satcat",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "f56b9614-841a-4d64-9da8-653280078684",
+    "name": "Satcat Service Authentication Maneuver Designer API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nKayhan Space's Satcat Service API.\n\n## Features\n* **View** historical CDM data for an object.\n* **View** latest CDM data for an object.\n\n\nContact Support:\n Email: help@kayhan.space",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,145 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication LEOP API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "LEOP",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Opm To Tle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/leop/ccsds_opm",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Opm To Tle"
+        },
+        {
+          "info": {
+            "name": "Oem To Tle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/leop/oem",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Oem To Tle"
+        },
+        {
+          "info": {
+            "name": "Spacex Transporter Opm To Tle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/leop/spacex_opm_transporter",
+            "params": [
+              {
+                "name": "from_mean_elements_instead_of_osculating_ecef",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns TLE for all the assets in the SpaceX OPM file.\nThe NORAD ID is assigned as either:\n  - The provided norad_id field in the YAML (if present)\n  - Otherwise 99001, 99002, ...\nThe COSPAR ID is 2024-152A, 2024-152B, ...\nTLE can be derived from ECEF state or \"mean\" orbital elements.\n\n.. note:\nThe SpaceX OPM does not clarify what the \"mean\" elements mean. Here, they are\nassumed to be Kozai mean elements."
+        },
+        {
+          "info": {
+            "name": "Spacex Transporter Single Opm To Tle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/leop/spacex_opm_transporter_single",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Returns a single TLE for one deployment entry from a SpaceX transporter OPM."
+        },
+        {
+          "info": {
+            "name": "Spacex Operator Opm To Tle",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "/api/satcat/leop/spacex_opm_operator",
+            "body": {
+              "type": "multipart-form",
+              "data": []
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Spacex Operator Opm To Tle"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

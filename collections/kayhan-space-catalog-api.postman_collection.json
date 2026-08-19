@@ -1,0 +1,673 @@
+{
+  "item": [
+    {
+      "id": "8f3e1947-4047-4e70-bc5a-203d5a6e33bc",
+      "name": "Catalog",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "7ea9d38e-8be2-41e6-af85-6c69abb0b1fb",
+          "name": "Get Catalog",
+          "request": {
+            "name": "Get Catalog",
+            "description": {
+              "content": "Retrieve metadata about a catalog.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the catalog to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0151a887-f3af-42b4-b4ef-7ef9fe2f0369",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the catalog to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemerides_count\": 3777,\n  \"id\": \"fc70cb12-4174-08e0-fa3f-dee5a725b64f\",\n  \"created_at\": \"1950-04-29T21:45:50.719Z\",\n  \"catalog_type\": \"CUSTOM\",\n  \"epoch\": \"2017-01-30T18:16:20.756Z\",\n  \"ephemerides_preview\": [\n    {\n      \"ephemeris_source\": \"PATHFINDER_API\",\n      \"has_covariance\": true,\n      \"ephemeris_type\": \"ON_ORBIT\",\n      \"apogee_km\": 3587.1247364689707,\n      \"perigee_km\": 7154.815868863044,\n      \"id\": \"1a484729-795f-fccc-4cac-ee78fb55dcd7\",\n      \"rso_id\": \"f762452e-e919-ddfe-12c5-441a8cbb4008\",\n      \"filename\": \"string\",\n      \"data_format\": \"hdf5\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 9460.813939780623,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"e5210c23-aa61-da88-347a-56239de7ad3f\",\n          \"event_key_number\": 421\n        },\n        {\n          \"ephemeris_id\": \"9d053961-2803-9714-e45f-67d80b927912\",\n          \"event_key_number\": 9848\n        }\n      ],\n      \"rso\": {\n        \"id\": \"22420cca-efe7-cf2a-e637-00ae33174945\",\n        \"norad_id\": 3854,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"c491f947-3fab-5b63-6c7d-6b25d5028cf6\",\n      \"group_id\": \"806394f9-fb4f-32f1-7689-6963b1467ddf\",\n      \"covariance_corrected\": true,\n      \"source_ephemeris_id\": \"310dcc50-099b-431c-77c9-c7b034aed15c\",\n      \"norad_id\": 8138,\n      \"solution_time\": \"1952-07-23T17:57:10.350Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 9511.076766041442,\n      \"current_operational\": false,\n      \"launch_time\": \"2004-05-18T17:29:07.022Z\",\n      \"usable_time_start\": \"2000-05-14T13:19:51.788Z\",\n      \"usable_time_end\": \"2010-09-28T01:20:51.711Z\",\n      \"context\": \"COLA\",\n      \"designation\": \"DEFINITIVE\",\n      \"catalog\": {\n        \"ephemerides_count\": 638,\n        \"id\": \"b278b679-c919-dc1e-ef71-99b596b9217e\",\n        \"created_at\": \"2011-03-26T03:20:17.306Z\",\n        \"catalog_type\": \"TLE\",\n        \"epoch\": \"1948-01-25T15:07:47.690Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"2010-07-31T18:03:44.972Z\",\n        \"usable_time_end\": \"2020-02-08T04:45:44.307Z\",\n        \"archive_protected\": false\n      }\n    },\n    {\n      \"ephemeris_source\": \"CATALOG\",\n      \"has_covariance\": false,\n      \"ephemeris_type\": \"LAUNCH\",\n      \"apogee_km\": 269.4395578331632,\n      \"perigee_km\": 5275.1654368461395,\n      \"id\": \"f4a81926-7c17-b5c3-e12b-144264bb346c\",\n      \"rso_id\": \"cbb39656-ede9-f3e7-6d3a-114c04b5b5fc\",\n      \"filename\": \"string\",\n      \"data_format\": \"gem\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 6774.722637980495,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"bba33084-222d-8280-1a8b-5f57265459f7\",\n          \"event_key_number\": 6622\n        },\n        {\n          \"ephemeris_id\": \"808e84aa-4265-468b-30ba-c83f40c3863e\",\n          \"event_key_number\": 6612\n        }\n      ],\n      \"rso\": {\n        \"id\": \"e4404d95-d4e2-8d08-f556-bccd0a0c206e\",\n        \"norad_id\": 9287,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"1e810700-4c87-a5f3-3398-aaebc9958fbe\",\n      \"group_id\": \"0750887a-cbcd-d0ee-2a51-140c068db33d\",\n      \"covariance_corrected\": true,\n      \"source_ephemeris_id\": \"d0f2cd51-f8f6-1b14-de4f-80e7d2ec2af2\",\n      \"norad_id\": 8,\n      \"solution_time\": \"1978-12-08T11:18:06.356Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 3035.260957218442,\n      \"current_operational\": false,\n      \"launch_time\": \"1997-06-12T04:14:42.988Z\",\n      \"usable_time_start\": \"1948-08-04T09:30:45.912Z\",\n      \"usable_time_end\": \"1962-11-01T19:31:07.426Z\",\n      \"context\": \"ROUTINE\",\n      \"designation\": \"DEFINITIVE\",\n      \"catalog\": {\n        \"ephemerides_count\": 6980,\n        \"id\": \"1d389656-0454-1606-5c8b-df189a291f46\",\n        \"created_at\": \"1989-05-05T03:50:55.205Z\",\n        \"catalog_type\": \"CUSTOM\",\n        \"epoch\": \"1975-03-20T22:10:05.830Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"1981-11-08T15:48:30.012Z\",\n        \"usable_time_end\": \"1960-08-01T17:26:56.160Z\",\n        \"archive_protected\": false\n      }\n    }\n  ],\n  \"object_overview\": {\n    \"leo\": {\n      \"total_count\": 8660,\n      \"deb_count\": 4298,\n      \"total_count_percent_change_month\": 3843.8730538209797\n    },\n    \"meo\": {\n      \"total_count\": 7134,\n      \"deb_count\": 7104,\n      \"total_count_percent_change_month\": 8970.524287560413\n    },\n    \"geo\": {\n      \"total_count\": 1386,\n      \"deb_count\": 7679,\n      \"total_count_percent_change_month\": 5304.027535915815\n    }\n  },\n  \"archived\": false,\n  \"filename\": \"string\",\n  \"ready\": false,\n  \"data_format\": \"string\",\n  \"usable_time_start\": \"1994-07-11T04:22:35.084Z\",\n  \"usable_time_end\": \"2019-07-31T07:10:41.180Z\",\n  \"archive_protected\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "296144df-7224-446f-902d-49be2b472957",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the catalog to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "64072704-6b03-4ee3-be75-ed1a88a641d7",
+          "name": "List Catalogs",
+          "request": {
+            "name": "List Catalogs",
+            "description": {
+              "content": "List the catalogs available on the server, optionally for a specific catalog type. If using the `latest` parameter, return only the latest catalog available for each individual catalog type available. Pagination parameters are ignored when using the `latest` parameter. Additionally, archived and unready catalogs are not returned when using the `latest` parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "catalogs"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "latest",
+                  "value": "false",
+                  "description": "Whether to retrieve only the latest catalog for each applicable catalog_type."
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "61c7c0ca-7ad2-483c-b74f-7ae045c3d9fa",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latest",
+                      "value": "false"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"ephemerides_count\": 3386,\n      \"id\": \"48e335da-1b10-d193-aee3-22f793f1a423\",\n      \"created_at\": \"2025-12-12T04:02:12.023Z\",\n      \"catalog_type\": \"CUSTOM\",\n      \"epoch\": \"2026-07-13T11:10:32.482Z\",\n      \"ephemerides_preview\": [\n        {\n          \"ephemeris_source\": \"STARLINK_STC_API\",\n          \"has_covariance\": true,\n          \"ephemeris_type\": \"ON_ORBIT\",\n          \"apogee_km\": 4319.965943792795,\n          \"perigee_km\": 3384.841219892041,\n          \"id\": \"6b7a7ce4-2a46-e214-1d1e-015085cb3fda\",\n          \"rso_id\": \"4be68ba1-f558-11df-c18b-a84822f1cebb\",\n          \"filename\": \"string\",\n          \"data_format\": \"hdf5\",\n          \"custom_storage_path\": \"string\",\n          \"altitude_km\": 5380.811084206316,\n          \"repository_public\": false,\n          \"event_public\": false,\n          \"shared_event_keys\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"rso\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"norad_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"international_designator\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type_category\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"user_id\": \"5871e19c-f739-c524-6e56-f105faf4578b\",\n          \"group_id\": \"36132235-4327-3528-1e72-b2878dde2343\",\n          \"covariance_corrected\": false,\n          \"source_ephemeris_id\": \"31450b9c-6c9f-1572-d238-5083b9c65943\",\n          \"norad_id\": 5484,\n          \"solution_time\": \"1982-06-18T17:23:35.290Z\",\n          \"comments\": \"string\",\n          \"archived\": false,\n          \"hbr_m\": 917.5588177050442,\n          \"current_operational\": false,\n          \"launch_time\": \"2011-06-08T11:29:02.170Z\",\n          \"usable_time_start\": \"1960-10-20T22:01:59.952Z\",\n          \"usable_time_end\": \"2006-05-28T11:29:55.026Z\",\n          \"context\": \"MAINTENANCE\",\n          \"designation\": \"OPERATIONAL\",\n          \"catalog\": {\n            \"ephemerides_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalog_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"epoch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archived\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filename\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ready\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"data_format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive_protected\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"ephemeris_source\": \"KAYHAN_INTERNAL_PROCESS\",\n          \"has_covariance\": true,\n          \"ephemeris_type\": \"LAUNCH\",\n          \"apogee_km\": 5066.281976028459,\n          \"perigee_km\": 3850.3124868763184,\n          \"id\": \"22740906-5a80-4a32-5bb6-8218f45ccb5f\",\n          \"rso_id\": \"00778e3e-15df-33f6-3f9c-d258ce7a88c7\",\n          \"filename\": \"string\",\n          \"data_format\": \"gem\",\n          \"custom_storage_path\": \"string\",\n          \"altitude_km\": 3800.130996621918,\n          \"repository_public\": false,\n          \"event_public\": false,\n          \"shared_event_keys\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"rso\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"norad_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"international_designator\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type_category\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"user_id\": \"5b85543d-1f7c-1cfe-6040-70027c2a0b9a\",\n          \"group_id\": \"6c5335de-9d07-b0e1-d7bb-8b07779d4f54\",\n          \"covariance_corrected\": true,\n          \"source_ephemeris_id\": \"b3d93ff2-c33e-ec43-1c0b-d2529b26e2ce\",\n          \"norad_id\": 9729,\n          \"solution_time\": \"1975-12-06T04:39:13.513Z\",\n          \"comments\": \"string\",\n          \"archived\": false,\n          \"hbr_m\": 9229.738729760948,\n          \"current_operational\": false,\n          \"launch_time\": \"1959-05-24T21:16:25.068Z\",\n          \"usable_time_start\": \"1956-01-30T23:37:13.265Z\",\n          \"usable_time_end\": \"1993-09-10T09:15:36.885Z\",\n          \"context\": \"NOVEL\",\n          \"designation\": \"OPERATIONAL\",\n          \"catalog\": {\n            \"ephemerides_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalog_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"epoch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archived\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filename\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ready\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"data_format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive_protected\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"object_overview\": {\n        \"leo\": {\n          \"total_count\": 4332,\n          \"deb_count\": 3581,\n          \"total_count_percent_change_month\": 9702.641923003066\n        },\n        \"meo\": {\n          \"total_count\": 9584,\n          \"deb_count\": 918,\n          \"total_count_percent_change_month\": 5760.528628169719\n        },\n        \"geo\": {\n          \"total_count\": 8257,\n          \"deb_count\": 5874,\n          \"total_count_percent_change_month\": 4027.06800413963\n        }\n      },\n      \"archived\": false,\n      \"filename\": \"string\",\n      \"ready\": false,\n      \"data_format\": \"string\",\n      \"usable_time_start\": \"1982-11-13T00:20:24.195Z\",\n      \"usable_time_end\": \"1981-08-08T10:58:04.967Z\",\n      \"archive_protected\": false\n    },\n    {\n      \"ephemerides_count\": 5921,\n      \"id\": \"b6dfdea7-c2af-633e-1021-dcc44f579ca7\",\n      \"created_at\": \"1962-01-21T01:45:09.626Z\",\n      \"catalog_type\": \"TLE\",\n      \"epoch\": \"1969-03-06T00:34:56.191Z\",\n      \"ephemerides_preview\": [\n        {\n          \"ephemeris_source\": \"PATHFINDER_API\",\n          \"has_covariance\": true,\n          \"ephemeris_type\": \"LAUNCH\",\n          \"apogee_km\": 7474.097832227609,\n          \"perigee_km\": 6786.908579348563,\n          \"id\": \"dba736d0-e643-7192-e223-b3615d0bd316\",\n          \"rso_id\": \"93796a11-660c-33d8-b0bd-e6669f888c2f\",\n          \"filename\": \"string\",\n          \"data_format\": \"original\",\n          \"custom_storage_path\": \"string\",\n          \"altitude_km\": 6904.907675925591,\n          \"repository_public\": false,\n          \"event_public\": false,\n          \"shared_event_keys\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"rso\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"norad_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"international_designator\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type_category\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"user_id\": \"b79b6288-7141-80f2-831e-fd6ebe322c2b\",\n          \"group_id\": \"7c99ac03-bf95-c682-a3d3-1300e65df78a\",\n          \"covariance_corrected\": false,\n          \"source_ephemeris_id\": \"02b15ffa-5813-46cd-03db-c6b8d991ba14\",\n          \"norad_id\": 8500,\n          \"solution_time\": \"2000-02-02T06:44:05.337Z\",\n          \"comments\": \"string\",\n          \"archived\": false,\n          \"hbr_m\": 1147.7654908217594,\n          \"current_operational\": false,\n          \"launch_time\": \"1956-12-04T06:14:11.460Z\",\n          \"usable_time_start\": \"1989-10-17T19:01:40.437Z\",\n          \"usable_time_end\": \"1977-03-28T11:01:17.958Z\",\n          \"context\": \"COLA\",\n          \"designation\": \"PREDICTIVE\",\n          \"catalog\": {\n            \"ephemerides_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalog_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"epoch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archived\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filename\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ready\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"data_format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive_protected\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        {\n          \"ephemeris_source\": \"KAYHAN_INTERNAL_PROCESS\",\n          \"has_covariance\": true,\n          \"ephemeris_type\": \"LAUNCH\",\n          \"apogee_km\": 4233.715013603391,\n          \"perigee_km\": 1228.6965822224915,\n          \"id\": \"2cc23c11-b508-8d86-d2cf-84d402030f60\",\n          \"rso_id\": \"4cbce7ec-4321-b9cc-861c-d669798bbc8a\",\n          \"filename\": \"string\",\n          \"data_format\": \"gem\",\n          \"custom_storage_path\": \"string\",\n          \"altitude_km\": 3093.523263375807,\n          \"repository_public\": false,\n          \"event_public\": false,\n          \"shared_event_keys\": [\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          ],\n          \"rso\": {\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"norad_id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"international_designator\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_type_category\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"object_name\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"user_id\": \"422d7c0f-4a90-e15b-8c2d-86e1f3f10668\",\n          \"group_id\": \"6e662eee-71d6-2cbf-826c-298e0c5b6985\",\n          \"covariance_corrected\": true,\n          \"source_ephemeris_id\": \"d29b700a-f75a-28be-63ce-fe43e82a8498\",\n          \"norad_id\": 8995,\n          \"solution_time\": \"1974-03-08T12:30:23.221Z\",\n          \"comments\": \"string\",\n          \"archived\": false,\n          \"hbr_m\": 3966.5162819395273,\n          \"current_operational\": false,\n          \"launch_time\": \"1970-01-24T23:46:43.484Z\",\n          \"usable_time_start\": \"2010-04-27T21:34:59.971Z\",\n          \"usable_time_end\": \"2026-06-25T16:25:44.636Z\",\n          \"context\": \"DECAY\",\n          \"designation\": \"OPERATIONAL\",\n          \"catalog\": {\n            \"ephemerides_count\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"id\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"created_at\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"catalog_type\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"epoch\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archived\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"filename\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"ready\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"data_format\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_start\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"usable_time_end\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"archive_protected\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        }\n      ],\n      \"object_overview\": {\n        \"leo\": {\n          \"total_count\": 3801,\n          \"deb_count\": 7936,\n          \"total_count_percent_change_month\": 2526.6342958416035\n        },\n        \"meo\": {\n          \"total_count\": 6711,\n          \"deb_count\": 7971,\n          \"total_count_percent_change_month\": 4140.899185729641\n        },\n        \"geo\": {\n          \"total_count\": 2660,\n          \"deb_count\": 1721,\n          \"total_count_percent_change_month\": 747.3114020517124\n        }\n      },\n      \"archived\": false,\n      \"filename\": \"string\",\n      \"ready\": false,\n      \"data_format\": \"string\",\n      \"usable_time_start\": \"1988-05-12T16:11:14.015Z\",\n      \"usable_time_end\": \"1960-06-04T14:30:52.150Z\",\n      \"archive_protected\": false\n    }\n  ],\n  \"total_count\": 4774\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "04ffe124-7a36-4734-9128-0b53b0751a7e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "latest",
+                      "value": "false"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2c623db9-fb05-4803-9c7e-bec4fd290e12",
+          "name": "List Ephemerides In Catalog",
+          "request": {
+            "name": "List Ephemerides In Catalog",
+            "description": {},
+            "url": {
+              "path": [
+                "catalogs",
+                ":id",
+                "ephemerides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<uuid>",
+                  "key": "id",
+                  "description": "(Required) ID of the catalog to list"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ed07d8ba-fcf7-4c54-8316-6788bd5aee55",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":id",
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the catalog to list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"ephemeris_source\": \"KAYHAN_INTERNAL_PROCESS\",\n      \"has_covariance\": true,\n      \"ephemeris_type\": \"ON_ORBIT\",\n      \"apogee_km\": 5876.968772514587,\n      \"perigee_km\": 6940.00123852832,\n      \"id\": \"28796af0-df2f-bd2e-76bb-848b8f619277\",\n      \"rso_id\": \"00903385-b74d-4230-aad5-09e814386662\",\n      \"filename\": \"string\",\n      \"data_format\": \"gem\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 465.0722690150655,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"cae451f7-a222-8f53-a4c0-ddfc991ff61a\",\n          \"event_key_number\": 3896\n        },\n        {\n          \"ephemeris_id\": \"3cdc1e88-5b5f-0bd4-331a-8f7f025d4344\",\n          \"event_key_number\": 2570\n        }\n      ],\n      \"rso\": {\n        \"id\": \"4d8f6f6a-ffbb-97e0-df40-9803ef0cbf00\",\n        \"norad_id\": 5624,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"b7948d92-2b7c-a213-7dab-cacca7f279fd\",\n      \"group_id\": \"62bf35b0-836b-4e2f-0b4f-858c23a7dbbf\",\n      \"covariance_corrected\": false,\n      \"source_ephemeris_id\": \"16d76d90-b3d7-162e-5e13-4d75c40f2d81\",\n      \"norad_id\": 3602,\n      \"solution_time\": \"2015-08-10T02:57:22.787Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 7975.909346131701,\n      \"current_operational\": false,\n      \"launch_time\": \"1960-11-06T15:45:22.842Z\",\n      \"usable_time_start\": \"1964-08-19T20:11:20.978Z\",\n      \"usable_time_end\": \"1999-05-13T03:42:54.715Z\",\n      \"context\": \"ROUTINE\",\n      \"designation\": \"TLE\",\n      \"catalog\": {\n        \"ephemerides_count\": 8677,\n        \"id\": \"2c5cf4df-754c-85f6-88b2-78c847794130\",\n        \"created_at\": \"1946-11-15T02:26:25.562Z\",\n        \"catalog_type\": \"CUSTOM\",\n        \"epoch\": \"1967-07-11T03:16:51.231Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"1975-11-11T02:51:44.350Z\",\n        \"usable_time_end\": \"1948-06-11T16:16:29.162Z\",\n        \"archive_protected\": false\n      }\n    },\n    {\n      \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n      \"has_covariance\": true,\n      \"ephemeris_type\": \"ON_ORBIT\",\n      \"apogee_km\": 4204.220871304337,\n      \"perigee_km\": 4669.384758927987,\n      \"id\": \"903d05dc-acbd-c03c-a100-6249c49bb854\",\n      \"rso_id\": \"ad4c8314-ded0-21c9-9ce7-de23c3b7a774\",\n      \"filename\": \"string\",\n      \"data_format\": \"gem\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 9863.163564902481,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"228ce177-f3a3-5d6c-4384-44ff690309b0\",\n          \"event_key_number\": 6272\n        },\n        {\n          \"ephemeris_id\": \"4cd6e880-4102-0dc8-bf2d-19ee519894cc\",\n          \"event_key_number\": 2653\n        }\n      ],\n      \"rso\": {\n        \"id\": \"962a9019-c1c1-8fdf-a48b-07db3c340a8c\",\n        \"norad_id\": 1235,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"4c6806e6-d614-38af-c12c-814564f77f05\",\n      \"group_id\": \"be5a481e-060b-b7f9-7547-acbc44fb270b\",\n      \"covariance_corrected\": true,\n      \"source_ephemeris_id\": \"390d6476-7b00-f693-e44d-aa7d00b70cb0\",\n      \"norad_id\": 759,\n      \"solution_time\": \"1962-09-20T19:07:45.121Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 3034.0010890242543,\n      \"current_operational\": false,\n      \"launch_time\": \"1958-09-28T21:58:42.062Z\",\n      \"usable_time_start\": \"1971-08-11T21:10:10.908Z\",\n      \"usable_time_end\": \"1987-01-25T02:24:13.236Z\",\n      \"context\": \"MAINTENANCE\",\n      \"designation\": \"OPERATIONAL\",\n      \"catalog\": {\n        \"ephemerides_count\": 8198,\n        \"id\": \"72e9b46d-b2a4-43ae-e79a-876380522e2e\",\n        \"created_at\": \"1991-01-21T11:45:03.566Z\",\n        \"catalog_type\": \"CUSTOM\",\n        \"epoch\": \"2007-06-18T07:04:14.959Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"1967-10-21T08:05:33.182Z\",\n        \"usable_time_end\": \"1976-12-17T03:30:30.756Z\",\n        \"archive_protected\": false\n      }\n    }\n  ],\n  \"total_count\": 6999\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bd71ff88-c21d-4861-a330-d33ed3a900d6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "catalogs",
+                    ":id",
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<uuid>",
+                      "key": "id",
+                      "description": "(Required) ID of the catalog to list"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/satcat",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e124feb0-6e81-43f2-be81-14aceae4c5bb",
+    "name": "Satcat Service Authentication Catalog API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nKayhan Space's Satcat Service API.\n\n## Features\n* **View** historical CDM data for an object.\n* **View** latest CDM data for an object.\n\n\nContact Support:\n Email: help@kayhan.space",
+      "type": "text/plain"
+    }
+  }
+}

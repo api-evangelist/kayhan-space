@@ -1,0 +1,556 @@
+{
+  "item": [
+    {
+      "id": "97db3f79-bfec-4735-8930-5cb294e7038a",
+      "name": "Events",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "db9f43f9-cfe3-4dd3-864c-e9c0f8b3e96f",
+          "name": "List Event Cdms",
+          "request": {
+            "name": "List Event Cdms",
+            "description": {
+              "content": "List the CDMs in the event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_key",
+                "cdms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "operational",
+                  "value": "true",
+                  "description": "Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "event_key",
+                  "description": "(Required) key of the event"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0612258f-3873-4248-8dae-4ab4c2866a39",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_key",
+                    "cdms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operational",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_key",
+                      "description": "(Required) key of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"designation\": \"THEORETICAL\",\n      \"key_number\": 3890,\n      \"insert_epoch\": \"2012-06-01T00:53:10.981Z\",\n      \"creation_date\": \"1965-11-05T11:28:41.632Z\",\n      \"tca\": \"2012-11-06T08:47:42.669Z\",\n      \"miss_distance_km\": 3769.5096101509375,\n      \"relative_velocity_mag_km_s\": 2702.3459564819887,\n      \"relative_position_r_km\": 6989.635357498234,\n      \"relative_position_i_km\": 5663.070765662887,\n      \"relative_position_c_km\": 9734.028046673155,\n      \"relative_velocity_r_km_s\": 7700.715746915054,\n      \"relative_velocity_i_km_s\": 5780.983436972397,\n      \"relative_velocity_c_km_s\": 7914.908902019866,\n      \"primary_rso_id\": \"71b810a1-a9f5-56a3-3ae2-fc7d1f8d4c2b\",\n      \"secondary_rso_id\": \"3a0450e4-26cf-185c-cec6-15d938ca96e0\",\n      \"is_intra_org\": false,\n      \"id\": \"9e543ee4-d698-56b0-e5c3-a3c2e7e26863\",\n      \"key\": \"string\",\n      \"event_id\": \"6a1a64e3-1a65-b969-2bc2-ed0dcd729478\",\n      \"event\": {\n        \"id\": \"15b29f4d-5bb3-399e-3296-d59d100830ac\",\n        \"key\": \"string\"\n      },\n      \"created_at\": \"2023-02-12T05:28:43.541Z\",\n      \"updated_at\": \"1968-04-18T10:13:11.985Z\",\n      \"cdm_id\": 6474,\n      \"filename\": \"string\",\n      \"originator\": \"string\",\n      \"comment_screening_option\": \"string\",\n      \"collision_probability\": 767.3870041138741,\n      \"collision_probability_method\": \"string\",\n      \"frisbee_collision_probability\": 7345.30728228919,\n      \"frisbee_collision_probability_method\": \"string\",\n      \"original_collision_probability\": 8348.799490934694,\n      \"original_collision_probability_method\": \"string\",\n      \"angle_of_approach\": 9531.349721654424,\n      \"mahalanobis_distance\": 4129.881975064473,\n      \"relative_miss_sig_m\": 226.0437030842899,\n      \"relative_sig_r_u_m\": 7451.6886219624985,\n      \"relative_sig_it_u_m\": 3180.500226533246,\n      \"relative_sig_ct_u_m\": 5910.908019609642,\n      \"primary\": {\n        \"id\": \"2b0e31f3-a5c2-1958-95d2-fde39270c222\",\n        \"norad_id\": 9854,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"secondary\": {\n        \"id\": \"34de63a8-755c-99fa-f6ab-8daae54309f6\",\n        \"norad_id\": 9599,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"recommendation_jsonb\": {\n        \"key_0\": 910.5142559679824,\n        \"key_1\": false\n      },\n      \"primary_state\": {\n        \"x_km\": 2398.1095524718,\n        \"y_km\": 4615.384706565544,\n        \"z_km\": 9711.942998486476,\n        \"x_dot_km\": 3079.217489962679,\n        \"y_dot_km\": 6474.274667913629,\n        \"z_dot_km\": 4510.245293209627,\n        \"id\": \"e368af0d-a8bc-2b4b-7dd6-3bf9959b813e\",\n        \"created_at\": \"1961-11-12T18:51:18.446Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 2093.2285112011195,\n        \"time_lastob_start\": \"1998-03-22T03:36:37.501Z\",\n        \"time_lastob_end\": \"2001-01-07T16:10:59.393Z\",\n        \"recommended_od_span\": 8002.556071636396,\n        \"actual_od_span\": 1693.0410102724325,\n        \"obs_available\": 8542,\n        \"obs_used\": 5967,\n        \"tracks_available\": 8807,\n        \"tracks_used\": 8277,\n        \"residuals_accepted\": 2237,\n        \"weighted_rms\": 914.0599192319764,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": true,\n            \"key_1\": 9803,\n            \"key_2\": \"string\"\n          },\n          \"key_1\": {\n            \"key_0\": \"string\",\n            \"key_1\": 949\n          },\n          \"key_2\": {\n            \"key_0\": \"string\",\n            \"key_1\": 8718.321024387504,\n            \"key_2\": 928.8653510530098,\n            \"key_3\": 8277\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 9955.50525204167,\n        \"cd_area_over_mass\": 6516.342679263494,\n        \"cr_area_over_mass\": 5850.291453383313,\n        \"thrust_acceleration_m\": 5316.295041433828,\n        \"sedr\": 1236.28250458942,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 8963.683913339954,\n        \"ct_r\": 8324.491465459669,\n        \"ct_t\": 64.15687350393773,\n        \"cn_r\": 8423.387987651688,\n        \"cn_t\": 2734.111721632734,\n        \"cn_n\": 7011.791316928824,\n        \"crdot_r\": 8746.857684495646,\n        \"crdot_t\": 9394.035179666522,\n        \"crdot_n\": 1621.5274544584013,\n        \"crdot_rdot\": 6130.428439043792,\n        \"ctdot_r\": 3458.5134026340347,\n        \"ctdot_t\": 7424.930387797132,\n        \"ctdot_n\": 4854.555815526609,\n        \"ctdot_rdot\": 3437.1792515351985,\n        \"ctdot_tdot\": 9393.565534826004,\n        \"cndot_r\": 5611.137004642015,\n        \"cndot_t\": 6643.8875158311375,\n        \"cndot_n\": 988.7017929014775,\n        \"cndot_rdot\": 1592.1725596916415,\n        \"cndot_tdot\": 5079.947435674579,\n        \"cndot_ndot\": 8267.587433832523,\n        \"cdrg_r\": 6781.691653324462,\n        \"cdrg_t\": 9099.769814591138,\n        \"cdrg_n\": 1415.9230792266442,\n        \"cdrg_rdot\": 3184.484413835351,\n        \"cdrg_tdot\": 1842.1509222479006,\n        \"cdrg_ndot\": 9699.860796871131,\n        \"cdrg_drg\": 1942.231614018548,\n        \"csrp_r\": 4122.65307982397,\n        \"csrp_t\": 4903.580708176349,\n        \"csrp_n\": 8961.357487040832,\n        \"csrp_rdot\": 6507.104058498148,\n        \"csrp_tdot\": 2750.7827862181643,\n        \"csrp_ndot\": 109.080570707909,\n        \"csrp_drg\": 6020.015473731005,\n        \"csrp_srp\": 9554.667988101199,\n        \"ephemeris_id\": \"64b64be7-96c4-5a15-cecb-7523d31a9e7f\",\n        \"screening_id\": \"8e8ae4a4-c51e-86b6-8acb-fadc97600c02\",\n        \"derived_from_spacecraft_state_id\": \"7d7eb336-ac7f-6bcf-b2f6-d92bbb62afc0\",\n        \"rso_id\": \"c4e7b5fc-f7ed-5563-0a28-33d778fad52d\",\n        \"altitude_km\": 7547.938841926502\n      },\n      \"secondary_state\": {\n        \"x_km\": 3909.6467843399464,\n        \"y_km\": 4516.908643799239,\n        \"z_km\": 1961.6176344735613,\n        \"x_dot_km\": 9492.260727077059,\n        \"y_dot_km\": 5133.613771134998,\n        \"z_dot_km\": 3725.2835597720677,\n        \"id\": \"333fca9a-6944-eae2-3727-67de75ee0151\",\n        \"created_at\": \"1998-02-05T10:19:47.980Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 4632.771652819395,\n        \"time_lastob_start\": \"2003-12-21T08:42:20.269Z\",\n        \"time_lastob_end\": \"1965-04-04T02:59:09.445Z\",\n        \"recommended_od_span\": 5889.7689671802445,\n        \"actual_od_span\": 8191.386976906794,\n        \"obs_available\": 443,\n        \"obs_used\": 66,\n        \"tracks_available\": 1506,\n        \"tracks_used\": 6231,\n        \"residuals_accepted\": 8567,\n        \"weighted_rms\": 1115.8989239777661,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": false,\n            \"key_1\": 7192.586813522665\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 8169.524604508874,\n        \"cd_area_over_mass\": 9770.520156380768,\n        \"cr_area_over_mass\": 3273.9708940552923,\n        \"thrust_acceleration_m\": 472.40081816560365,\n        \"sedr\": 7085.347192876119,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 2564.7382749323565,\n        \"ct_r\": 4538.403345617077,\n        \"ct_t\": 8823.302132922916,\n        \"cn_r\": 7110.922161143398,\n        \"cn_t\": 6591.341499425866,\n        \"cn_n\": 4264.490836927644,\n        \"crdot_r\": 9006.256453165384,\n        \"crdot_t\": 8774.34999410555,\n        \"crdot_n\": 274.04951948999945,\n        \"crdot_rdot\": 664.6715859018071,\n        \"ctdot_r\": 2108.3159957574658,\n        \"ctdot_t\": 8660.563351842546,\n        \"ctdot_n\": 4156.00636955857,\n        \"ctdot_rdot\": 729.7704435362461,\n        \"ctdot_tdot\": 3971.851794251632,\n        \"cndot_r\": 1552.7755675047983,\n        \"cndot_t\": 4356.3405311037195,\n        \"cndot_n\": 7906.786442829885,\n        \"cndot_rdot\": 6822.673371020589,\n        \"cndot_tdot\": 1752.937584384927,\n        \"cndot_ndot\": 8679.371342109484,\n        \"cdrg_r\": 7607.853055596401,\n        \"cdrg_t\": 4802.809426421451,\n        \"cdrg_n\": 9063.510636306413,\n        \"cdrg_rdot\": 4965.78708000767,\n        \"cdrg_tdot\": 7281.565728331852,\n        \"cdrg_ndot\": 7717.0298861121355,\n        \"cdrg_drg\": 6631.756933446624,\n        \"csrp_r\": 1738.2678299897857,\n        \"csrp_t\": 262.9557224165013,\n        \"csrp_n\": 7052.108364083448,\n        \"csrp_rdot\": 2842.1189286256954,\n        \"csrp_tdot\": 7006.498328399307,\n        \"csrp_ndot\": 601.663332995499,\n        \"csrp_drg\": 3387.7522096177204,\n        \"csrp_srp\": 4690.443856872718,\n        \"ephemeris_id\": \"1291157b-274a-7243-a776-5217cd273f2d\",\n        \"screening_id\": \"1b25ef85-1011-513d-25b0-cd87891e2845\",\n        \"derived_from_spacecraft_state_id\": \"e7d728f0-8797-0614-53dd-787764812290\",\n        \"rso_id\": \"d8276336-40d8-f04d-19d8-8a88de219a6b\",\n        \"altitude_km\": 2135.8814760827804\n      }\n    },\n    {\n      \"designation\": \"OPERATIONAL\",\n      \"key_number\": 8657,\n      \"insert_epoch\": \"1968-10-07T02:31:20.194Z\",\n      \"creation_date\": \"1975-06-23T11:11:04.837Z\",\n      \"tca\": \"1960-02-11T08:20:43.033Z\",\n      \"miss_distance_km\": 4065.2165020199513,\n      \"relative_velocity_mag_km_s\": 545.5152481705971,\n      \"relative_position_r_km\": 3937.370193306653,\n      \"relative_position_i_km\": 1057.3298363908557,\n      \"relative_position_c_km\": 3120.7606574433357,\n      \"relative_velocity_r_km_s\": 7082.226026732766,\n      \"relative_velocity_i_km_s\": 8569.923171536831,\n      \"relative_velocity_c_km_s\": 9328.490461869878,\n      \"primary_rso_id\": \"f3030699-7b5b-637c-e751-7f7b1932d323\",\n      \"secondary_rso_id\": \"6d596847-430d-6cd9-0ff5-d1c938a2bb5e\",\n      \"is_intra_org\": false,\n      \"id\": \"76be90d2-50f8-da1a-06ab-716230ab287b\",\n      \"key\": \"string\",\n      \"event_id\": \"ab24708b-435e-fbd2-2c20-7e14931597d4\",\n      \"event\": {\n        \"id\": \"5e148077-587c-2c5b-3ea8-a495ca95cccc\",\n        \"key\": \"string\"\n      },\n      \"created_at\": \"2004-09-21T00:40:54.828Z\",\n      \"updated_at\": \"1975-04-11T03:48:13.546Z\",\n      \"cdm_id\": 4580,\n      \"filename\": \"string\",\n      \"originator\": \"string\",\n      \"comment_screening_option\": \"string\",\n      \"collision_probability\": 3288.1638571072936,\n      \"collision_probability_method\": \"string\",\n      \"frisbee_collision_probability\": 9631.39048239938,\n      \"frisbee_collision_probability_method\": \"string\",\n      \"original_collision_probability\": 1033.2540434371606,\n      \"original_collision_probability_method\": \"string\",\n      \"angle_of_approach\": 8266.562734137618,\n      \"mahalanobis_distance\": 4877.2354874219845,\n      \"relative_miss_sig_m\": 2146.2902222047633,\n      \"relative_sig_r_u_m\": 6805.089818274125,\n      \"relative_sig_it_u_m\": 5855.367758240908,\n      \"relative_sig_ct_u_m\": 7948.586614568897,\n      \"primary\": {\n        \"id\": \"f3c09621-4ca2-a2dc-59e7-2df9eebf7072\",\n        \"norad_id\": 3479,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"secondary\": {\n        \"id\": \"7c2b37f1-215b-529b-f55e-f7cdd4a4915f\",\n        \"norad_id\": 2697,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"recommendation_jsonb\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"primary_state\": {\n        \"x_km\": 4075.5497662569596,\n        \"y_km\": 6357.084967295285,\n        \"z_km\": 3185.995426831023,\n        \"x_dot_km\": 8019.414308995051,\n        \"y_dot_km\": 4166.560234121882,\n        \"z_dot_km\": 4719.9980124918475,\n        \"id\": \"c79ada42-4c72-9bd2-35b6-89f03c0ff0dd\",\n        \"created_at\": \"1991-10-28T05:01:30.684Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 7467.6892275089,\n        \"time_lastob_start\": \"1969-11-25T13:45:01.999Z\",\n        \"time_lastob_end\": \"2016-04-04T01:08:19.639Z\",\n        \"recommended_od_span\": 741.6254010093903,\n        \"actual_od_span\": 5236.303327327717,\n        \"obs_available\": 9118,\n        \"obs_used\": 1528,\n        \"tracks_available\": 902,\n        \"tracks_used\": 8004,\n        \"residuals_accepted\": 8204,\n        \"weighted_rms\": 8237.694902711039,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": 7982.491574500199,\n            \"key_1\": 566.1479660151747\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 7938.1597649146825,\n        \"cd_area_over_mass\": 9025.59134531271,\n        \"cr_area_over_mass\": 9134.454164517992,\n        \"thrust_acceleration_m\": 7796.422556349105,\n        \"sedr\": 8263.90036473165,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 5449.042929389956,\n        \"ct_r\": 2057.4848371471944,\n        \"ct_t\": 9300.096546690458,\n        \"cn_r\": 5556.279268879948,\n        \"cn_t\": 2886.278315797519,\n        \"cn_n\": 9813.008694101816,\n        \"crdot_r\": 5828.694924712811,\n        \"crdot_t\": 6966.560302328025,\n        \"crdot_n\": 7127.260326037137,\n        \"crdot_rdot\": 7917.185067701334,\n        \"ctdot_r\": 9346.547319631085,\n        \"ctdot_t\": 7852.552295893088,\n        \"ctdot_n\": 6044.092402149436,\n        \"ctdot_rdot\": 3732.3419091711007,\n        \"ctdot_tdot\": 3640.3164746281445,\n        \"cndot_r\": 8397.93316524206,\n        \"cndot_t\": 2076.381396028305,\n        \"cndot_n\": 2627.171119579842,\n        \"cndot_rdot\": 373.2616025957769,\n        \"cndot_tdot\": 6120.542481601426,\n        \"cndot_ndot\": 5977.864064836556,\n        \"cdrg_r\": 8258.599503318988,\n        \"cdrg_t\": 7984.915410285158,\n        \"cdrg_n\": 8225.750177542692,\n        \"cdrg_rdot\": 1523.6037091760059,\n        \"cdrg_tdot\": 2895.934238314003,\n        \"cdrg_ndot\": 7753.335690420679,\n        \"cdrg_drg\": 2383.085215365488,\n        \"csrp_r\": 6697.452718370074,\n        \"csrp_t\": 9141.039818999065,\n        \"csrp_n\": 5125.799651892951,\n        \"csrp_rdot\": 8653.191504229579,\n        \"csrp_tdot\": 1862.0552763245169,\n        \"csrp_ndot\": 5687.504270915351,\n        \"csrp_drg\": 3138.5713030556617,\n        \"csrp_srp\": 4711.748643856272,\n        \"ephemeris_id\": \"54f7ff58-6281-9254-0810-fabee06559ee\",\n        \"screening_id\": \"878dc9aa-9c09-9385-e842-ffb031792465\",\n        \"derived_from_spacecraft_state_id\": \"634a6410-ff1e-f22d-8693-dadbe2d318b1\",\n        \"rso_id\": \"6f88031f-4d19-f58b-2f5e-b4324bf9684a\",\n        \"altitude_km\": 402.1916844719542\n      },\n      \"secondary_state\": {\n        \"x_km\": 2724.4775596882755,\n        \"y_km\": 3411.9442908446786,\n        \"z_km\": 8619.961566689108,\n        \"x_dot_km\": 2392.9677637416726,\n        \"y_dot_km\": 7734.059212247644,\n        \"z_dot_km\": 5311.751801077077,\n        \"id\": \"09bc5f20-1da0-9739-0932-99ec3703501a\",\n        \"created_at\": \"1964-04-25T21:57:07.200Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 9423.999068106434,\n        \"time_lastob_start\": \"1988-12-15T19:50:22.794Z\",\n        \"time_lastob_end\": \"1994-03-11T14:47:52.643Z\",\n        \"recommended_od_span\": 5383.122881187452,\n        \"actual_od_span\": 2726.6911266800175,\n        \"obs_available\": 3998,\n        \"obs_used\": 5123,\n        \"tracks_available\": 2126,\n        \"tracks_used\": 4853,\n        \"residuals_accepted\": 7787,\n        \"weighted_rms\": 2968.3647055453375,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": \"string\"\n          },\n          \"key_1\": {\n            \"key_0\": \"string\",\n            \"key_1\": 7259,\n            \"key_2\": 5595.79727156952\n          },\n          \"key_2\": {\n            \"key_0\": 4918,\n            \"key_1\": 6250.091732939444\n          },\n          \"key_3\": {\n            \"key_0\": true,\n            \"key_1\": true\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 8869.114031680221,\n        \"cd_area_over_mass\": 8771.15675169128,\n        \"cr_area_over_mass\": 8565.779640310135,\n        \"thrust_acceleration_m\": 8643.340607377299,\n        \"sedr\": 3271.3139287508266,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 9019.435936586784,\n        \"ct_r\": 3666.1611779561067,\n        \"ct_t\": 7096.433945303758,\n        \"cn_r\": 2842.2562820140806,\n        \"cn_t\": 7499.086425197616,\n        \"cn_n\": 4191.000713875872,\n        \"crdot_r\": 9460.37981400202,\n        \"crdot_t\": 5537.132625154051,\n        \"crdot_n\": 6839.389551534875,\n        \"crdot_rdot\": 4635.828795714005,\n        \"ctdot_r\": 5159.66247125717,\n        \"ctdot_t\": 9875.236797525647,\n        \"ctdot_n\": 2625.546183707651,\n        \"ctdot_rdot\": 8388.517891282525,\n        \"ctdot_tdot\": 7159.347080817222,\n        \"cndot_r\": 4964.426029475647,\n        \"cndot_t\": 6071.437540897398,\n        \"cndot_n\": 3387.505830191262,\n        \"cndot_rdot\": 1514.8203559247543,\n        \"cndot_tdot\": 8985.748173771804,\n        \"cndot_ndot\": 3819.2412729285243,\n        \"cdrg_r\": 9995.982228520299,\n        \"cdrg_t\": 2582.7404306864332,\n        \"cdrg_n\": 8756.162569882395,\n        \"cdrg_rdot\": 5646.331538141159,\n        \"cdrg_tdot\": 7184.232688768002,\n        \"cdrg_ndot\": 9479.490352649333,\n        \"cdrg_drg\": 6204.382932969021,\n        \"csrp_r\": 2769.461536619322,\n        \"csrp_t\": 2599.060608331003,\n        \"csrp_n\": 9254.582567347654,\n        \"csrp_rdot\": 2141.2098913439336,\n        \"csrp_tdot\": 73.25690243756067,\n        \"csrp_ndot\": 4862.584054896466,\n        \"csrp_drg\": 8553.233006391056,\n        \"csrp_srp\": 7971.911249961344,\n        \"ephemeris_id\": \"372ae1c2-45f8-7412-f8d1-5adf809e6a93\",\n        \"screening_id\": \"5f8aed6e-aa2d-4abe-ead5-af8c7fa33d68\",\n        \"derived_from_spacecraft_state_id\": \"0cc4d9fa-0048-b156-eb34-ab33c8b936b9\",\n        \"rso_id\": \"8e4a35b6-3630-3ca2-882c-1778ba6ab980\",\n        \"altitude_km\": 1971.4576750779877\n      }\n    }\n  ],\n  \"total_count\": 9297\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ef3c176-e34e-4224-8d86-ac8b4f5679d0",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_key",
+                    "cdms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operational",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_key",
+                      "description": "(Required) key of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "52cf32ee-e76d-4693-9ff7-72a76f7d7c45",
+          "name": "List Event Latest Cdms",
+          "request": {
+            "name": "List Event Latest Cdms",
+            "description": {
+              "content": "List the CDMs in the event.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "events",
+                ":event_key",
+                "latest_cdms"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "operational",
+                  "value": "true",
+                  "description": "Whether to include only CDMs with designation 'OPERATIONAL' in the result; defaults to true"
+                },
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "event_key",
+                  "description": "(Required) key of the event"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "69aa5ff6-955c-4ee2-8158-280181a8cb2e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_key",
+                    "latest_cdms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operational",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_key",
+                      "description": "(Required) key of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"designation\": \"THEORETICAL\",\n      \"key_number\": 3890,\n      \"insert_epoch\": \"2012-06-01T00:53:10.981Z\",\n      \"creation_date\": \"1965-11-05T11:28:41.632Z\",\n      \"tca\": \"2012-11-06T08:47:42.669Z\",\n      \"miss_distance_km\": 3769.5096101509375,\n      \"relative_velocity_mag_km_s\": 2702.3459564819887,\n      \"relative_position_r_km\": 6989.635357498234,\n      \"relative_position_i_km\": 5663.070765662887,\n      \"relative_position_c_km\": 9734.028046673155,\n      \"relative_velocity_r_km_s\": 7700.715746915054,\n      \"relative_velocity_i_km_s\": 5780.983436972397,\n      \"relative_velocity_c_km_s\": 7914.908902019866,\n      \"primary_rso_id\": \"71b810a1-a9f5-56a3-3ae2-fc7d1f8d4c2b\",\n      \"secondary_rso_id\": \"3a0450e4-26cf-185c-cec6-15d938ca96e0\",\n      \"is_intra_org\": false,\n      \"id\": \"9e543ee4-d698-56b0-e5c3-a3c2e7e26863\",\n      \"key\": \"string\",\n      \"event_id\": \"6a1a64e3-1a65-b969-2bc2-ed0dcd729478\",\n      \"event\": {\n        \"id\": \"15b29f4d-5bb3-399e-3296-d59d100830ac\",\n        \"key\": \"string\"\n      },\n      \"created_at\": \"2023-02-12T05:28:43.541Z\",\n      \"updated_at\": \"1968-04-18T10:13:11.985Z\",\n      \"cdm_id\": 6474,\n      \"filename\": \"string\",\n      \"originator\": \"string\",\n      \"comment_screening_option\": \"string\",\n      \"collision_probability\": 767.3870041138741,\n      \"collision_probability_method\": \"string\",\n      \"frisbee_collision_probability\": 7345.30728228919,\n      \"frisbee_collision_probability_method\": \"string\",\n      \"original_collision_probability\": 8348.799490934694,\n      \"original_collision_probability_method\": \"string\",\n      \"angle_of_approach\": 9531.349721654424,\n      \"mahalanobis_distance\": 4129.881975064473,\n      \"relative_miss_sig_m\": 226.0437030842899,\n      \"relative_sig_r_u_m\": 7451.6886219624985,\n      \"relative_sig_it_u_m\": 3180.500226533246,\n      \"relative_sig_ct_u_m\": 5910.908019609642,\n      \"primary\": {\n        \"id\": \"2b0e31f3-a5c2-1958-95d2-fde39270c222\",\n        \"norad_id\": 9854,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"secondary\": {\n        \"id\": \"34de63a8-755c-99fa-f6ab-8daae54309f6\",\n        \"norad_id\": 9599,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"recommendation_jsonb\": {\n        \"key_0\": 910.5142559679824,\n        \"key_1\": false\n      },\n      \"primary_state\": {\n        \"x_km\": 2398.1095524718,\n        \"y_km\": 4615.384706565544,\n        \"z_km\": 9711.942998486476,\n        \"x_dot_km\": 3079.217489962679,\n        \"y_dot_km\": 6474.274667913629,\n        \"z_dot_km\": 4510.245293209627,\n        \"id\": \"e368af0d-a8bc-2b4b-7dd6-3bf9959b813e\",\n        \"created_at\": \"1961-11-12T18:51:18.446Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 2093.2285112011195,\n        \"time_lastob_start\": \"1998-03-22T03:36:37.501Z\",\n        \"time_lastob_end\": \"2001-01-07T16:10:59.393Z\",\n        \"recommended_od_span\": 8002.556071636396,\n        \"actual_od_span\": 1693.0410102724325,\n        \"obs_available\": 8542,\n        \"obs_used\": 5967,\n        \"tracks_available\": 8807,\n        \"tracks_used\": 8277,\n        \"residuals_accepted\": 2237,\n        \"weighted_rms\": 914.0599192319764,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": true,\n            \"key_1\": 9803,\n            \"key_2\": \"string\"\n          },\n          \"key_1\": {\n            \"key_0\": \"string\",\n            \"key_1\": 949\n          },\n          \"key_2\": {\n            \"key_0\": \"string\",\n            \"key_1\": 8718.321024387504,\n            \"key_2\": 928.8653510530098,\n            \"key_3\": 8277\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 9955.50525204167,\n        \"cd_area_over_mass\": 6516.342679263494,\n        \"cr_area_over_mass\": 5850.291453383313,\n        \"thrust_acceleration_m\": 5316.295041433828,\n        \"sedr\": 1236.28250458942,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 8963.683913339954,\n        \"ct_r\": 8324.491465459669,\n        \"ct_t\": 64.15687350393773,\n        \"cn_r\": 8423.387987651688,\n        \"cn_t\": 2734.111721632734,\n        \"cn_n\": 7011.791316928824,\n        \"crdot_r\": 8746.857684495646,\n        \"crdot_t\": 9394.035179666522,\n        \"crdot_n\": 1621.5274544584013,\n        \"crdot_rdot\": 6130.428439043792,\n        \"ctdot_r\": 3458.5134026340347,\n        \"ctdot_t\": 7424.930387797132,\n        \"ctdot_n\": 4854.555815526609,\n        \"ctdot_rdot\": 3437.1792515351985,\n        \"ctdot_tdot\": 9393.565534826004,\n        \"cndot_r\": 5611.137004642015,\n        \"cndot_t\": 6643.8875158311375,\n        \"cndot_n\": 988.7017929014775,\n        \"cndot_rdot\": 1592.1725596916415,\n        \"cndot_tdot\": 5079.947435674579,\n        \"cndot_ndot\": 8267.587433832523,\n        \"cdrg_r\": 6781.691653324462,\n        \"cdrg_t\": 9099.769814591138,\n        \"cdrg_n\": 1415.9230792266442,\n        \"cdrg_rdot\": 3184.484413835351,\n        \"cdrg_tdot\": 1842.1509222479006,\n        \"cdrg_ndot\": 9699.860796871131,\n        \"cdrg_drg\": 1942.231614018548,\n        \"csrp_r\": 4122.65307982397,\n        \"csrp_t\": 4903.580708176349,\n        \"csrp_n\": 8961.357487040832,\n        \"csrp_rdot\": 6507.104058498148,\n        \"csrp_tdot\": 2750.7827862181643,\n        \"csrp_ndot\": 109.080570707909,\n        \"csrp_drg\": 6020.015473731005,\n        \"csrp_srp\": 9554.667988101199,\n        \"ephemeris_id\": \"64b64be7-96c4-5a15-cecb-7523d31a9e7f\",\n        \"screening_id\": \"8e8ae4a4-c51e-86b6-8acb-fadc97600c02\",\n        \"derived_from_spacecraft_state_id\": \"7d7eb336-ac7f-6bcf-b2f6-d92bbb62afc0\",\n        \"rso_id\": \"c4e7b5fc-f7ed-5563-0a28-33d778fad52d\",\n        \"altitude_km\": 7547.938841926502\n      },\n      \"secondary_state\": {\n        \"x_km\": 3909.6467843399464,\n        \"y_km\": 4516.908643799239,\n        \"z_km\": 1961.6176344735613,\n        \"x_dot_km\": 9492.260727077059,\n        \"y_dot_km\": 5133.613771134998,\n        \"z_dot_km\": 3725.2835597720677,\n        \"id\": \"333fca9a-6944-eae2-3727-67de75ee0151\",\n        \"created_at\": \"1998-02-05T10:19:47.980Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 4632.771652819395,\n        \"time_lastob_start\": \"2003-12-21T08:42:20.269Z\",\n        \"time_lastob_end\": \"1965-04-04T02:59:09.445Z\",\n        \"recommended_od_span\": 5889.7689671802445,\n        \"actual_od_span\": 8191.386976906794,\n        \"obs_available\": 443,\n        \"obs_used\": 66,\n        \"tracks_available\": 1506,\n        \"tracks_used\": 6231,\n        \"residuals_accepted\": 8567,\n        \"weighted_rms\": 1115.8989239777661,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": false,\n            \"key_1\": 7192.586813522665\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 8169.524604508874,\n        \"cd_area_over_mass\": 9770.520156380768,\n        \"cr_area_over_mass\": 3273.9708940552923,\n        \"thrust_acceleration_m\": 472.40081816560365,\n        \"sedr\": 7085.347192876119,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 2564.7382749323565,\n        \"ct_r\": 4538.403345617077,\n        \"ct_t\": 8823.302132922916,\n        \"cn_r\": 7110.922161143398,\n        \"cn_t\": 6591.341499425866,\n        \"cn_n\": 4264.490836927644,\n        \"crdot_r\": 9006.256453165384,\n        \"crdot_t\": 8774.34999410555,\n        \"crdot_n\": 274.04951948999945,\n        \"crdot_rdot\": 664.6715859018071,\n        \"ctdot_r\": 2108.3159957574658,\n        \"ctdot_t\": 8660.563351842546,\n        \"ctdot_n\": 4156.00636955857,\n        \"ctdot_rdot\": 729.7704435362461,\n        \"ctdot_tdot\": 3971.851794251632,\n        \"cndot_r\": 1552.7755675047983,\n        \"cndot_t\": 4356.3405311037195,\n        \"cndot_n\": 7906.786442829885,\n        \"cndot_rdot\": 6822.673371020589,\n        \"cndot_tdot\": 1752.937584384927,\n        \"cndot_ndot\": 8679.371342109484,\n        \"cdrg_r\": 7607.853055596401,\n        \"cdrg_t\": 4802.809426421451,\n        \"cdrg_n\": 9063.510636306413,\n        \"cdrg_rdot\": 4965.78708000767,\n        \"cdrg_tdot\": 7281.565728331852,\n        \"cdrg_ndot\": 7717.0298861121355,\n        \"cdrg_drg\": 6631.756933446624,\n        \"csrp_r\": 1738.2678299897857,\n        \"csrp_t\": 262.9557224165013,\n        \"csrp_n\": 7052.108364083448,\n        \"csrp_rdot\": 2842.1189286256954,\n        \"csrp_tdot\": 7006.498328399307,\n        \"csrp_ndot\": 601.663332995499,\n        \"csrp_drg\": 3387.7522096177204,\n        \"csrp_srp\": 4690.443856872718,\n        \"ephemeris_id\": \"1291157b-274a-7243-a776-5217cd273f2d\",\n        \"screening_id\": \"1b25ef85-1011-513d-25b0-cd87891e2845\",\n        \"derived_from_spacecraft_state_id\": \"e7d728f0-8797-0614-53dd-787764812290\",\n        \"rso_id\": \"d8276336-40d8-f04d-19d8-8a88de219a6b\",\n        \"altitude_km\": 2135.8814760827804\n      }\n    },\n    {\n      \"designation\": \"OPERATIONAL\",\n      \"key_number\": 8657,\n      \"insert_epoch\": \"1968-10-07T02:31:20.194Z\",\n      \"creation_date\": \"1975-06-23T11:11:04.837Z\",\n      \"tca\": \"1960-02-11T08:20:43.033Z\",\n      \"miss_distance_km\": 4065.2165020199513,\n      \"relative_velocity_mag_km_s\": 545.5152481705971,\n      \"relative_position_r_km\": 3937.370193306653,\n      \"relative_position_i_km\": 1057.3298363908557,\n      \"relative_position_c_km\": 3120.7606574433357,\n      \"relative_velocity_r_km_s\": 7082.226026732766,\n      \"relative_velocity_i_km_s\": 8569.923171536831,\n      \"relative_velocity_c_km_s\": 9328.490461869878,\n      \"primary_rso_id\": \"f3030699-7b5b-637c-e751-7f7b1932d323\",\n      \"secondary_rso_id\": \"6d596847-430d-6cd9-0ff5-d1c938a2bb5e\",\n      \"is_intra_org\": false,\n      \"id\": \"76be90d2-50f8-da1a-06ab-716230ab287b\",\n      \"key\": \"string\",\n      \"event_id\": \"ab24708b-435e-fbd2-2c20-7e14931597d4\",\n      \"event\": {\n        \"id\": \"5e148077-587c-2c5b-3ea8-a495ca95cccc\",\n        \"key\": \"string\"\n      },\n      \"created_at\": \"2004-09-21T00:40:54.828Z\",\n      \"updated_at\": \"1975-04-11T03:48:13.546Z\",\n      \"cdm_id\": 4580,\n      \"filename\": \"string\",\n      \"originator\": \"string\",\n      \"comment_screening_option\": \"string\",\n      \"collision_probability\": 3288.1638571072936,\n      \"collision_probability_method\": \"string\",\n      \"frisbee_collision_probability\": 9631.39048239938,\n      \"frisbee_collision_probability_method\": \"string\",\n      \"original_collision_probability\": 1033.2540434371606,\n      \"original_collision_probability_method\": \"string\",\n      \"angle_of_approach\": 8266.562734137618,\n      \"mahalanobis_distance\": 4877.2354874219845,\n      \"relative_miss_sig_m\": 2146.2902222047633,\n      \"relative_sig_r_u_m\": 6805.089818274125,\n      \"relative_sig_it_u_m\": 5855.367758240908,\n      \"relative_sig_ct_u_m\": 7948.586614568897,\n      \"primary\": {\n        \"id\": \"f3c09621-4ca2-a2dc-59e7-2df9eebf7072\",\n        \"norad_id\": 3479,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"secondary\": {\n        \"id\": \"7c2b37f1-215b-529b-f55e-f7cdd4a4915f\",\n        \"norad_id\": 2697,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\",\n        \"rso_metadata\": {\n          \"norad_id\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"country\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          },\n          \"satname\": {\n            \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n          }\n        }\n      },\n      \"recommendation_jsonb\": {\n        \"key_0\": \"string\",\n        \"key_1\": false\n      },\n      \"primary_state\": {\n        \"x_km\": 4075.5497662569596,\n        \"y_km\": 6357.084967295285,\n        \"z_km\": 3185.995426831023,\n        \"x_dot_km\": 8019.414308995051,\n        \"y_dot_km\": 4166.560234121882,\n        \"z_dot_km\": 4719.9980124918475,\n        \"id\": \"c79ada42-4c72-9bd2-35b6-89f03c0ff0dd\",\n        \"created_at\": \"1991-10-28T05:01:30.684Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 7467.6892275089,\n        \"time_lastob_start\": \"1969-11-25T13:45:01.999Z\",\n        \"time_lastob_end\": \"2016-04-04T01:08:19.639Z\",\n        \"recommended_od_span\": 741.6254010093903,\n        \"actual_od_span\": 5236.303327327717,\n        \"obs_available\": 9118,\n        \"obs_used\": 1528,\n        \"tracks_available\": 902,\n        \"tracks_used\": 8004,\n        \"residuals_accepted\": 8204,\n        \"weighted_rms\": 8237.694902711039,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": 7982.491574500199,\n            \"key_1\": 566.1479660151747\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 7938.1597649146825,\n        \"cd_area_over_mass\": 9025.59134531271,\n        \"cr_area_over_mass\": 9134.454164517992,\n        \"thrust_acceleration_m\": 7796.422556349105,\n        \"sedr\": 8263.90036473165,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 5449.042929389956,\n        \"ct_r\": 2057.4848371471944,\n        \"ct_t\": 9300.096546690458,\n        \"cn_r\": 5556.279268879948,\n        \"cn_t\": 2886.278315797519,\n        \"cn_n\": 9813.008694101816,\n        \"crdot_r\": 5828.694924712811,\n        \"crdot_t\": 6966.560302328025,\n        \"crdot_n\": 7127.260326037137,\n        \"crdot_rdot\": 7917.185067701334,\n        \"ctdot_r\": 9346.547319631085,\n        \"ctdot_t\": 7852.552295893088,\n        \"ctdot_n\": 6044.092402149436,\n        \"ctdot_rdot\": 3732.3419091711007,\n        \"ctdot_tdot\": 3640.3164746281445,\n        \"cndot_r\": 8397.93316524206,\n        \"cndot_t\": 2076.381396028305,\n        \"cndot_n\": 2627.171119579842,\n        \"cndot_rdot\": 373.2616025957769,\n        \"cndot_tdot\": 6120.542481601426,\n        \"cndot_ndot\": 5977.864064836556,\n        \"cdrg_r\": 8258.599503318988,\n        \"cdrg_t\": 7984.915410285158,\n        \"cdrg_n\": 8225.750177542692,\n        \"cdrg_rdot\": 1523.6037091760059,\n        \"cdrg_tdot\": 2895.934238314003,\n        \"cdrg_ndot\": 7753.335690420679,\n        \"cdrg_drg\": 2383.085215365488,\n        \"csrp_r\": 6697.452718370074,\n        \"csrp_t\": 9141.039818999065,\n        \"csrp_n\": 5125.799651892951,\n        \"csrp_rdot\": 8653.191504229579,\n        \"csrp_tdot\": 1862.0552763245169,\n        \"csrp_ndot\": 5687.504270915351,\n        \"csrp_drg\": 3138.5713030556617,\n        \"csrp_srp\": 4711.748643856272,\n        \"ephemeris_id\": \"54f7ff58-6281-9254-0810-fabee06559ee\",\n        \"screening_id\": \"878dc9aa-9c09-9385-e842-ffb031792465\",\n        \"derived_from_spacecraft_state_id\": \"634a6410-ff1e-f22d-8693-dadbe2d318b1\",\n        \"rso_id\": \"6f88031f-4d19-f58b-2f5e-b4324bf9684a\",\n        \"altitude_km\": 402.1916844719542\n      },\n      \"secondary_state\": {\n        \"x_km\": 2724.4775596882755,\n        \"y_km\": 3411.9442908446786,\n        \"z_km\": 8619.961566689108,\n        \"x_dot_km\": 2392.9677637416726,\n        \"y_dot_km\": 7734.059212247644,\n        \"z_dot_km\": 5311.751801077077,\n        \"id\": \"09bc5f20-1da0-9739-0932-99ec3703501a\",\n        \"created_at\": \"1964-04-25T21:57:07.200Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 9423.999068106434,\n        \"time_lastob_start\": \"1988-12-15T19:50:22.794Z\",\n        \"time_lastob_end\": \"1994-03-11T14:47:52.643Z\",\n        \"recommended_od_span\": 5383.122881187452,\n        \"actual_od_span\": 2726.6911266800175,\n        \"obs_available\": 3998,\n        \"obs_used\": 5123,\n        \"tracks_available\": 2126,\n        \"tracks_used\": 4853,\n        \"residuals_accepted\": 7787,\n        \"weighted_rms\": 2968.3647055453375,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": \"string\"\n          },\n          \"key_1\": {\n            \"key_0\": \"string\",\n            \"key_1\": 7259,\n            \"key_2\": 5595.79727156952\n          },\n          \"key_2\": {\n            \"key_0\": 4918,\n            \"key_1\": 6250.091732939444\n          },\n          \"key_3\": {\n            \"key_0\": true,\n            \"key_1\": true\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 8869.114031680221,\n        \"cd_area_over_mass\": 8771.15675169128,\n        \"cr_area_over_mass\": 8565.779640310135,\n        \"thrust_acceleration_m\": 8643.340607377299,\n        \"sedr\": 3271.3139287508266,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 9019.435936586784,\n        \"ct_r\": 3666.1611779561067,\n        \"ct_t\": 7096.433945303758,\n        \"cn_r\": 2842.2562820140806,\n        \"cn_t\": 7499.086425197616,\n        \"cn_n\": 4191.000713875872,\n        \"crdot_r\": 9460.37981400202,\n        \"crdot_t\": 5537.132625154051,\n        \"crdot_n\": 6839.389551534875,\n        \"crdot_rdot\": 4635.828795714005,\n        \"ctdot_r\": 5159.66247125717,\n        \"ctdot_t\": 9875.236797525647,\n        \"ctdot_n\": 2625.546183707651,\n        \"ctdot_rdot\": 8388.517891282525,\n        \"ctdot_tdot\": 7159.347080817222,\n        \"cndot_r\": 4964.426029475647,\n        \"cndot_t\": 6071.437540897398,\n        \"cndot_n\": 3387.505830191262,\n        \"cndot_rdot\": 1514.8203559247543,\n        \"cndot_tdot\": 8985.748173771804,\n        \"cndot_ndot\": 3819.2412729285243,\n        \"cdrg_r\": 9995.982228520299,\n        \"cdrg_t\": 2582.7404306864332,\n        \"cdrg_n\": 8756.162569882395,\n        \"cdrg_rdot\": 5646.331538141159,\n        \"cdrg_tdot\": 7184.232688768002,\n        \"cdrg_ndot\": 9479.490352649333,\n        \"cdrg_drg\": 6204.382932969021,\n        \"csrp_r\": 2769.461536619322,\n        \"csrp_t\": 2599.060608331003,\n        \"csrp_n\": 9254.582567347654,\n        \"csrp_rdot\": 2141.2098913439336,\n        \"csrp_tdot\": 73.25690243756067,\n        \"csrp_ndot\": 4862.584054896466,\n        \"csrp_drg\": 8553.233006391056,\n        \"csrp_srp\": 7971.911249961344,\n        \"ephemeris_id\": \"372ae1c2-45f8-7412-f8d1-5adf809e6a93\",\n        \"screening_id\": \"5f8aed6e-aa2d-4abe-ead5-af8c7fa33d68\",\n        \"derived_from_spacecraft_state_id\": \"0cc4d9fa-0048-b156-eb34-ab33c8b936b9\",\n        \"rso_id\": \"8e4a35b6-3630-3ca2-882c-1778ba6ab980\",\n        \"altitude_km\": 1971.4576750779877\n      }\n    }\n  ],\n  \"total_count\": 9297\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "125006f3-ae8e-4e91-8789-2fd3cfa3c8bf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "events",
+                    ":event_key",
+                    "latest_cdms"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "operational",
+                      "value": "true"
+                    },
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "event_key",
+                      "description": "(Required) key of the event"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/satcat",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ef556191-56ae-42b3-a340-bc03db9e1cb3",
+    "name": "Satcat Service Authentication Events API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nKayhan Space's Satcat Service API.\n\n## Features\n* **View** historical CDM data for an object.\n* **View** latest CDM data for an object.\n\n\nContact Support:\n Email: help@kayhan.space",
+      "type": "text/plain"
+    }
+  }
+}

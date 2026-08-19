@@ -1,0 +1,2644 @@
+{
+  "item": [
+    {
+      "id": "72269275-df46-46d8-b43d-91c38f36032c",
+      "name": "Ephemeris",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "555d346f-c75d-43de-afd9-fd7d432c1f79",
+          "name": "Create Ephemeris",
+          "request": {
+            "name": "Create Ephemeris",
+            "description": {
+              "content": "Upload an ephemeris file to Kayhan's system.<br/>\n    Uploaded ephemerides can be added to a Screening using\n    `POST /screenings/{id}/primaries`.<br/>\n    **NOTE:** Only ephemerides using an inertial reference frame are\n    accepted at this time.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "norad_id",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "NORAD catalog number of the object. If not provided, Satcat will attempt to infer the NORAD ID based on the filename of the uploaded file using the 18SpCS filename convention from the Spaceflight Safety Handbook."
+                },
+                {
+                  "key": "file_format",
+                  "value": "OEM",
+                  "type": "text",
+                  "description": "File format of the ephemeris file being uploaded"
+                },
+                {
+                  "key": "hbr_m",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "Hard Body Radius (in meters) to use when computing collision probability using this Ephemeris. Some ephemeris formats may include HBR information; if both are provided, this value is treated as an override. If not provided, HBR will be estimated based on the object type designation in the public catalog."
+                },
+                {
+                  "key": "comments",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "User comments"
+                },
+                {
+                  "key": "ephemeris_file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Ephemeris file to upload"
+                },
+                {
+                  "key": "context",
+                  "value": "ROUTINE",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "designation",
+                  "value": "THEORETICAL",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "originator",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Originator of the ephemeris"
+                },
+                {
+                  "key": "repository_public",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "event_public",
+                  "value": "<boolean>",
+                  "type": "text",
+                  "description": ""
+                },
+                {
+                  "key": "owning_group_id",
+                  "value": "<uuid>",
+                  "type": "text",
+                  "description": "Group ID to own this ephemeris. Can only be set by super users and is intended to upload of PREDICTIVE ephemeris by Kayhan OD"
+                },
+                {
+                  "key": "ephemeris_type",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Whether the ephemeris describes an on-orbit satellite or a launch vehicle. If not provided, defaults to 'ON_ORBIT'. If LAUNCH is provided alongside a CCSDS OCM file, the `EPOCH_TZERO` will be interpreted as the nominal launch time. If LAUNCH is provided alongside a file format not explicitly designed for launch ephemeris, the first tabulated timestep of the ephemeris file will be considered the nominal launch time. LAUNCH ephemeris files must be specified in an Earth-fixed or pseudo Earth-fixed reference frame; an error will be raised otherwise."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bff7d208-3b9d-4890-bd9d-e170d082a049",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "NORAD catalog number of the object. If not provided, Satcat will attempt to infer the NORAD ID based on the filename of the uploaded file using the 18SpCS filename convention from the Spaceflight Safety Handbook.",
+                        "type": "text/plain"
+                      },
+                      "key": "norad_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "File format of the ephemeris file being uploaded",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "OEM",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Hard Body Radius (in meters) to use when computing collision probability using this Ephemeris. Some ephemeris formats may include HBR information; if both are provided, this value is treated as an override. If not provided, HBR will be estimated based on the object type designation in the public catalog.",
+                        "type": "text/plain"
+                      },
+                      "key": "hbr_m",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "User comments",
+                        "type": "text/plain"
+                      },
+                      "key": "comments",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Ephemeris file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "ephemeris_file",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "ROUTINE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "designation",
+                      "value": "THEORETICAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Originator of the ephemeris",
+                        "type": "text/plain"
+                      },
+                      "key": "originator",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "repository_public",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "event_public",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Group ID to own this ephemeris. Can only be set by super users and is intended to upload of PREDICTIVE ephemeris by Kayhan OD",
+                        "type": "text/plain"
+                      },
+                      "key": "owning_group_id",
+                      "value": "<uuid>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the ephemeris describes an on-orbit satellite or a launch vehicle. If not provided, defaults to 'ON_ORBIT'. If LAUNCH is provided alongside a CCSDS OCM file, the `EPOCH_TZERO` will be interpreted as the nominal launch time. If LAUNCH is provided alongside a file format not explicitly designed for launch ephemeris, the first tabulated timestep of the ephemeris file will be considered the nominal launch time. LAUNCH ephemeris files must be specified in an Earth-fixed or pseudo Earth-fixed reference frame; an error will be raised otherwise.",
+                        "type": "text/plain"
+                      },
+                      "key": "ephemeris_type",
+                      "value": "ON_ORBIT",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n  \"has_covariance\": true,\n  \"ephemeris_type\": \"ON_ORBIT\",\n  \"apogee_km\": 1227.4164480948803,\n  \"perigee_km\": 929.8722830431883,\n  \"id\": \"9a3529c4-38d9-741f-86ae-3d3d8737d5d1\",\n  \"rso_id\": \"004469e5-3b07-e3bb-0ea1-4a45f4ff75db\",\n  \"filename\": \"string\",\n  \"data_format\": \"hdf5\",\n  \"custom_storage_path\": \"string\",\n  \"altitude_km\": 8037.811833874082,\n  \"repository_public\": false,\n  \"event_public\": false,\n  \"shared_event_keys\": [\n    {\n      \"ephemeris_id\": \"54949c40-1578-3b75-1601-ab40b4477fc9\",\n      \"event_key_number\": 8918\n    },\n    {\n      \"ephemeris_id\": \"d9c40a86-584d-712d-780b-e814070b2cdc\",\n      \"event_key_number\": 9214\n    }\n  ],\n  \"rso\": {\n    \"id\": \"bc4ee6c4-fea0-c385-d738-b26a957f0d1e\",\n    \"norad_id\": 7754,\n    \"international_designator\": \"string\",\n    \"object_type\": \"string\",\n    \"object_type_category\": \"string\",\n    \"object_name\": \"string\"\n  },\n  \"user_id\": \"a51c6ecb-3504-3f3c-9ac4-b99ea4147bef\",\n  \"group_id\": \"269cfed8-1f5b-6386-e65d-3118d6c82358\",\n  \"covariance_corrected\": true,\n  \"source_ephemeris_id\": \"0ab67ace-1aa3-6e24-b4bc-7df593d81320\",\n  \"norad_id\": 3728,\n  \"solution_time\": \"2016-06-20T08:46:55.145Z\",\n  \"comments\": \"string\",\n  \"archived\": false,\n  \"hbr_m\": 3220.527561147961,\n  \"current_operational\": false,\n  \"launch_time\": \"1966-12-12T01:15:39.282Z\",\n  \"usable_time_start\": \"2013-10-02T05:11:26.287Z\",\n  \"usable_time_end\": \"2004-08-06T15:26:06.532Z\",\n  \"context\": \"DECAY\",\n  \"designation\": \"TLE\",\n  \"catalog\": {\n    \"ephemerides_count\": 4933,\n    \"id\": \"59a5ecbf-60cd-c02f-b2b2-13328f6ccdf4\",\n    \"created_at\": \"2003-08-29T01:48:49.956Z\",\n    \"catalog_type\": \"CUSTOM\",\n    \"epoch\": \"1989-01-16T08:49:03.703Z\",\n    \"archived\": false,\n    \"filename\": \"string\",\n    \"ready\": false,\n    \"data_format\": \"string\",\n    \"usable_time_start\": \"1978-01-15T15:40:17.728Z\",\n    \"usable_time_end\": \"2015-03-01T18:24:28.104Z\",\n    \"archive_protected\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2b89ed0a-59ed-46ce-964f-35d41d1f1510",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "NORAD catalog number of the object. If not provided, Satcat will attempt to infer the NORAD ID based on the filename of the uploaded file using the 18SpCS filename convention from the Spaceflight Safety Handbook.",
+                        "type": "text/plain"
+                      },
+                      "key": "norad_id",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "File format of the ephemeris file being uploaded",
+                        "type": "text/plain"
+                      },
+                      "key": "file_format",
+                      "value": "OEM",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Hard Body Radius (in meters) to use when computing collision probability using this Ephemeris. Some ephemeris formats may include HBR information; if both are provided, this value is treated as an override. If not provided, HBR will be estimated based on the object type designation in the public catalog.",
+                        "type": "text/plain"
+                      },
+                      "key": "hbr_m",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "User comments",
+                        "type": "text/plain"
+                      },
+                      "key": "comments",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Ephemeris file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "ephemeris_file",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "context",
+                      "value": "ROUTINE",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "designation",
+                      "value": "THEORETICAL",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Originator of the ephemeris",
+                        "type": "text/plain"
+                      },
+                      "key": "originator",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "repository_public",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "key": "event_public",
+                      "value": "<boolean>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Group ID to own this ephemeris. Can only be set by super users and is intended to upload of PREDICTIVE ephemeris by Kayhan OD",
+                        "type": "text/plain"
+                      },
+                      "key": "owning_group_id",
+                      "value": "<uuid>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether the ephemeris describes an on-orbit satellite or a launch vehicle. If not provided, defaults to 'ON_ORBIT'. If LAUNCH is provided alongside a CCSDS OCM file, the `EPOCH_TZERO` will be interpreted as the nominal launch time. If LAUNCH is provided alongside a file format not explicitly designed for launch ephemeris, the first tabulated timestep of the ephemeris file will be considered the nominal launch time. LAUNCH ephemeris files must be specified in an Earth-fixed or pseudo Earth-fixed reference frame; an error will be raised otherwise.",
+                        "type": "text/plain"
+                      },
+                      "key": "ephemeris_type",
+                      "value": "ON_ORBIT",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "759ad9f1-848f-4f39-98b7-88dce4481a3d",
+          "name": "List Ephemerides",
+          "request": {
+            "name": "List Ephemerides",
+            "description": {
+              "content": "List the ephemerides to which the currently authenticated user has read access.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "59fd856c-0229-4958-9ba2-b00726ea1f85",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"ephemeris_source\": \"CATALOG\",\n      \"has_covariance\": false,\n      \"ephemeris_type\": \"LAUNCH\",\n      \"apogee_km\": 1413.7245470838157,\n      \"perigee_km\": 4133.746873314117,\n      \"id\": \"f44e725a-9a87-5341-b9d1-e09448fdd96f\",\n      \"rso_id\": \"1cf6c39b-27ed-8340-1a4d-e615ba958362\",\n      \"filename\": \"string\",\n      \"data_format\": \"hdf5\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 529.0928618246338,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"c6fcf70a-0eda-a4e9-1dd9-6f5e320274ef\",\n          \"event_key_number\": 8321\n        },\n        {\n          \"ephemeris_id\": \"990c0362-7ee3-38b3-3e94-cbf624c681e1\",\n          \"event_key_number\": 1265\n        }\n      ],\n      \"rso\": {\n        \"id\": \"782a468f-b08c-fb6d-62f4-cdd75a5a28fe\",\n        \"norad_id\": 6544,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"25949cd7-2613-56ef-d5bf-ff55787b88bd\",\n      \"group_id\": \"e720d23f-ace9-7aed-6484-32aab511cb07\",\n      \"covariance_corrected\": true,\n      \"source_ephemeris_id\": \"0f308f68-7672-73df-a2f8-9a0cb9b5f131\",\n      \"norad_id\": 9031,\n      \"solution_time\": \"2007-01-17T17:59:26.874Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 5839.693017239155,\n      \"current_operational\": false,\n      \"launch_time\": \"1990-02-02T06:55:10.185Z\",\n      \"usable_time_start\": \"2002-06-10T09:06:19.638Z\",\n      \"usable_time_end\": \"2025-11-03T10:32:27.264Z\",\n      \"context\": \"MAINTENANCE\",\n      \"designation\": \"THEORETICAL\",\n      \"catalog\": {\n        \"ephemerides_count\": 6314,\n        \"id\": \"8b579adc-10fb-1e05-be0e-f45ac4c24961\",\n        \"created_at\": \"1959-01-20T01:30:03.099Z\",\n        \"catalog_type\": \"TLE\",\n        \"epoch\": \"2009-01-13T17:54:31.988Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"1988-02-15T19:58:28.425Z\",\n        \"usable_time_end\": \"1960-06-20T20:45:04.391Z\",\n        \"archive_protected\": false\n      }\n    },\n    {\n      \"ephemeris_source\": \"KAYHAN_INTERNAL_PROCESS\",\n      \"has_covariance\": false,\n      \"ephemeris_type\": \"ON_ORBIT\",\n      \"apogee_km\": 9471.892511066968,\n      \"perigee_km\": 3382.3504054294995,\n      \"id\": \"ab0339f1-fe7e-c08a-02be-33a3b495a34d\",\n      \"rso_id\": \"f5b84f6d-683a-1e75-f1d8-a6be1c36c72e\",\n      \"filename\": \"string\",\n      \"data_format\": \"hdf5\",\n      \"custom_storage_path\": \"string\",\n      \"altitude_km\": 2490.3788682491477,\n      \"repository_public\": false,\n      \"event_public\": false,\n      \"shared_event_keys\": [\n        {\n          \"ephemeris_id\": \"bf261721-ecef-6b7c-a968-cde30b25c32f\",\n          \"event_key_number\": 3906\n        },\n        {\n          \"ephemeris_id\": \"d18385e4-1311-9c9b-1408-52ad05579e16\",\n          \"event_key_number\": 9143\n        }\n      ],\n      \"rso\": {\n        \"id\": \"15ca890b-a0b1-803f-5c11-820e13b4e39b\",\n        \"norad_id\": 5518,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"user_id\": \"1ed8284d-a762-2ef2-1523-b7de9a893e80\",\n      \"group_id\": \"e3c93d6b-6950-d5b7-ea7e-143dd6c66d44\",\n      \"covariance_corrected\": true,\n      \"source_ephemeris_id\": \"5f6a4fe6-dd18-7935-721b-c9171f7f91ba\",\n      \"norad_id\": 7204,\n      \"solution_time\": \"2024-09-04T21:34:09.479Z\",\n      \"comments\": \"string\",\n      \"archived\": false,\n      \"hbr_m\": 9331.554847885654,\n      \"current_operational\": false,\n      \"launch_time\": \"2023-01-05T09:16:59.655Z\",\n      \"usable_time_start\": \"1974-10-12T16:03:54.267Z\",\n      \"usable_time_end\": \"1947-02-21T09:30:04.042Z\",\n      \"context\": \"ROUTINE\",\n      \"designation\": \"TLE\",\n      \"catalog\": {\n        \"ephemerides_count\": 8000,\n        \"id\": \"707f5c53-b9bc-5589-ea0d-0ef13e140cd0\",\n        \"created_at\": \"1995-08-12T00:26:10.567Z\",\n        \"catalog_type\": \"SP\",\n        \"epoch\": \"2010-04-08T22:11:14.734Z\",\n        \"archived\": false,\n        \"filename\": \"string\",\n        \"ready\": false,\n        \"data_format\": \"string\",\n        \"usable_time_start\": \"2014-09-27T02:09:48.152Z\",\n        \"usable_time_end\": \"1953-09-06T03:23:24.655Z\",\n        \"archive_protected\": false\n      }\n    }\n  ],\n  \"total_count\": 3455\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4cec1cb3-5828-498e-8eda-ea6dfa83c4fc",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "df81a613-d1df-4c6d-ad4e-0ed2a00a80f0",
+          "name": "Operationalize Ephemeris",
+          "request": {
+            "name": "Operationalize Ephemeris",
+            "description": {
+              "content": "Re-designate an existing ephemeris as the current OPERATIONAL.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id",
+                "operationalize"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7c4c40ac-0122-4f43-ba5f-6ea39060f3fc",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "operationalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n  \"has_covariance\": true,\n  \"ephemeris_type\": \"ON_ORBIT\",\n  \"apogee_km\": 1227.4164480948803,\n  \"perigee_km\": 929.8722830431883,\n  \"id\": \"9a3529c4-38d9-741f-86ae-3d3d8737d5d1\",\n  \"rso_id\": \"004469e5-3b07-e3bb-0ea1-4a45f4ff75db\",\n  \"filename\": \"string\",\n  \"data_format\": \"hdf5\",\n  \"custom_storage_path\": \"string\",\n  \"altitude_km\": 8037.811833874082,\n  \"repository_public\": false,\n  \"event_public\": false,\n  \"shared_event_keys\": [\n    {\n      \"ephemeris_id\": \"54949c40-1578-3b75-1601-ab40b4477fc9\",\n      \"event_key_number\": 8918\n    },\n    {\n      \"ephemeris_id\": \"d9c40a86-584d-712d-780b-e814070b2cdc\",\n      \"event_key_number\": 9214\n    }\n  ],\n  \"rso\": {\n    \"id\": \"bc4ee6c4-fea0-c385-d738-b26a957f0d1e\",\n    \"norad_id\": 7754,\n    \"international_designator\": \"string\",\n    \"object_type\": \"string\",\n    \"object_type_category\": \"string\",\n    \"object_name\": \"string\"\n  },\n  \"user_id\": \"a51c6ecb-3504-3f3c-9ac4-b99ea4147bef\",\n  \"group_id\": \"269cfed8-1f5b-6386-e65d-3118d6c82358\",\n  \"covariance_corrected\": true,\n  \"source_ephemeris_id\": \"0ab67ace-1aa3-6e24-b4bc-7df593d81320\",\n  \"norad_id\": 3728,\n  \"solution_time\": \"2016-06-20T08:46:55.145Z\",\n  \"comments\": \"string\",\n  \"archived\": false,\n  \"hbr_m\": 3220.527561147961,\n  \"current_operational\": false,\n  \"launch_time\": \"1966-12-12T01:15:39.282Z\",\n  \"usable_time_start\": \"2013-10-02T05:11:26.287Z\",\n  \"usable_time_end\": \"2004-08-06T15:26:06.532Z\",\n  \"context\": \"DECAY\",\n  \"designation\": \"TLE\",\n  \"catalog\": {\n    \"ephemerides_count\": 4933,\n    \"id\": \"59a5ecbf-60cd-c02f-b2b2-13328f6ccdf4\",\n    \"created_at\": \"2003-08-29T01:48:49.956Z\",\n    \"catalog_type\": \"CUSTOM\",\n    \"epoch\": \"1989-01-16T08:49:03.703Z\",\n    \"archived\": false,\n    \"filename\": \"string\",\n    \"ready\": false,\n    \"data_format\": \"string\",\n    \"usable_time_start\": \"1978-01-15T15:40:17.728Z\",\n    \"usable_time_end\": \"2015-03-01T18:24:28.104Z\",\n    \"archive_protected\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "da05bf87-2cd6-49b9-87ca-c5a62fae62bf",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "operationalize"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "a8782971-3889-4126-92f4-bbac8e2e6cf0",
+          "name": "Get Current Operational Ephemeris",
+          "request": {
+            "name": "Get Current Operational Ephemeris",
+            "description": {
+              "content": "Get the current operational ephemeris for an RSO.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "rsos",
+                ":norad_id",
+                "current_operational_ephemeris"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "norad_id",
+                  "description": "(Required) NORAD ID of the object for which to retrieve operational ephemeris"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1d98afd2-f9d1-4476-83e4-533c8abd4403",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rsos",
+                    ":norad_id",
+                    "current_operational_ephemeris"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "norad_id",
+                      "description": "(Required) NORAD ID of the object for which to retrieve operational ephemeris"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n  \"has_covariance\": true,\n  \"ephemeris_type\": \"ON_ORBIT\",\n  \"apogee_km\": 1227.4164480948803,\n  \"perigee_km\": 929.8722830431883,\n  \"id\": \"9a3529c4-38d9-741f-86ae-3d3d8737d5d1\",\n  \"rso_id\": \"004469e5-3b07-e3bb-0ea1-4a45f4ff75db\",\n  \"filename\": \"string\",\n  \"data_format\": \"hdf5\",\n  \"custom_storage_path\": \"string\",\n  \"altitude_km\": 8037.811833874082,\n  \"repository_public\": false,\n  \"event_public\": false,\n  \"shared_event_keys\": [\n    {\n      \"ephemeris_id\": \"54949c40-1578-3b75-1601-ab40b4477fc9\",\n      \"event_key_number\": 8918\n    },\n    {\n      \"ephemeris_id\": \"d9c40a86-584d-712d-780b-e814070b2cdc\",\n      \"event_key_number\": 9214\n    }\n  ],\n  \"rso\": {\n    \"id\": \"bc4ee6c4-fea0-c385-d738-b26a957f0d1e\",\n    \"norad_id\": 7754,\n    \"international_designator\": \"string\",\n    \"object_type\": \"string\",\n    \"object_type_category\": \"string\",\n    \"object_name\": \"string\"\n  },\n  \"user_id\": \"a51c6ecb-3504-3f3c-9ac4-b99ea4147bef\",\n  \"group_id\": \"269cfed8-1f5b-6386-e65d-3118d6c82358\",\n  \"covariance_corrected\": true,\n  \"source_ephemeris_id\": \"0ab67ace-1aa3-6e24-b4bc-7df593d81320\",\n  \"norad_id\": 3728,\n  \"solution_time\": \"2016-06-20T08:46:55.145Z\",\n  \"comments\": \"string\",\n  \"archived\": false,\n  \"hbr_m\": 3220.527561147961,\n  \"current_operational\": false,\n  \"launch_time\": \"1966-12-12T01:15:39.282Z\",\n  \"usable_time_start\": \"2013-10-02T05:11:26.287Z\",\n  \"usable_time_end\": \"2004-08-06T15:26:06.532Z\",\n  \"context\": \"DECAY\",\n  \"designation\": \"TLE\",\n  \"catalog\": {\n    \"ephemerides_count\": 4933,\n    \"id\": \"59a5ecbf-60cd-c02f-b2b2-13328f6ccdf4\",\n    \"created_at\": \"2003-08-29T01:48:49.956Z\",\n    \"catalog_type\": \"CUSTOM\",\n    \"epoch\": \"1989-01-16T08:49:03.703Z\",\n    \"archived\": false,\n    \"filename\": \"string\",\n    \"ready\": false,\n    \"data_format\": \"string\",\n    \"usable_time_start\": \"1978-01-15T15:40:17.728Z\",\n    \"usable_time_end\": \"2015-03-01T18:24:28.104Z\",\n    \"archive_protected\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d4bb000-781a-4be8-9c31-8c013e6bd59d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "rsos",
+                    ":norad_id",
+                    "current_operational_ephemeris"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "norad_id",
+                      "description": "(Required) NORAD ID of the object for which to retrieve operational ephemeris"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ec31452c-9248-4a0b-8dad-3cf7b0f5cc09",
+          "name": "Get Ephemeris",
+          "request": {
+            "name": "Get Ephemeris",
+            "description": {
+              "content": "Retrieve metadata of an ephemeris.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "organization_id",
+                  "value": "<uuid>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the ephemeris to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cd31f310-be07-4094-8a59-831defc7226e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n  \"has_covariance\": true,\n  \"ephemeris_type\": \"ON_ORBIT\",\n  \"apogee_km\": 1227.4164480948803,\n  \"perigee_km\": 929.8722830431883,\n  \"id\": \"9a3529c4-38d9-741f-86ae-3d3d8737d5d1\",\n  \"rso_id\": \"004469e5-3b07-e3bb-0ea1-4a45f4ff75db\",\n  \"filename\": \"string\",\n  \"data_format\": \"hdf5\",\n  \"custom_storage_path\": \"string\",\n  \"altitude_km\": 8037.811833874082,\n  \"repository_public\": false,\n  \"event_public\": false,\n  \"shared_event_keys\": [\n    {\n      \"ephemeris_id\": \"54949c40-1578-3b75-1601-ab40b4477fc9\",\n      \"event_key_number\": 8918\n    },\n    {\n      \"ephemeris_id\": \"d9c40a86-584d-712d-780b-e814070b2cdc\",\n      \"event_key_number\": 9214\n    }\n  ],\n  \"rso\": {\n    \"id\": \"bc4ee6c4-fea0-c385-d738-b26a957f0d1e\",\n    \"norad_id\": 7754,\n    \"international_designator\": \"string\",\n    \"object_type\": \"string\",\n    \"object_type_category\": \"string\",\n    \"object_name\": \"string\"\n  },\n  \"user_id\": \"a51c6ecb-3504-3f3c-9ac4-b99ea4147bef\",\n  \"group_id\": \"269cfed8-1f5b-6386-e65d-3118d6c82358\",\n  \"covariance_corrected\": true,\n  \"source_ephemeris_id\": \"0ab67ace-1aa3-6e24-b4bc-7df593d81320\",\n  \"norad_id\": 3728,\n  \"solution_time\": \"2016-06-20T08:46:55.145Z\",\n  \"comments\": \"string\",\n  \"archived\": false,\n  \"hbr_m\": 3220.527561147961,\n  \"current_operational\": false,\n  \"launch_time\": \"1966-12-12T01:15:39.282Z\",\n  \"usable_time_start\": \"2013-10-02T05:11:26.287Z\",\n  \"usable_time_end\": \"2004-08-06T15:26:06.532Z\",\n  \"context\": \"DECAY\",\n  \"designation\": \"TLE\",\n  \"catalog\": {\n    \"ephemerides_count\": 4933,\n    \"id\": \"59a5ecbf-60cd-c02f-b2b2-13328f6ccdf4\",\n    \"created_at\": \"2003-08-29T01:48:49.956Z\",\n    \"catalog_type\": \"CUSTOM\",\n    \"epoch\": \"1989-01-16T08:49:03.703Z\",\n    \"archived\": false,\n    \"filename\": \"string\",\n    \"ready\": false,\n    \"data_format\": \"string\",\n    \"usable_time_start\": \"1978-01-15T15:40:17.728Z\",\n    \"usable_time_end\": \"2015-03-01T18:24:28.104Z\",\n    \"archive_protected\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d5215329-863c-4720-b50d-e62aee6c4edb",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "organization_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b16cbdb6-1918-4bc2-83de-7e9d1bb9cd76",
+          "name": "Archive Ephemeris",
+          "request": {
+            "name": "Archive Ephemeris",
+            "description": {
+              "content": "Mark an ephemeris as archived. This retains metadata about the ephemeris, but renders the ephemeris data inaccessible.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id",
+                "archive"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the ephemeris to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8848ad69-462e-49ca-b21a-f11f6f917d6a",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"ephemeris_source\": \"PATHFINDER_SCREENER_THIRDPARTY\",\n  \"has_covariance\": true,\n  \"ephemeris_type\": \"ON_ORBIT\",\n  \"apogee_km\": 1227.4164480948803,\n  \"perigee_km\": 929.8722830431883,\n  \"id\": \"9a3529c4-38d9-741f-86ae-3d3d8737d5d1\",\n  \"rso_id\": \"004469e5-3b07-e3bb-0ea1-4a45f4ff75db\",\n  \"filename\": \"string\",\n  \"data_format\": \"hdf5\",\n  \"custom_storage_path\": \"string\",\n  \"altitude_km\": 8037.811833874082,\n  \"repository_public\": false,\n  \"event_public\": false,\n  \"shared_event_keys\": [\n    {\n      \"ephemeris_id\": \"54949c40-1578-3b75-1601-ab40b4477fc9\",\n      \"event_key_number\": 8918\n    },\n    {\n      \"ephemeris_id\": \"d9c40a86-584d-712d-780b-e814070b2cdc\",\n      \"event_key_number\": 9214\n    }\n  ],\n  \"rso\": {\n    \"id\": \"bc4ee6c4-fea0-c385-d738-b26a957f0d1e\",\n    \"norad_id\": 7754,\n    \"international_designator\": \"string\",\n    \"object_type\": \"string\",\n    \"object_type_category\": \"string\",\n    \"object_name\": \"string\"\n  },\n  \"user_id\": \"a51c6ecb-3504-3f3c-9ac4-b99ea4147bef\",\n  \"group_id\": \"269cfed8-1f5b-6386-e65d-3118d6c82358\",\n  \"covariance_corrected\": true,\n  \"source_ephemeris_id\": \"0ab67ace-1aa3-6e24-b4bc-7df593d81320\",\n  \"norad_id\": 3728,\n  \"solution_time\": \"2016-06-20T08:46:55.145Z\",\n  \"comments\": \"string\",\n  \"archived\": false,\n  \"hbr_m\": 3220.527561147961,\n  \"current_operational\": false,\n  \"launch_time\": \"1966-12-12T01:15:39.282Z\",\n  \"usable_time_start\": \"2013-10-02T05:11:26.287Z\",\n  \"usable_time_end\": \"2004-08-06T15:26:06.532Z\",\n  \"context\": \"DECAY\",\n  \"designation\": \"TLE\",\n  \"catalog\": {\n    \"ephemerides_count\": 4933,\n    \"id\": \"59a5ecbf-60cd-c02f-b2b2-13328f6ccdf4\",\n    \"created_at\": \"2003-08-29T01:48:49.956Z\",\n    \"catalog_type\": \"CUSTOM\",\n    \"epoch\": \"1989-01-16T08:49:03.703Z\",\n    \"archived\": false,\n    \"filename\": \"string\",\n    \"ready\": false,\n    \"data_format\": \"string\",\n    \"usable_time_start\": \"1978-01-15T15:40:17.728Z\",\n    \"usable_time_end\": \"2015-03-01T18:24:28.104Z\",\n    \"archive_protected\": false\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "bf644619-23fd-42d7-8879-c2eceae30d5e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "archive"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb472665-db8a-4ac8-8a9e-94e8ad786ddc",
+          "name": "Get Ephemeris Content",
+          "request": {
+            "name": "Get Ephemeris Content",
+            "description": {
+              "content": "Retrieve file content of an ephemeris.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id",
+                "file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "file_format",
+                  "value": "OEM",
+                  "description": "File format of the ephemeris file being uploaded. ORIGINAL will fail if the data was stored in an HDF5 or other deprecated format."
+                },
+                {
+                  "disabled": false,
+                  "key": "ref_frame",
+                  "value": "<string>",
+                  "description": "Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the stored frame of the ephemeris."
+                },
+                {
+                  "disabled": false,
+                  "key": "cov_frame",
+                  "value": "<string>",
+                  "description": "Reference frame of the ephemeris trajectory being downloaded. Only supported for OEM format. Default is the frame the trajectory was originally uploaded with."
+                },
+                {
+                  "disabled": false,
+                  "key": "filename",
+                  "value": "<string>",
+                  "description": "Optional custom filename. If not supplied, a default or original filename will be generated."
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the ephemeris to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "11911141-061f-452a-bc9d-6c137de8003e",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "file_format",
+                      "value": "OEM"
+                    },
+                    {
+                      "key": "ref_frame",
+                      "value": "ITRF-93"
+                    },
+                    {
+                      "key": "cov_frame",
+                      "value": "ITRF-93"
+                    },
+                    {
+                      "key": "filename",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cf6a99c2-9e1b-4082-9f39-5238e99fd5e7",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "file_format",
+                      "value": "OEM"
+                    },
+                    {
+                      "key": "ref_frame",
+                      "value": "ITRF-93"
+                    },
+                    {
+                      "key": "cov_frame",
+                      "value": "ITRF-93"
+                    },
+                    {
+                      "key": "filename",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "73b8efa7-7d7c-4f68-abc3-cf7586bc0f89",
+          "name": "Get Ephemeris Json Viz",
+          "request": {
+            "name": "Get Ephemeris Json Viz",
+            "description": {
+              "content": "Retrieve file content of an ephemeris in a JSON format for data visualization.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id",
+                "jsonviz"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "interpolate_to_unix_minutes_grid",
+                  "value": "true"
+                },
+                {
+                  "disabled": false,
+                  "key": "dt_s",
+                  "value": "<number>"
+                },
+                {
+                  "disabled": false,
+                  "key": "pos_units",
+                  "value": "m"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the ephemeris to get"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b61b18e5-3338-4674-968c-fd438c9ecaf4",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "jsonviz"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interpolate_to_unix_minutes_grid",
+                      "value": "true"
+                    },
+                    {
+                      "key": "dt_s",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "pos_units",
+                      "value": "m"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"key_0\": false,\n  \"key_1\": false\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9dcff8bc-f6bc-494a-9b37-38e329a096b5",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "jsonviz"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "interpolate_to_unix_minutes_grid",
+                      "value": "true"
+                    },
+                    {
+                      "key": "dt_s",
+                      "value": "<number>"
+                    },
+                    {
+                      "key": "pos_units",
+                      "value": "m"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to get"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "936afe66-cc96-4fdb-8e90-e06299849a1d",
+          "name": "Create Ephemeris From Opm",
+          "request": {
+            "name": "Create Ephemeris From Opm",
+            "description": {
+              "content": "Create ephemeris from an opm file",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                "opm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "opm_file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "OPM file to upload"
+                },
+                {
+                  "key": "start_time",
+                  "value": "<dateTime>",
+                  "type": "text",
+                  "description": "OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch."
+                },
+                {
+                  "key": "end_time",
+                  "value": "<dateTime>",
+                  "type": "text",
+                  "description": "OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration."
+                },
+                {
+                  "key": "target_duration",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration."
+                },
+                {
+                  "key": "timestep",
+                  "value": "<number>",
+                  "type": "text",
+                  "description": "Propagation Time Step between each reported epoch, in seconds."
+                },
+                {
+                  "key": "purpose",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "Purpose of propagation (MANUAL or SCREENING)"
+                },
+                {
+                  "key": "infer_interval_from_screening",
+                  "value": "true",
+                  "type": "text",
+                  "description": "Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled."
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "6e8eac27-1af9-4924-8501-1bc87b8363d6",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    "opm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "OPM file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "opm_file",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.",
+                        "type": "text/plain"
+                      },
+                      "key": "start_time",
+                      "value": "<dateTime>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.",
+                        "type": "text/plain"
+                      },
+                      "key": "end_time",
+                      "value": "<dateTime>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.",
+                        "type": "text/plain"
+                      },
+                      "key": "target_duration",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Propagation Time Step between each reported epoch, in seconds.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestep",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Purpose of propagation (MANUAL or SCREENING)",
+                        "type": "text/plain"
+                      },
+                      "key": "purpose",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.",
+                        "type": "text/plain"
+                      },
+                      "key": "infer_interval_from_screening",
+                      "value": "true",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5d18368a-6f97-4dd8-9332-266468bd3cc6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    "opm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "OPM file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "opm_file",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.",
+                        "type": "text/plain"
+                      },
+                      "key": "start_time",
+                      "value": "<dateTime>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.",
+                        "type": "text/plain"
+                      },
+                      "key": "end_time",
+                      "value": "<dateTime>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.",
+                        "type": "text/plain"
+                      },
+                      "key": "target_duration",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Propagation Time Step between each reported epoch, in seconds.",
+                        "type": "text/plain"
+                      },
+                      "key": "timestep",
+                      "value": "<number>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Purpose of propagation (MANUAL or SCREENING)",
+                        "type": "text/plain"
+                      },
+                      "key": "purpose",
+                      "value": "<string>",
+                      "type": "text"
+                    },
+                    {
+                      "description": {
+                        "content": "Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.",
+                        "type": "text/plain"
+                      },
+                      "key": "infer_interval_from_screening",
+                      "value": "true",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "53e80a14-48cc-4080-afad-7af274c80b75",
+          "name": "Get Ephemeris Summary",
+          "request": {
+            "name": "Get Ephemeris Summary",
+            "description": {
+              "content": "Get a summary of current OPERATIONAL ephemeris in the respository.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides_summary"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "de6a0895-c421-4e1a-b3b0-7a53772746d0",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides_summary"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "577fbf62-0d89-4086-84b1-e7ba73aec6a7",
+          "name": "Trigger Covariance Tuning",
+          "request": {
+            "name": "Trigger Covariance Tuning",
+            "description": {
+              "content": "Manually trigger covariance realism tuning of an ephemeris.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "ephemerides",
+                ":id",
+                "covariance_tuning"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "id",
+                  "description": "(Required) ID of the ephemeris to trigger"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "53566557-fcc5-4852-a2f8-b4bd3547a614",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "covariance_tuning"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to trigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a7705bc8-9f1d-40c2-adf5-13011b1d396e",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "ephemerides",
+                    ":id",
+                    "covariance_tuning"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "id",
+                      "description": "(Required) ID of the ephemeris to trigger"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "77903561-4b2a-4b07-b510-210c5aa16987",
+          "name": "Trigger Covariance Tuning Bulk",
+          "request": {
+            "name": "Trigger Covariance Tuning Bulk",
+            "description": {
+              "content": "Manually trigger covariance realism tuning of a list of ephemerides by id.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "trigger_covariance_tuning_bulk"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) ID of the ephemeris to trigger"
+                },
+                {
+                  "disabled": false,
+                  "key": "ids",
+                  "value": "<string>",
+                  "description": "(Required) ID of the ephemeris to trigger"
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1a2e13b4-e109-413e-b93c-59cc4b580af7",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trigger_covariance_tuning_bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c0dbd0c3-4a2c-4436-a6f6-8a621e68e23d",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "trigger_covariance_tuning_bulk"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/satcat",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "9bfd6682-1596-4374-adf3-917d6a873ed8",
+    "name": "Satcat Service Authentication Ephemeris API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nKayhan Space's Satcat Service API.\n\n## Features\n* **View** historical CDM data for an object.\n* **View** latest CDM data for an object.\n\n\nContact Support:\n Email: help@kayhan.space",
+      "type": "text/plain"
+    }
+  }
+}

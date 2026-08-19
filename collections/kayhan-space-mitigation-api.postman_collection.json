@@ -1,0 +1,1310 @@
+{
+  "item": [
+    {
+      "id": "01d92778-f007-4527-8f27-50441d3ea58c",
+      "name": "Mitigation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "8fa93d4b-bf67-450d-84c2-e541180e3378",
+          "name": "List Mitigation Scenarios",
+          "request": {
+            "name": "List Mitigation Scenarios",
+            "description": {
+              "content": "List mitigation scenarios available for a conjunction message.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "filters",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_field",
+                  "value": "created_at"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort_direction",
+                  "value": "desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "count",
+                  "value": "0"
+                },
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) key or cdm_id of conjunction message"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "15b6bc85-df8f-4237-bf4d-21506fbc278b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) key or cdm_id of conjunction message"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"pagination\": {\n    \"offset\": 0,\n    \"count\": 0\n  },\n  \"items\": [\n    {\n      \"primary_solution_type\": \"string\",\n      \"originator\": \"string\",\n      \"designation\": \"DEFINITIVE\",\n      \"tca\": \"1990-11-03T18:23:35.510Z\",\n      \"creation_date\": \"1987-07-24T04:31:39.406Z\",\n      \"latest\": false,\n      \"has_history\": true,\n      \"relative_position_r_km\": 5907.90392412364,\n      \"relative_position_i_km\": 5832.129831281289,\n      \"relative_position_c_km\": 1514.6629982642469,\n      \"primary_rso_id\": \"904324f6-31c2-4f69-e830-61d759ce5c35\",\n      \"secondary_rso_id\": \"6333c366-24ba-542e-bf96-ae10068d2210\",\n      \"key\": \"string\",\n      \"event_key\": \"string\",\n      \"cdm_id\": 9285,\n      \"secondary_solution_type\": \"string\",\n      \"derived_from_cdm_key\": \"string\",\n      \"avm_status\": \"RUNNING\",\n      \"collision_probability\": 8458.912684654193,\n      \"original_cdm_pc\": 4332.407433649955,\n      \"collision_probability_valid\": true,\n      \"original_cdm_pc_method\": \"string\",\n      \"failing_validity_cause\": \"VIOLATION\",\n      \"updated_pc_available\": false,\n      \"updated_pc_method\": \"string\",\n      \"miss_distance_km\": 3283.7216544518687,\n      \"stale_primary_data_warning\": true,\n      \"angle_of_approach\": 7006.7570750257855,\n      \"mahalanobis_distance\": 2994.120390816897,\n      \"relative_speed_m\": 1167.298976073432,\n      \"relative_miss_sig_m\": 6536.831278124402,\n      \"relative_sig_r_u_m\": 5410.9529615973515,\n      \"relative_sig_it_u_m\": 5299.356780542662,\n      \"relative_sig_ct_u_m\": 1252.5406951167918,\n      \"primary\": {\n        \"id\": \"6d194071-2c43-95b7-d091-84635db854b3\",\n        \"norad_id\": 5240,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"primary_state\": {\n        \"x_km\": 9355.176894798753,\n        \"y_km\": 7770.131005247835,\n        \"z_km\": 5822.353255505678,\n        \"x_dot_km\": 9938.881447110445,\n        \"y_dot_km\": 118.16385673277252,\n        \"z_dot_km\": 2438.2023090849616,\n        \"id\": \"a01e6c8c-f63e-a998-b2e9-93d995b05964\",\n        \"created_at\": \"1993-01-09T03:27:42.768Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 6596.822120342741,\n        \"time_lastob_start\": \"2025-08-06T05:12:21.912Z\",\n        \"time_lastob_end\": \"2001-11-21T02:30:12.934Z\",\n        \"recommended_od_span\": 9721.928410716844,\n        \"actual_od_span\": 2423.4029645469923,\n        \"obs_available\": 2886,\n        \"obs_used\": 998,\n        \"tracks_available\": 7579,\n        \"tracks_used\": 6499,\n        \"residuals_accepted\": 5918,\n        \"weighted_rms\": 7014.264852442504,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": 9348.892010596646\n          },\n          \"key_1\": {\n            \"key_0\": 282,\n            \"key_1\": \"string\"\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 4070.185129414624,\n        \"cd_area_over_mass\": 1705.910666382704,\n        \"cr_area_over_mass\": 6876.476889349462,\n        \"thrust_acceleration_m\": 2368.2766846254976,\n        \"sedr\": 3198.239847016281,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 6206.67247287718,\n        \"ct_r\": 7507.9923664522585,\n        \"ct_t\": 1340.4625156619943,\n        \"cn_r\": 8075.193361862728,\n        \"cn_t\": 8515.462241812305,\n        \"cn_n\": 8853.104185921347,\n        \"crdot_r\": 4380.0703531057425,\n        \"crdot_t\": 1167.3483513360616,\n        \"crdot_n\": 3717.9599386413497,\n        \"crdot_rdot\": 6623.940373745752,\n        \"ctdot_r\": 6247.4525381101,\n        \"ctdot_t\": 389.79854556799864,\n        \"ctdot_n\": 3849.881139959509,\n        \"ctdot_rdot\": 1405.1465667619323,\n        \"ctdot_tdot\": 8181.231654350144,\n        \"cndot_r\": 8751.565146235149,\n        \"cndot_t\": 6257.022349674066,\n        \"cndot_n\": 8099.852413020508,\n        \"cndot_rdot\": 5368.687534414806,\n        \"cndot_tdot\": 9104.36443488682,\n        \"cndot_ndot\": 4600.893924130079,\n        \"cdrg_r\": 8669.150332481855,\n        \"cdrg_t\": 5945.274342996068,\n        \"cdrg_n\": 5327.707614321081,\n        \"cdrg_rdot\": 5531.813072339571,\n        \"cdrg_tdot\": 9967.37291642219,\n        \"cdrg_ndot\": 7444.64413998891,\n        \"cdrg_drg\": 6056.304361133942,\n        \"csrp_r\": 7066.410090697327,\n        \"csrp_t\": 6758.038518693411,\n        \"csrp_n\": 5104.272541050868,\n        \"csrp_rdot\": 1685.8724124192504,\n        \"csrp_tdot\": 4992.83310045658,\n        \"csrp_ndot\": 2832.862521665581,\n        \"csrp_drg\": 3034.336806148978,\n        \"csrp_srp\": 357.2560822301174,\n        \"ephemeris_id\": \"80a0e9c8-3ef1-c078-6ec6-f128b4d222b4\",\n        \"screening_id\": \"df0398c2-5d53-886c-7a80-b84cfa993047\",\n        \"derived_from_spacecraft_state_id\": \"b58b4aff-ce9f-691e-baf3-9373a34b742a\",\n        \"rso_id\": \"280e6eaa-b981-8a96-7c89-0c1cbb970278\",\n        \"altitude_km\": 6335.852611043216\n      },\n      \"secondary\": {\n        \"id\": \"6c3b2309-aff4-3418-3f35-02d4748c117e\",\n        \"norad_id\": 7775,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"secondary_state\": {\n        \"x_km\": 6786.277786595873,\n        \"y_km\": 3872.5299629003407,\n        \"z_km\": 5514.431343651355,\n        \"x_dot_km\": 7303.207455045326,\n        \"y_dot_km\": 4919.916589178925,\n        \"z_dot_km\": 2313.276745798962,\n        \"id\": \"f2e63946-662c-8c0f-acf9-200bd3632f27\",\n        \"created_at\": \"1989-05-09T22:11:29.331Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 928.2046985633552,\n        \"time_lastob_start\": \"2019-09-25T07:17:17.174Z\",\n        \"time_lastob_end\": \"2014-09-14T00:54:32.399Z\",\n        \"recommended_od_span\": 4753.926936855237,\n        \"actual_od_span\": 1539.369482140609,\n        \"obs_available\": 7472,\n        \"obs_used\": 158,\n        \"tracks_available\": 6222,\n        \"tracks_used\": 3016,\n        \"residuals_accepted\": 5418,\n        \"weighted_rms\": 511.0354437709863,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": 3640,\n            \"key_1\": 8301,\n            \"key_2\": \"string\"\n          },\n          \"key_1\": {\n            \"key_0\": \"string\",\n            \"key_1\": \"string\",\n            \"key_2\": \"string\"\n          },\n          \"key_2\": {\n            \"key_0\": true,\n            \"key_1\": 9162.115094639445,\n            \"key_2\": \"string\",\n            \"key_3\": 9436.337886596526\n          },\n          \"key_3\": {\n            \"key_0\": true,\n            \"key_1\": 9048\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 7765.491320761442,\n        \"cd_area_over_mass\": 5771.025528426599,\n        \"cr_area_over_mass\": 4518.138504513894,\n        \"thrust_acceleration_m\": 7798.414778972874,\n        \"sedr\": 651.2668524911835,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 465.78530888803704,\n        \"ct_r\": 8498.364776791252,\n        \"ct_t\": 4726.974767671462,\n        \"cn_r\": 7545.440098155689,\n        \"cn_t\": 6438.3317774940615,\n        \"cn_n\": 9721.215475090827,\n        \"crdot_r\": 8988.093434094511,\n        \"crdot_t\": 5612.574589278654,\n        \"crdot_n\": 9317.847607524694,\n        \"crdot_rdot\": 8307.531609859587,\n        \"ctdot_r\": 3807.638329417278,\n        \"ctdot_t\": 5279.519801366297,\n        \"ctdot_n\": 7331.538499049797,\n        \"ctdot_rdot\": 7047.891885101897,\n        \"ctdot_tdot\": 3922.3221878913805,\n        \"cndot_r\": 3375.2674312501686,\n        \"cndot_t\": 9162.914388585512,\n        \"cndot_n\": 267.48690502113925,\n        \"cndot_rdot\": 9840.04226892485,\n        \"cndot_tdot\": 8898.373108216114,\n        \"cndot_ndot\": 3148.3716206858835,\n        \"cdrg_r\": 8011.473746856206,\n        \"cdrg_t\": 30.49581991085293,\n        \"cdrg_n\": 1099.5998813860908,\n        \"cdrg_rdot\": 514.4828735293638,\n        \"cdrg_tdot\": 9278.888715685582,\n        \"cdrg_ndot\": 4951.1828452790205,\n        \"cdrg_drg\": 612.4348668659107,\n        \"csrp_r\": 849.6763589672063,\n        \"csrp_t\": 4989.064867946103,\n        \"csrp_n\": 2092.0194747266964,\n        \"csrp_rdot\": 2428.6511974188775,\n        \"csrp_tdot\": 4295.210995454749,\n        \"csrp_ndot\": 6302.499776580669,\n        \"csrp_drg\": 4338.768607889927,\n        \"csrp_srp\": 8581.80638880337,\n        \"ephemeris_id\": \"199f247c-9964-870b-d6cd-2b3ee463647c\",\n        \"screening_id\": \"822200da-b95e-fb9c-fdd8-be9ec146bc32\",\n        \"derived_from_spacecraft_state_id\": \"ef7a7992-ed5d-1435-4322-f4475aba879b\",\n        \"rso_id\": \"5ceb4e0a-bc34-4f88-c685-4db444b3e0ae\",\n        \"altitude_km\": 5849.202800104242\n      },\n      \"constellation_name\": \"string\",\n      \"constellation_id\": \"string\",\n      \"scenario\": {\n        \"id\": \"83ac0859-4720-6c78-ac9e-eda5acfd18b6\",\n        \"status\": \"string\",\n        \"autogenerated\": false,\n        \"name\": \"string\",\n        \"started_at\": \"1976-07-18T06:36:39.249Z\",\n        \"completed_at\": \"1969-08-17T01:30:16.906Z\",\n        \"updated_at\": \"1954-03-24T14:28:35.539Z\",\n        \"cdm_id\": 4165,\n        \"cdm_key\": \"string\",\n        \"constellation\": \"string\",\n        \"asset_norad_cat_id\": 7665,\n        \"completed_tradespaces\": 3334,\n        \"ephemeris_id\": \"a96c8690-f54d-8613-f80b-18603f06ee73\",\n        \"propagation_id\": \"d0743ab4-854c-00b8-9014-0b8a45464b82\",\n        \"failure_message\": \"SATCAT\"\n      },\n      \"is_robust\": false\n    },\n    {\n      \"primary_solution_type\": \"string\",\n      \"originator\": \"string\",\n      \"designation\": \"TLE\",\n      \"tca\": \"1964-08-12T15:53:56.847Z\",\n      \"creation_date\": \"1993-06-25T12:19:37.178Z\",\n      \"latest\": true,\n      \"has_history\": false,\n      \"relative_position_r_km\": 9801.36477088691,\n      \"relative_position_i_km\": 841.1909435118204,\n      \"relative_position_c_km\": 3086.295981218352,\n      \"primary_rso_id\": \"b84fef7d-249a-1eb9-90b3-dd0b61c53b19\",\n      \"secondary_rso_id\": \"c4cba62d-e5cb-c877-87fa-2741e6e7960e\",\n      \"key\": \"string\",\n      \"event_key\": \"string\",\n      \"cdm_id\": 8762,\n      \"secondary_solution_type\": \"string\",\n      \"derived_from_cdm_key\": \"string\",\n      \"avm_status\": \"PENDING\",\n      \"collision_probability\": 9310.957383468902,\n      \"original_cdm_pc\": 5371.644520544696,\n      \"collision_probability_valid\": true,\n      \"original_cdm_pc_method\": \"string\",\n      \"failing_validity_cause\": \"VIOLATION\",\n      \"updated_pc_available\": false,\n      \"updated_pc_method\": \"string\",\n      \"miss_distance_km\": 29.957358243964947,\n      \"stale_primary_data_warning\": true,\n      \"angle_of_approach\": 7307.356033672118,\n      \"mahalanobis_distance\": 1169.0704889704507,\n      \"relative_speed_m\": 9532.495299935968,\n      \"relative_miss_sig_m\": 7997.802150236937,\n      \"relative_sig_r_u_m\": 9853.171630341134,\n      \"relative_sig_it_u_m\": 9185.295274448756,\n      \"relative_sig_ct_u_m\": 6188.920624865946,\n      \"primary\": {\n        \"id\": \"856d8f98-2e2c-f13f-b5a8-6fa5fc8a3ff0\",\n        \"norad_id\": 522,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"primary_state\": {\n        \"x_km\": 7163.802373815545,\n        \"y_km\": 5129.491799384033,\n        \"z_km\": 6793.552276257788,\n        \"x_dot_km\": 5083.294991441667,\n        \"y_dot_km\": 144.2111621574338,\n        \"z_dot_km\": 205.53971161091366,\n        \"id\": \"e3b02526-a808-423e-df84-b6f95672115b\",\n        \"created_at\": \"1985-08-14T21:10:16.402Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 5657.450883070251,\n        \"time_lastob_start\": \"2023-05-30T13:01:41.923Z\",\n        \"time_lastob_end\": \"1977-02-15T04:30:53.079Z\",\n        \"recommended_od_span\": 2213.8462431409243,\n        \"actual_od_span\": 4295.453033017652,\n        \"obs_available\": 1554,\n        \"obs_used\": 8645,\n        \"tracks_available\": 2831,\n        \"tracks_used\": 7046,\n        \"residuals_accepted\": 7613,\n        \"weighted_rms\": 9785.783770816875,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": 3443,\n            \"key_1\": true,\n            \"key_2\": true\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 7045.258068126924,\n        \"cd_area_over_mass\": 3791.3109537890455,\n        \"cr_area_over_mass\": 5118.264179805187,\n        \"thrust_acceleration_m\": 7430.817395404846,\n        \"sedr\": 1405.6214019895929,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 4212.0594361212225,\n        \"ct_r\": 9887.374482800506,\n        \"ct_t\": 771.5933161604294,\n        \"cn_r\": 8159.61253442841,\n        \"cn_t\": 557.9590555227165,\n        \"cn_n\": 1618.096640874479,\n        \"crdot_r\": 1938.7151304757544,\n        \"crdot_t\": 174.65486140544218,\n        \"crdot_n\": 613.959426065579,\n        \"crdot_rdot\": 1011.1396829661634,\n        \"ctdot_r\": 2323.2174329339396,\n        \"ctdot_t\": 1617.9793861925164,\n        \"ctdot_n\": 8179.887945831106,\n        \"ctdot_rdot\": 2862.3365624586927,\n        \"ctdot_tdot\": 5686.116424561971,\n        \"cndot_r\": 3797.304562034417,\n        \"cndot_t\": 9993.46008118028,\n        \"cndot_n\": 5907.64176643811,\n        \"cndot_rdot\": 7247.917149801281,\n        \"cndot_tdot\": 4001.53219866223,\n        \"cndot_ndot\": 7716.727205075996,\n        \"cdrg_r\": 8520.572986894716,\n        \"cdrg_t\": 5749.2115727395185,\n        \"cdrg_n\": 324.75764048204405,\n        \"cdrg_rdot\": 457.92568727780036,\n        \"cdrg_tdot\": 1139.2341581600974,\n        \"cdrg_ndot\": 727.2132229830896,\n        \"cdrg_drg\": 6291.824993032939,\n        \"csrp_r\": 161.35843635548542,\n        \"csrp_t\": 3195.3433530494412,\n        \"csrp_n\": 6955.032109904992,\n        \"csrp_rdot\": 9475.783546176735,\n        \"csrp_tdot\": 6048.327695651916,\n        \"csrp_ndot\": 9565.17285735291,\n        \"csrp_drg\": 164.6565108941145,\n        \"csrp_srp\": 6883.597870385066,\n        \"ephemeris_id\": \"b8a294d6-7316-6401-bab3-2f2d059c3006\",\n        \"screening_id\": \"0727c2ab-e773-0874-9dce-a58bf11edc64\",\n        \"derived_from_spacecraft_state_id\": \"997fb921-2abd-92de-c88b-29e7b6b73c13\",\n        \"rso_id\": \"c309fbf5-863a-7c26-4230-447d1a5eb297\",\n        \"altitude_km\": 6627.459274158258\n      },\n      \"secondary\": {\n        \"id\": \"afeb5f0f-6eed-bf22-d46e-c803e648a274\",\n        \"norad_id\": 3772,\n        \"international_designator\": \"string\",\n        \"object_type\": \"string\",\n        \"object_type_category\": \"string\",\n        \"object_name\": \"string\"\n      },\n      \"secondary_state\": {\n        \"x_km\": 8245.014677639734,\n        \"y_km\": 4179.834979229831,\n        \"z_km\": 6474.53141482898,\n        \"x_dot_km\": 7460.073250055946,\n        \"y_dot_km\": 4092.254664485072,\n        \"z_dot_km\": 9789.082860050903,\n        \"id\": \"d0809d00-e8bb-0d3e-15dc-2c3c7fb69989\",\n        \"created_at\": \"1954-04-22T08:00:34.339Z\",\n        \"comment_screening_data_source\": \"string\",\n        \"ephemeris_name\": \"string\",\n        \"covariance_method\": \"string\",\n        \"ref_frame\": \"string\",\n        \"gravity_model\": \"string\",\n        \"atmospheric_model\": \"string\",\n        \"n_body_perturbations\": \"string\",\n        \"solar_rad_pressure\": \"string\",\n        \"earth_tides\": \"string\",\n        \"intrack_thrust\": \"string\",\n        \"comment_covariance_scale_factor\": \"string\",\n        \"comment_exclusion_volume_radius\": \"string\",\n        \"hbr_m\": 3221.7898086900022,\n        \"time_lastob_start\": \"1949-01-10T11:02:17.994Z\",\n        \"time_lastob_end\": \"1947-01-11T19:12:25.742Z\",\n        \"recommended_od_span\": 8774.345278055034,\n        \"actual_od_span\": 7742.908224199945,\n        \"obs_available\": 4272,\n        \"obs_used\": 7475,\n        \"tracks_available\": 6475,\n        \"tracks_used\": 8636,\n        \"residuals_accepted\": 4008,\n        \"weighted_rms\": 3365.9737118862954,\n        \"od_quality_rating\": {\n          \"key_0\": {\n            \"key_0\": \"string\",\n            \"key_1\": 9120.803258283608\n          },\n          \"key_1\": {\n            \"key_0\": \"string\"\n          }\n        },\n        \"comment_apogee\": \"string\",\n        \"comment_perigee\": \"string\",\n        \"comment_inclination\": \"string\",\n        \"comment_operator_hard_body_radius\": \"string\",\n        \"area_pc\": 7787.570985302477,\n        \"cd_area_over_mass\": 2876.204795428601,\n        \"cr_area_over_mass\": 2844.24461210905,\n        \"thrust_acceleration_m\": 9525.305812722265,\n        \"sedr\": 6140.288514482404,\n        \"comment_dcp_density_forecast_uncertainty\": \"string\",\n        \"comment_dcp_sensitivity_vector_position\": \"string\",\n        \"comment_dcp_sensitivity_vector_velocity\": \"string\",\n        \"cr_r\": 551.211483666466,\n        \"ct_r\": 6687.006229311545,\n        \"ct_t\": 2474.051024757057,\n        \"cn_r\": 2238.1247232972423,\n        \"cn_t\": 7163.147534881847,\n        \"cn_n\": 5012.510426900817,\n        \"crdot_r\": 8065.980501317077,\n        \"crdot_t\": 8457.124976530145,\n        \"crdot_n\": 5338.429511314294,\n        \"crdot_rdot\": 4854.492152344648,\n        \"ctdot_r\": 1700.506813685828,\n        \"ctdot_t\": 3208.4066499220366,\n        \"ctdot_n\": 3275.656686148094,\n        \"ctdot_rdot\": 2409.145482058288,\n        \"ctdot_tdot\": 2625.943068958916,\n        \"cndot_r\": 6090.6982699956525,\n        \"cndot_t\": 3641.0167578903574,\n        \"cndot_n\": 4088.7944555097065,\n        \"cndot_rdot\": 1254.0747797825768,\n        \"cndot_tdot\": 9673.871998200164,\n        \"cndot_ndot\": 104.94270459672327,\n        \"cdrg_r\": 260.81632503926033,\n        \"cdrg_t\": 6700.333110433479,\n        \"cdrg_n\": 912.8853069590315,\n        \"cdrg_rdot\": 5881.055849122014,\n        \"cdrg_tdot\": 5552.472144116205,\n        \"cdrg_ndot\": 510.2828709563745,\n        \"cdrg_drg\": 2549.5281144361525,\n        \"csrp_r\": 5489.304245651614,\n        \"csrp_t\": 895.7108385911449,\n        \"csrp_n\": 3422.4468644096164,\n        \"csrp_rdot\": 9151.398784961357,\n        \"csrp_tdot\": 2463.633062261826,\n        \"csrp_ndot\": 6741.179880838404,\n        \"csrp_drg\": 2690.74408006165,\n        \"csrp_srp\": 7539.720265790053,\n        \"ephemeris_id\": \"a02625af-5dba-22ad-cc55-f46bdf756925\",\n        \"screening_id\": \"be281d91-304c-6d18-e0ef-a28290801a24\",\n        \"derived_from_spacecraft_state_id\": \"79a8e6b2-aa67-89e0-4610-192d63130d99\",\n        \"rso_id\": \"19f81143-cdd9-0a38-2b32-9056c033c2e7\",\n        \"altitude_km\": 6531.212099263495\n      },\n      \"constellation_name\": \"string\",\n      \"constellation_id\": \"string\",\n      \"scenario\": {\n        \"id\": \"0ba95056-7987-5c9e-d010-c36b70160894\",\n        \"status\": \"string\",\n        \"autogenerated\": false,\n        \"name\": \"string\",\n        \"started_at\": \"1997-06-05T00:37:47.492Z\",\n        \"completed_at\": \"2026-04-13T16:53:34.561Z\",\n        \"updated_at\": \"1985-08-01T23:08:42.006Z\",\n        \"cdm_id\": 7174,\n        \"cdm_key\": \"string\",\n        \"constellation\": \"string\",\n        \"asset_norad_cat_id\": 4661,\n        \"completed_tradespaces\": 3182,\n        \"ephemeris_id\": \"70aeffcc-5c53-cd20-262b-0b182573c16f\",\n        \"propagation_id\": \"51511ef4-25c5-82a9-5c77-1df162b8a4cd\",\n        \"failure_message\": \"NO_EPHEMERIS_OVERLAP\"\n      },\n      \"is_robust\": true\n    }\n  ],\n  \"total_count\": 2450\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "322bbb69-f917-49a4-8f76-a65c9aee92c1",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "filters",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "sort_field",
+                      "value": "created_at"
+                    },
+                    {
+                      "key": "sort_direction",
+                      "value": "desc"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "0"
+                    },
+                    {
+                      "key": "count",
+                      "value": "0"
+                    },
+                    {
+                      "key": "fields",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) key or cdm_id of conjunction message"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1f548d78-5a93-4a1b-86c4-b048985ecef1",
+          "name": "Create Mitigation Scenario",
+          "request": {
+            "name": "Create Mitigation Scenario",
+            "description": {
+              "content": "Create a mitigation scenario on the cdm id from an ephemeris id",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "ephem_id",
+                  "value": "<uuid>",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8680d5e4-aac2-45ca-8799-692ffa8cf67d",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ephem_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1bf7067-fa97-d362-2b69-a19e2cc40b70\",\n  \"status\": \"string\",\n  \"autogenerated\": false,\n  \"name\": \"string\",\n  \"started_at\": \"1946-12-25T13:26:05.879Z\",\n  \"completed_at\": \"1984-09-18T00:05:00.490Z\",\n  \"updated_at\": \"2011-06-09T14:51:34.343Z\",\n  \"cdm_id\": 6034,\n  \"cdm_key\": \"string\",\n  \"constellation\": \"string\",\n  \"asset_norad_cat_id\": 9709,\n  \"completed_tradespaces\": 6892,\n  \"ephemeris_id\": \"88c790be-b154-e79e-e415-5a68534d3ba4\",\n  \"propagation_id\": \"200bc2e0-0c33-4dbc-82fc-7c41dc6b264e\",\n  \"failure_message\": \"NO_EPHEMERIS_OVERLAP\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5f217f14-b853-4f4d-b329-3670f1b287fa",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "ephem_id",
+                      "value": "<uuid>"
+                    },
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7716186c-5b85-416c-a820-797449d016fb",
+          "name": "Get Mitigation Scenario",
+          "request": {
+            "name": "Get Mitigation Scenario",
+            "description": {
+              "content": "Get a mitigation scenario by ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios",
+                ":scenario_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scenario_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "7952d63d-ca72-4ede-bd66-51a306a6d51c",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scenario_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1bf7067-fa97-d362-2b69-a19e2cc40b70\",\n  \"status\": \"string\",\n  \"autogenerated\": false,\n  \"name\": \"string\",\n  \"started_at\": \"1946-12-25T13:26:05.879Z\",\n  \"completed_at\": \"1984-09-18T00:05:00.490Z\",\n  \"updated_at\": \"2011-06-09T14:51:34.343Z\",\n  \"cdm_id\": 6034,\n  \"cdm_key\": \"string\",\n  \"constellation\": \"string\",\n  \"asset_norad_cat_id\": 9709,\n  \"completed_tradespaces\": 6892,\n  \"ephemeris_id\": \"88c790be-b154-e79e-e415-5a68534d3ba4\",\n  \"propagation_id\": \"200bc2e0-0c33-4dbc-82fc-7c41dc6b264e\",\n  \"failure_message\": \"NO_EPHEMERIS_OVERLAP\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84ce3434-3e1d-4e8c-bd51-bffb1b88e0a6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scenario_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2fa19eac-089f-466e-a15b-458fb3667cd8",
+          "name": "Create Mitigation Scenario From Opm",
+          "request": {
+            "name": "Create Mitigation Scenario From Opm",
+            "description": {
+              "content": "Create a mitigation scenario on the cdm id from opm file",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios",
+                "opm"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "group_id",
+                  "value": "<uuid>",
+                  "description": "Optional group ID to use for the request"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "multipart/form-data"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "opm_file",
+                  "value": "<string>",
+                  "type": "text",
+                  "description": "OPM file to upload"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b6d09a7a-917b-48dd-a865-91e518b13b2b",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    "opm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "OPM file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "opm_file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"a1bf7067-fa97-d362-2b69-a19e2cc40b70\",\n  \"status\": \"string\",\n  \"autogenerated\": false,\n  \"name\": \"string\",\n  \"started_at\": \"1946-12-25T13:26:05.879Z\",\n  \"completed_at\": \"1984-09-18T00:05:00.490Z\",\n  \"updated_at\": \"2011-06-09T14:51:34.343Z\",\n  \"cdm_id\": 6034,\n  \"cdm_key\": \"string\",\n  \"constellation\": \"string\",\n  \"asset_norad_cat_id\": 9709,\n  \"completed_tradespaces\": 6892,\n  \"ephemeris_id\": \"88c790be-b154-e79e-e415-5a68534d3ba4\",\n  \"propagation_id\": \"200bc2e0-0c33-4dbc-82fc-7c41dc6b264e\",\n  \"failure_message\": \"NO_EPHEMERIS_OVERLAP\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "5626fca4-0a30-4730-b14f-7f7b38479fea",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    "opm"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "group_id",
+                      "value": "<uuid>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "formdata",
+                  "formdata": [
+                    {
+                      "description": {
+                        "content": "OPM file to upload",
+                        "type": "text/plain"
+                      },
+                      "key": "opm_file",
+                      "value": "<string>",
+                      "type": "text"
+                    }
+                  ]
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1186fbeb-51e8-40d2-8f1d-a1f147f643ef",
+          "name": "Add Scenario Screening",
+          "request": {
+            "name": "Add Scenario Screening",
+            "description": {
+              "content": "Post screening associated with a theoretical CDM scenario.<br/>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios",
+                ":scenario_id",
+                "screening"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) "
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "scenario_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"screening_params\": {\n    \"threshold_radius_km\": 15,\n    \"default_secondary_hbr_m\": 5,\n    \"propagation_start_time\": \"<dateTime>\",\n    \"propagation_duration_s\": \"<number>\",\n    \"propagation_timestep_s\": \"<number>\",\n    \"title\": \"<string>\",\n    \"notes\": \"<string>\"\n  },\n  \"screening_secondaries_catalog\": \"SP\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "0e367f59-e875-4499-b25c-f3d15f5cc829",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id",
+                    "screening"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scenario_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"screening_params\": {\n    \"threshold_radius_km\": 15,\n    \"default_secondary_hbr_m\": 5,\n    \"propagation_start_time\": \"1968-11-19T15:43:41.716Z\",\n    \"propagation_duration_s\": 172.82239268073263,\n    \"propagation_timestep_s\": 4808.607529596567,\n    \"title\": \"string\",\n    \"notes\": \"string\"\n  },\n  \"screening_secondaries_catalog\": \"SP\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d6c353e0-1072-a35b-cfa2-2a0b7c45fe8b\",\n  \"status\": \"SUCCESS\",\n  \"threshold_radius_km\": 6785.882361719167,\n  \"default_secondary_hbr_m\": 7872.258064489902,\n  \"auto_archive\": true,\n  \"include_primary_vs_primary\": false,\n  \"screening_type\": \"LAUNCH\",\n  \"hard_body_shape\": \"SQUARE\",\n  \"strict_coverage\": true,\n  \"publish_cdms\": true,\n  \"archived\": false,\n  \"percent_complete\": 7292.601201278678,\n  \"primary_sources_count\": 4122,\n  \"secondary_sources_count\": 3127,\n  \"group_id\": \"c2129090-b590-a0db-6cab-5f3391475f43\",\n  \"owner\": {\n    \"id\": \"061cfc8a-ac4f-97ab-6efc-39a1acd150e2\",\n    \"username\": \"string\",\n    \"full_name\": \"string\",\n    \"avatar_url\": \"string\",\n    \"email\": \"string\"\n  },\n  \"started_at\": \"1978-10-06T11:42:15.780Z\",\n  \"created_at\": \"2023-12-07T00:42:44.035Z\",\n  \"completed_at\": \"1999-01-03T14:57:34.192Z\",\n  \"updated_at\": \"2001-05-24T13:17:57.867Z\",\n  \"threshold_radius_manned_km\": 9692.29489039127,\n  \"threshold_radius_active_km\": 8263.59068858174,\n  \"threshold_radius_debris_km\": 133.25672883508278,\n  \"title\": \"string\",\n  \"notes\": \"string\",\n  \"screen_count_expected\": 7952,\n  \"screen_count_current\": 5836,\n  \"launch_window_start\": \"1974-02-27T08:47:51.384Z\",\n  \"launch_window_end\": \"1983-04-09T11:14:47.646Z\",\n  \"launch_window_cadence_s\": 4131,\n  \"primaries_count\": 1038,\n  \"secondaries_count\": 7412,\n  \"lowest_miss_distance_km\": 5835.798224202349,\n  \"highest_pc\": 9681.347807065,\n  \"next_tca\": \"1952-07-22T21:02:50.962Z\",\n  \"propagation_start_time\": \"1993-09-26T23:06:40.476Z\",\n  \"propagation_duration_s\": 1667.2488087747795,\n  \"propagation_timestep_s\": 5204.582749935628,\n  \"secondary_any_coverage_end\": \"2005-09-18T01:37:44.253Z\",\n  \"secondary_any_coverage_start\": \"1990-02-04T20:47:35.712Z\",\n  \"secondary_full_coverage_end\": \"2021-02-21T09:30:46.689Z\",\n  \"secondary_full_coverage_start\": \"1951-04-29T06:09:59.881Z\",\n  \"failure_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "9af8e03b-75cd-4047-8d82-179e813a72ec",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id",
+                    "screening"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "scenario_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"screening_params\": {\n    \"threshold_radius_km\": 15,\n    \"default_secondary_hbr_m\": 5,\n    \"propagation_start_time\": \"1968-11-19T15:43:41.716Z\",\n    \"propagation_duration_s\": 172.82239268073263,\n    \"propagation_timestep_s\": 4808.607529596567,\n    \"title\": \"string\",\n    \"notes\": \"string\"\n  },\n  \"screening_secondaries_catalog\": \"SP\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "27b5deb8-816c-4e26-a6c3-178bd3e65bf0",
+          "name": "Get Scenario Screening",
+          "request": {
+            "name": "Get Scenario Screening",
+            "description": {
+              "content": "Get screening associated with a theoretical CDM scenario.<br/>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "conjunction_messages",
+                ":cdm_id",
+                "mitigation_scenarios",
+                ":scenario_id",
+                "screening"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "scenario_key",
+                  "value": "<string>",
+                  "description": "(Required) "
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "cdm_id",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "internal"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "login"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "password_credentials"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "0ba226a8-9dc1-4db2-866d-fa33781269b9",
+              "name": "Successful Response",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id",
+                    "screening"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scenario_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"id\": \"d6c353e0-1072-a35b-cfa2-2a0b7c45fe8b\",\n  \"status\": \"SUCCESS\",\n  \"threshold_radius_km\": 6785.882361719167,\n  \"default_secondary_hbr_m\": 7872.258064489902,\n  \"auto_archive\": true,\n  \"include_primary_vs_primary\": false,\n  \"screening_type\": \"LAUNCH\",\n  \"hard_body_shape\": \"SQUARE\",\n  \"strict_coverage\": true,\n  \"publish_cdms\": true,\n  \"archived\": false,\n  \"percent_complete\": 7292.601201278678,\n  \"primary_sources_count\": 4122,\n  \"secondary_sources_count\": 3127,\n  \"group_id\": \"c2129090-b590-a0db-6cab-5f3391475f43\",\n  \"owner\": {\n    \"id\": \"061cfc8a-ac4f-97ab-6efc-39a1acd150e2\",\n    \"username\": \"string\",\n    \"full_name\": \"string\",\n    \"avatar_url\": \"string\",\n    \"email\": \"string\"\n  },\n  \"started_at\": \"1978-10-06T11:42:15.780Z\",\n  \"created_at\": \"2023-12-07T00:42:44.035Z\",\n  \"completed_at\": \"1999-01-03T14:57:34.192Z\",\n  \"updated_at\": \"2001-05-24T13:17:57.867Z\",\n  \"threshold_radius_manned_km\": 9692.29489039127,\n  \"threshold_radius_active_km\": 8263.59068858174,\n  \"threshold_radius_debris_km\": 133.25672883508278,\n  \"title\": \"string\",\n  \"notes\": \"string\",\n  \"screen_count_expected\": 7952,\n  \"screen_count_current\": 5836,\n  \"launch_window_start\": \"1974-02-27T08:47:51.384Z\",\n  \"launch_window_end\": \"1983-04-09T11:14:47.646Z\",\n  \"launch_window_cadence_s\": 4131,\n  \"primaries_count\": 1038,\n  \"secondaries_count\": 7412,\n  \"lowest_miss_distance_km\": 5835.798224202349,\n  \"highest_pc\": 9681.347807065,\n  \"next_tca\": \"1952-07-22T21:02:50.962Z\",\n  \"propagation_start_time\": \"1993-09-26T23:06:40.476Z\",\n  \"propagation_duration_s\": 1667.2488087747795,\n  \"propagation_timestep_s\": 5204.582749935628,\n  \"secondary_any_coverage_end\": \"2005-09-18T01:37:44.253Z\",\n  \"secondary_any_coverage_start\": \"1990-02-04T20:47:35.712Z\",\n  \"secondary_full_coverage_end\": \"2021-02-21T09:30:46.689Z\",\n  \"secondary_full_coverage_start\": \"1951-04-29T06:09:59.881Z\",\n  \"failure_message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "81424ebb-49b6-4d2a-a9be-237038231bd6",
+              "name": "Validation Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "conjunction_messages",
+                    ":cdm_id",
+                    "mitigation_scenarios",
+                    ":scenario_id",
+                    "screening"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "scenario_key",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "cdm_id",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unprocessable Entity (WebDAV) (RFC 4918)",
+              "code": 422,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"detail\": [\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    },\n    {\n      \"loc\": [\n        \"string\",\n        \"string\"\n      ],\n      \"msg\": \"string\",\n      \"type\": \"string\",\n      \"input\": {},\n      \"ctx\": {}\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "/api/satcat",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "83fbde79-0a8e-4f10-8256-c4478d76b454",
+    "name": "Satcat Service Authentication Mitigation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "\nKayhan Space's Satcat Service API.\n\n## Features\n* **View** historical CDM data for an object.\n* **View** latest CDM data for an object.\n\n\nContact Support:\n Email: help@kayhan.space",
+      "type": "text/plain"
+    }
+  }
+}

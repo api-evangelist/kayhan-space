@@ -1,0 +1,283 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Satcat Service Authentication Launch Screening API",
+    "version": "1.0.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Launch Screening",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Launch Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/launch_results/launch_options",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "conjunction_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "launch_option_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the launch option results for a Launch Screening.\n\nNote: filters applied to this endpoint apply to the Conjunction model."
+        },
+        {
+          "info": {
+            "name": "List Launch Window Periods",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/launch_results/launch_window_periods",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "include_n_conjunctions_list",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "conjunction_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "period_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the set of continuous blackout or clear launch periods for a Launch Screening."
+        },
+        {
+          "info": {
+            "name": "List Launch Window Primaries",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/launch_results/launch_window_primaries",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "conjunction_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "primary_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "period_filters",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "count",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_field",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "sort_direction",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Get the set of primaries for a Launch Screening, along with their respective affected launch options."
+        },
+        {
+          "info": {
+            "name": "Get Launch Screening Results File",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/launch_results/file",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the launch screening to get results for"
+              },
+              {
+                "name": "file_format",
+                "value": "",
+                "type": "query",
+                "description": "File format of the conjunction results to download"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom filename. If not supplied, a default filename will be generated."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve launch screening conjunction results as a serialized file in a given file format."
+        },
+        {
+          "info": {
+            "name": "Get Launch Screening Results File Multi",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "/api/satcat/screenings/:id/launch_results/file_multi",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path",
+                "description": "ID of the launch screening to get results for"
+              },
+              {
+                "name": "filename",
+                "value": "",
+                "type": "query",
+                "description": "Optional custom filename. If not supplied, a default filename will be generated."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "client_credentials",
+              "accessTokenUrl": "oauth/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Retrieve launch screening conjunction results as a serialized file in all available file formats, with and without a set of filters."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

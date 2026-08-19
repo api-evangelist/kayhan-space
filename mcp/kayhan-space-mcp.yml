@@ -2,464 +2,469 @@ generated: '2026-07-19'
 method: derived
 status: candidate
 source: openapi/kayhan-space-satcat-openapi-original.json
-note: >-
-  Candidate tool list derived one-to-one from Satcat Service API operationIds.
-  Kayhan Space does not publish an official hosted MCP server as of this pass; these
-  are recommended tool bindings, not a live server.
+note: Candidate tool list derived one-to-one from Satcat Service API operationIds. Kayhan Space does not
+  publish an official hosted MCP server as of this pass; these are recommended tool bindings, not a live
+  server.
 server:
   name: satcat
   transport: http
 tools:
 - name: login_login_post
-  description: "Login"
+  description: Login
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#login_login_post
 - name: health_authenticated_health_authenticated_get
-  description: "Health Authenticated"
+  description: Health Authenticated
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#health_authenticated_health_authenticated_get
 - name: list_groups_groups_get
-  description: "List Groups"
+  description: List Groups
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_groups_groups_get
 - name: create_api_key_api_keys_post
-  description: "Create Api Key"
+  description: Create Api Key
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_api_key_api_keys_post
 - name: list_api_keys_api_keys_get
-  description: "List Api Keys"
+  description: List Api Keys
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_api_keys_api_keys_get
 - name: rotate_api_key_api_keys__client_id__rotate_post
-  description: "Rotate Api Key"
+  description: Rotate Api Key
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#rotate_api_key_api_keys__client_id__rotate_post
 - name: update_api_key_api_keys__client_id__patch
-  description: "Update Api Key"
+  description: Update Api Key
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_api_key_api_keys__client_id__patch
 - name: delete_api_key_api_keys__client_id__delete
-  description: "Delete Api Key"
+  description: Delete Api Key
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#delete_api_key_api_keys__client_id__delete
 - name: authenticate_token_oauth_token_post
-  description: "Authenticate Token"
+  description: Authenticate Token
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#authenticate_token_oauth_token_post
 - name: authenticate_token_oauth_token__post
-  description: "Authenticate Token"
+  description: Authenticate Token
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#authenticate_token_oauth_token__post
 - name: get_catalog_catalogs__id__get
-  description: "Get Catalog"
+  description: Get Catalog
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_catalog_catalogs__id__get
 - name: list_catalogs_catalogs_get
-  description: "List Catalogs"
+  description: List Catalogs
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_catalogs_catalogs_get
 - name: list_ephemerides_in_catalog_catalogs__id__ephemerides_get
-  description: "List Ephemerides In Catalog"
+  description: List Ephemerides In Catalog
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_ephemerides_in_catalog_catalogs__id__ephemerides_get
 - name: list_conjunction_messages_conjunction_messages_get
-  description: "List Conjunction Messages"
+  description: List Conjunction Messages
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_conjunction_messages_conjunction_messages_get
 - name: upload_cdms_conjunction_messages_post
-  description: "Upload Cdms"
+  description: Upload Cdms
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#upload_cdms_conjunction_messages_post
 - name: list_conjunction_messages_conjunction_messages_ccsds_get
-  description: "List Conjunction Messages"
+  description: List Conjunction Messages
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_conjunction_messages_conjunction_messages_ccsds_get
 - name: list_events_events_get
-  description: "List Events"
+  description: List Events
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_events_events_get
 - name: list_event_cdms_events__event_key__cdms_get
-  description: "List Event Cdms"
+  description: List Event Cdms
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_event_cdms_events__event_key__cdms_get
 - name: add_cdm_to_event_events__event_key__ccsds_cdm_post
-  description: "Add Cdm To Event"
+  description: Add Cdm To Event
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_cdm_to_event_events__event_key__ccsds_cdm_post
 - name: get_cdm_file_conjunction_messages__cdm_id__file_get
-  description: "Get Cdm File"
+  description: Get Cdm File
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_cdm_file_conjunction_messages__cdm_id__file_get
 - name: get_conjunction_message_by_id_conjunction_messages__cdm_id__get
-  description: "Get Conjunction Message By Id"
+  description: Get Conjunction Message By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_by_id_conjunction_messages__cdm_id__get
 - name: get_conjunction_message_by_id_conjunction_messages__cdm_id__ccsds_get
-  description: "Get Conjunction Message By Id"
+  description: Get Conjunction Message By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_by_id_conjunction_messages__cdm_id__ccsds_get
 - name: request_pc_remediation_conjunction_messages__cdm_id__pc_remediation_post
-  description: "Request Pc Remediation"
+  description: Request Pc Remediation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#request_pc_remediation_conjunction_messages__cdm_id__pc_remediation_post
 - name: create_ephemeris_ephemerides_post
-  description: "Create Ephemeris"
+  description: Create Ephemeris
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_ephemeris_ephemerides_post
 - name: list_ephemerides_ephemerides_get
-  description: "List Ephemerides"
+  description: List Ephemerides
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_ephemerides_ephemerides_get
 - name: operationalize_ephemeris_ephemerides__id__operationalize_put
-  description: "Operationalize Ephemeris"
+  description: Operationalize Ephemeris
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#operationalize_ephemeris_ephemerides__id__operationalize_put
 - name: get_current_operational_ephemeris_rsos__norad_id__current_operational_ephemeris_get
-  description: "Get Current Operational Ephemeris"
+  description: Get Current Operational Ephemeris
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_current_operational_ephemeris_rsos__norad_id__current_operational_ephemeris_get
 - name: get_ephemeris_ephemerides__id__get
-  description: "Get Ephemeris"
+  description: Get Ephemeris
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_ephemeris_ephemerides__id__get
 - name: archive_ephemeris_ephemerides__id__archive_put
-  description: "Archive Ephemeris"
+  description: Archive Ephemeris
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#archive_ephemeris_ephemerides__id__archive_put
 - name: get_ephemeris_content_ephemerides__id__file_get
-  description: "Get Ephemeris Content"
+  description: Get Ephemeris Content
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_ephemeris_content_ephemerides__id__file_get
 - name: get_ephemeris_json_viz_ephemerides__id__jsonviz_get
-  description: "Get Ephemeris Json Viz"
+  description: Get Ephemeris Json Viz
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_ephemeris_json_viz_ephemerides__id__jsonviz_get
 - name: create_ephemeris_from_opm_ephemerides_opm_post
-  description: "Create Ephemeris From Opm"
+  description: Create Ephemeris From Opm
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_ephemeris_from_opm_ephemerides_opm_post
 - name: get_ephemeris_summary_ephemerides_summary_get
-  description: "Get Ephemeris Summary"
+  description: Get Ephemeris Summary
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_ephemeris_summary_ephemerides_summary_get
 - name: trigger_covariance_tuning_ephemerides__id__covariance_tuning_put
-  description: "Trigger Covariance Tuning"
+  description: Trigger Covariance Tuning
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#trigger_covariance_tuning_ephemerides__id__covariance_tuning_put
 - name: trigger_covariance_tuning_bulk_trigger_covariance_tuning_bulk_put
-  description: "Trigger Covariance Tuning Bulk"
+  description: Trigger Covariance Tuning Bulk
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#trigger_covariance_tuning_bulk_trigger_covariance_tuning_bulk_put
 - name: list_event_latest_cdms_events__event_key__latest_cdms_get
-  description: "List Event Latest Cdms"
+  description: List Event Latest Cdms
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_event_latest_cdms_events__event_key__latest_cdms_get
 - name: list_mitigation_scenarios_conjunction_messages__cdm_id__mitigation_scenarios_get
-  description: "List Mitigation Scenarios"
+  description: List Mitigation Scenarios
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_mitigation_scenarios_conjunction_messages__cdm_id__mitigation_scenarios_get
 - name: create_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios_post
-  description: "Create Mitigation Scenario"
+  description: Create Mitigation Scenario
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios_post
 - name: get_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__get
-  description: "Get Mitigation Scenario"
+  description: Get Mitigation Scenario
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_mitigation_scenario_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__get
 - name: create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
-  description: "Create Mitigation Scenario From Opm"
+  description: Create Mitigation Scenario From Opm
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
 - name: add_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_post
-  description: "Add Scenario Screening"
+  description: Add Scenario Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_post
 - name: get_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_get
-  description: "Get Scenario Screening"
+  description: Get Scenario Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_scenario_screening_conjunction_messages__cdm_id__mitigation_scenarios__scenario_id__screening_get
 - name: get_plot_elements_by_id_cdm_vis__cdm_id__get
-  description: "Get Plot Elements By Id"
+  description: Get Plot Elements By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_plot_elements_by_id_cdm_vis__cdm_id__get
 - name: get_kepler_elements_by_id_kep_elements__cdm_id__get
-  description: "Get Kepler Elements By Id"
+  description: Get Kepler Elements By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_kepler_elements_by_id_kep_elements__cdm_id__get
 - name: get_dilution_curves_max_pc_curves__cdm_id__get
-  description: "Get Dilution Curves"
+  description: Get Dilution Curves
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_dilution_curves_max_pc_curves__cdm_id__get
 - name: get_conjunction_message_bplane_by_id_bplane__cdm_id__get
-  description: "Get Conjunction Message Bplane By Id"
+  description: Get Conjunction Message Bplane By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_bplane_by_id_bplane__cdm_id__get
 - name: get_conjunction_message_encounter_plane_by_id_encounter_plane__cdm_id__get
-  description: "Get Conjunction Message Encounter Plane By Id"
+  description: Get Conjunction Message Encounter Plane By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_encounter_plane_by_id_encounter_plane__cdm_id__get
 - name: get_conjunction_message_hbr_sensitivity_by_id_hbr_sensitivity__cdm_id__get
-  description: "Get Conjunction Message Hbr Sensitivity By Id"
+  description: Get Conjunction Message Hbr Sensitivity By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_hbr_sensitivity_by_id_hbr_sensitivity__cdm_id__get
 - name: get_conjunction_message_tracking_opportunities_by_id_tracking_opportunities__cdm_id__get
-  description: "Get Conjunction Message Tracking Opportunities By Id"
+  description: Get Conjunction Message Tracking Opportunities By Id
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_message_tracking_opportunities_by_id_tracking_opportunities__cdm_id__get
 - name: get_all_propagations_propagations_get
-  description: "Get All Propagations"
+  description: Get All Propagations
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_all_propagations_propagations_get
 - name: create_propagation_propagations_post
-  description: "Create Propagation"
+  description: Create Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_propagation_propagations_post
 - name: get_propagation_propagations__id__get
-  description: "Get Propagation"
+  description: Get Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_propagation_propagations__id__get
 - name: update_propagation_propagations__id__patch
-  description: "Update Propagation"
+  description: Update Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_propagation_propagations__id__patch
 - name: remove_propagation_propagations__id__delete
-  description: "Remove Propagation"
+  description: Remove Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_propagation_propagations__id__delete
 - name: add_state_vector_propagations__id__states_post
-  description: "Add State Vector"
+  description: Add State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_state_vector_propagations__id__states_post
 - name: get_state_vector_propagations__id__states_get
-  description: "Get State Vector"
+  description: Get State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_state_vector_propagations__id__states_get
 - name: change_state_vector_propagations__id__states_patch
-  description: "Change State Vector"
+  description: Change State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#change_state_vector_propagations__id__states_patch
 - name: remove_state_vector_propagations__id__states_delete
-  description: "Remove State Vector"
+  description: Remove State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_state_vector_propagations__id__states_delete
 - name: add_propagation_forces_propagations__id__forces_post
-  description: "Add Propagation Forces"
+  description: Add Propagation Forces
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_propagation_forces_propagations__id__forces_post
 - name: get_propagation_forces_propagations__id__forces_get
-  description: "Get Propagation Forces"
+  description: Get Propagation Forces
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_propagation_forces_propagations__id__forces_get
 - name: update_propagation_forces_propagations__id__forces_patch
-  description: "Update Propagation Forces"
+  description: Update Propagation Forces
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_propagation_forces_propagations__id__forces_patch
 - name: remove_propagation_forces_propagations__id__forces_delete
-  description: "Remove Propagation Forces"
+  description: Remove Propagation Forces
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_propagation_forces_propagations__id__forces_delete
 - name: add_propagation_maneuver_propagations__id__maneuvers_post
-  description: "Add Propagation Maneuver"
+  description: Add Propagation Maneuver
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_propagation_maneuver_propagations__id__maneuvers_post
 - name: get_all_propagation_maneuvers_propagations__id__maneuvers_get
-  description: "Get All Propagation Maneuvers"
+  description: Get All Propagation Maneuvers
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_all_propagation_maneuvers_propagations__id__maneuvers_get
 - name: remove_all_maneuvers_from_propagation_propagations__id__maneuvers_delete
-  description: "Remove All Maneuvers From Propagation"
+  description: Remove All Maneuvers From Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_all_maneuvers_from_propagation_propagations__id__maneuvers_delete
 - name: get_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__get
-  description: "Get Specific Propagation Maneuver"
+  description: Get Specific Propagation Maneuver
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__get
 - name: update_propagation_maneuver_propagations__id__maneuvers__maneuver_id__patch
-  description: "Update Propagation Maneuver"
+  description: Update Propagation Maneuver
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_propagation_maneuver_propagations__id__maneuvers__maneuver_id__patch
 - name: remove_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__delete
-  description: "Remove Specific Propagation Maneuver"
+  description: Remove Specific Propagation Maneuver
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_specific_propagation_maneuver_propagations__id__maneuvers__maneuver_id__delete
 - name: add_tle_propagations__id__tle_post
-  description: "Add Tle"
+  description: Add Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_tle_propagations__id__tle_post
 - name: get_tle_propagations__id__tle_get
-  description: "Get Tle"
+  description: Get Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_tle_propagations__id__tle_get
 - name: change_tle_propagations__id__tle_patch
-  description: "Change Tle"
+  description: Change Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#change_tle_propagations__id__tle_patch
 - name: remove_tle_propagations__id__tle_delete
-  description: "Remove Tle"
+  description: Remove Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_tle_propagations__id__tle_delete
 - name: add_opm_propagations__id__opm_post
-  description: "Add Opm"
+  description: Add Opm
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_opm_propagations__id__opm_post
 - name: submit_propagation_propagations__id__submit_put
-  description: "Submit Propagation"
+  description: Submit Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#submit_propagation_propagations__id__submit_put
 - name: cancel_propagation_propagations__id__cancel_put
-  description: "Cancel Propagation"
+  description: Cancel Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#cancel_propagation_propagations__id__cancel_put
 - name: archive_propagation_propagations__id__archive_put
-  description: "Archive Propagation"
+  description: Archive Propagation
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#archive_propagation_propagations__id__archive_put
 - name: get_conjunction_plot_screenings_conjunction_plot_get
-  description: "Get Conjunction Plot"
+  description: Get Conjunction Plot
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_conjunction_plot_screenings_conjunction_plot_get
 - name: create_screening_screenings_post
-  description: "Create Screening"
+  description: Create Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_screening_screenings_post
 - name: list_screenings_screenings_get
-  description: "List Screenings"
+  description: List Screenings
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_screenings_screenings_get
 - name: get_screening_screenings__id__get
-  description: "Get Screening"
+  description: Get Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_screenings__id__get
 - name: update_screening_screenings__id__patch
-  description: "Update Screening"
+  description: Update Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_screening_screenings__id__patch
 - name: delete_screening_screenings__id__delete
-  description: "Delete Screening"
+  description: Delete Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#delete_screening_screenings__id__delete
 - name: add_screening_primary_screenings__id__primaries_post
-  description: "Add Screening Primary"
+  description: Add Screening Primary
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_screening_primary_screenings__id__primaries_post
 - name: list_screening_primaries_screenings__id__primaries_get
-  description: "List Screening Primaries"
+  description: List Screening Primaries
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_screening_primaries_screenings__id__primaries_get
 - name: add_screening_secondary_screenings__id__secondaries_post
-  description: "Add Screening Secondary"
+  description: Add Screening Secondary
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_screening_secondary_screenings__id__secondaries_post
 - name: list_screening_secondaries_screenings__id__secondaries_get
-  description: "List Screening Secondaries"
+  description: List Screening Secondaries
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_screening_secondaries_screenings__id__secondaries_get
 - name: add_screenables_batch_screenings__id__screenables_batch_post
-  description: "Add Screenables Batch"
+  description: Add Screenables Batch
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_screenables_batch_screenings__id__screenables_batch_post
 - name: remove_screening_screenables_batch_screenings__id__screenables_batch_delete
-  description: "Remove Screening Screenables Batch"
+  description: Remove Screening Screenables Batch
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_screening_screenables_batch_screenings__id__screenables_batch_delete
 - name: remove_screening_primary_screenings__id__primaries__primary_id__delete
-  description: "Remove Screening Primary"
+  description: Remove Screening Primary
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_screening_primary_screenings__id__primaries__primary_id__delete
 - name: remove_screening_secondary_screenings__id__secondaries__secondary_id__delete
-  description: "Remove Screening Secondary"
+  description: Remove Screening Secondary
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_screening_secondary_screenings__id__secondaries__secondary_id__delete
 - name: submit_screening_screenings__id__submit_put
-  description: "Submit Screening"
+  description: Submit Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#submit_screening_screenings__id__submit_put
 - name: cancel_screening_screenings__id__cancel_put
-  description: "Cancel Screening"
+  description: Cancel Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#cancel_screening_screenings__id__cancel_put
 - name: archive_screening_screenings__id__archive_put
-  description: "Archive Screening"
+  description: Archive Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#archive_screening_screenings__id__archive_put
 - name: list_screening_conjunctions_screenings__id__conjunctions_get
-  description: "List Screening Conjunctions"
+  description: List Screening Conjunctions
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_screening_conjunctions_screenings__id__conjunctions_get
 - name: get_screening_conjunction_screenings__id__conjunctions__conjunction_id__get
-  description: "Get Screening Conjunction"
+  description: Get Screening Conjunction
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_conjunction_screenings__id__conjunctions__conjunction_id__get
 - name: list_ephemerides_in_catalog_by_screening_screenings__id__catalogs__catalog_id__ephemerides_get
-  description: "List Ephemerides In Catalog By Screening"
+  description: List Ephemerides In Catalog By Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_ephemerides_in_catalog_by_screening_screenings__id__catalogs__catalog_id__ephemerides_get
 - name: get_catalog_by_screening_screenings__id__catalogs__catalog_id__get
-  description: "Get Catalog By Screening"
+  description: Get Catalog By Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_catalog_by_screening_screenings__id__catalogs__catalog_id__get
 - name: list_catalogs_by_screening_screenings__id__catalogs_get
-  description: "List Catalogs By Screening"
+  description: List Catalogs By Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_catalogs_by_screening_screenings__id__catalogs_get
 - name: get_screening_results_ccsds_list_screenings__id__results_ccsds_get
-  description: "Get Screening Results Ccsds List"
+  description: Get Screening Results Ccsds List
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_results_ccsds_list_screenings__id__results_ccsds_get
 - name: get_screening_results_ccsds_single_screenings__id__results_ccsds__conjunction_id__get
-  description: "Get Screening Results Ccsds Single"
+  description: Get Screening Results Ccsds Single
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_results_ccsds_single_screenings__id__results_ccsds__conjunction_id__get
 - name: get_screening_results_file_multi_screenings__id__results_file_multi_get
-  description: "Get Screening Results File Multi"
+  description: Get Screening Results File Multi
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_results_file_multi_screenings__id__results_file_multi_get
 - name: get_screening_conjunction_results_file_multi_screenings__id__conjunction__conjunction_id__results_file_multi_get
-  description: "Get Screening Conjunction Results File Multi"
+  description: Get Screening Conjunction Results File Multi
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_conjunction_results_file_multi_screenings__id__conjunction__conjunction_id__results_file_multi_get
 - name: list_scheduled_screenings_scheduled_screenings_get
-  description: "List Scheduled Screenings"
+  description: List Scheduled Screenings
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_scheduled_screenings_scheduled_screenings_get
 - name: get_screening_scheduled_screenings__id__get
-  description: "Get Screening"
+  description: Get Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_screening_scheduled_screenings__id__get
 - name: run_scheduled_screening_scheduled_screenings__id__run_post
-  description: "Run Scheduled Screening"
+  description: Run Scheduled Screening
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#run_scheduled_screening_scheduled_screenings__id__run_post
 - name: list_launch_options_screenings__id__launch_results_launch_options_get
-  description: "List Launch Options"
+  description: List Launch Options
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_launch_options_screenings__id__launch_results_launch_options_get
 - name: list_launch_window_periods_screenings__id__launch_results_launch_window_periods_get
-  description: "List Launch Window Periods"
+  description: List Launch Window Periods
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_launch_window_periods_screenings__id__launch_results_launch_window_periods_get
 - name: list_launch_window_primaries_screenings__id__launch_results_launch_window_primaries_get
-  description: "List Launch Window Primaries"
+  description: List Launch Window Primaries
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_launch_window_primaries_screenings__id__launch_results_launch_window_primaries_get
 - name: get_launch_screening_results_file_screenings__id__launch_results_file_get
-  description: "Get Launch Screening Results File"
+  description: Get Launch Screening Results File
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_launch_screening_results_file_screenings__id__launch_results_file_get
 - name: get_launch_screening_results_file_multi_screenings__id__launch_results_file_multi_get
-  description: "Get Launch Screening Results File Multi"
+  description: Get Launch Screening Results File Multi
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_launch_screening_results_file_multi_screenings__id__launch_results_file_multi_get
 - name: add_state_vector_states_post
-  description: "Add State Vector"
+  description: Add State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_state_vector_states_post
 - name: get_state_vector_states__id__get
-  description: "Get State Vector"
+  description: Get State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_state_vector_states__id__get
 - name: update_state_vector_states__id__patch
-  description: "Update State Vector"
+  description: Update State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_state_vector_states__id__patch
 - name: remove_state_vector_states__id__delete
-  description: "Remove State Vector"
+  description: Remove State Vector
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_state_vector_states__id__delete
 - name: get_available_state_reference_frames_states_frames_state_get
-  description: "Get Available State Reference Frames"
+  description: Get Available State Reference Frames
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_available_state_reference_frames_states_frames_state_get
 - name: get_available_covariance_reference_frames_states_frames_covariance_get
-  description: "Get Available Covariance Reference Frames"
+  description: Get Available Covariance Reference Frames
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_available_covariance_reference_frames_states_frames_covariance_get
 - name: add_tle_tles_post
-  description: "Add Tle"
+  description: Add Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#add_tle_tles_post
 - name: get_tle_tles__id__get
-  description: "Get Tle"
+  description: Get Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_tle_tles__id__get
 - name: update_tle_tles__id__patch
-  description: "Update Tle"
+  description: Update Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_tle_tles__id__patch
 - name: remove_tle_tles__id__delete
-  description: "Remove Tle"
+  description: Remove Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#remove_tle_tles__id__delete
 - name: create_maneuver_project_maneuver_projects_post
-  description: "Create Maneuver Project"
+  description: Create Maneuver Project
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_maneuver_project_maneuver_projects_post
 - name: list_maneuver_projects_maneuver_projects_get
-  description: "List Maneuver Projects"
+  description: List Maneuver Projects
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_maneuver_projects_maneuver_projects_get
 - name: list_cola_maneuver_variants_cola_maneuver_variants_get
-  description: "List Cola Maneuver Variants"
+  description: List Cola Maneuver Variants
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_cola_maneuver_variants_cola_maneuver_variants_get
 - name: get_cola_maneuver_variant_cola_maneuver_variants__id__get
-  description: "Get Cola Maneuver Variant"
+  description: Get Cola Maneuver Variant
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_cola_maneuver_variant_cola_maneuver_variants__id__get
 - name: list_cola_maneuver_plans_cola_maneuver_plans_get
-  description: "List Cola Maneuver Plans"
+  description: List Cola Maneuver Plans
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_cola_maneuver_plans_cola_maneuver_plans_get
 - name: run_simple_maneuver_variant_maneuver_projects_simple__project_id__variants_post
-  description: "Run Simple Maneuver Variant"
+  description: Run Simple Maneuver Variant
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#run_simple_maneuver_variant_maneuver_projects_simple__project_id__variants_post
 - name: generate_maneuver_plan_maneuver_projects_simple__project_id__maneuver_plans_post
-  description: "Generate Maneuver Plan"
+  description: Generate Maneuver Plan
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#generate_maneuver_plan_maneuver_projects_simple__project_id__maneuver_plans_post
 - name: opm_to_tle_leop_ccsds_opm_post
-  description: "Opm To Tle"
+  description: Opm To Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#opm_to_tle_leop_ccsds_opm_post
 - name: oem_to_tle_leop_oem_post
-  description: "Oem To Tle"
+  description: Oem To Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#oem_to_tle_leop_oem_post
 - name: spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
-  description: "Spacex Transporter Opm To Tle"
+  description: Spacex Transporter Opm To Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
 - name: spacex_transporter_single_opm_to_tle_leop_spacex_opm_transporter_single_post
-  description: "Spacex Transporter Single Opm To Tle"
+  description: Spacex Transporter Single Opm To Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#spacex_transporter_single_opm_to_tle_leop_spacex_opm_transporter_single_post
 - name: spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
-  description: "Spacex Operator Opm To Tle"
+  description: Spacex Operator Opm To Tle
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
 - name: upload_gnss_file_od__object_id__upload_post
-  description: "Upload Gnss File"
+  description: Upload Gnss File
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#upload_gnss_file_od__object_id__upload_post
 - name: list_od_objects_od_objects_get
-  description: "List Od Objects"
+  description: List Od Objects
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_od_objects_od_objects_get
 - name: list_od_files_od__object_id__get
-  description: "List Od Files"
+  description: List Od Files
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_od_files_od__object_id__get
 - name: download_file_content_od__object_id__file_get
-  description: "Download File Content"
+  description: Download File Content
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#download_file_content_od__object_id__file_get
 - name: list_leop_launches_od_leop_get
-  description: "List Leop Launches"
+  description: List Leop Launches
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_leop_launches_od_leop_get
 - name: get_leop_tles_od_leop__launch_folder__get
-  description: "Get Leop Tles"
+  description: Get Leop Tles
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_leop_tles_od_leop__launch_folder__get
 - name: get_rso_attributes_od__object_id__attributes_get
-  description: "Get Rso Attributes"
+  description: Get Rso Attributes
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_rso_attributes_od__object_id__attributes_get
 - name: list_ground_observers_ground_observers_get
-  description: "List Ground Observers"
+  description: List Ground Observers
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_ground_observers_ground_observers_get
 - name: create_ground_observer_ground_observers_post
-  description: "Create Ground Observer"
+  description: Create Ground Observer
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#create_ground_observer_ground_observers_post
 - name: get_ground_observer_ground_observers__sensor_id__get
-  description: "Get Ground Observer"
+  description: Get Ground Observer
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#get_ground_observer_ground_observers__sensor_id__get
 - name: update_ground_observer_ground_observers__sensor_id__patch
-  description: "Update Ground Observer"
+  description: Update Ground Observer
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#update_ground_observer_ground_observers__sensor_id__patch
 - name: delete_ground_observer_ground_observers__sensor_id__delete
-  description: "Delete Ground Observer"
+  description: Delete Ground Observer
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#delete_ground_observer_ground_observers__sensor_id__delete
 - name: list_visibility_windows_visibility_windows_post
-  description: "List Visibility Windows"
+  description: List Visibility Windows
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#list_visibility_windows_visibility_windows_post
 - name: advanced_search_nlp_nlp_advancesearch__post
-  description: "Converts human question into structured JSON for satcat"
+  description: Converts human question into structured JSON for satcat
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#advanced_search_nlp_nlp_advancesearch__post
 - name: generate_sat_report_nlp_satreport__post
-  description: "Generates sat report based on facts."
+  description: Generates sat report based on facts.
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#generate_sat_report_nlp_satreport__post
 - name: request_sat_report_nlp_request_satreport__post
-  description: "Generates request for a sat report based on facts."
+  description: Generates request for a sat report based on facts.
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#request_sat_report_nlp_request_satreport__post
 - name: metrics_metrics_get
-  description: "Metrics"
+  description: Metrics
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#metrics_metrics_get
 - name: root__get
-  description: "Root"
+  description: Root
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#root__get
 - name: health_health_get
-  description: "Health"
+  description: Health
   source_operation: openapi/kayhan-space-satcat-openapi-original.json#health_health_get
+deployment:
+  mode: none
+  verified: derived
+  tools: 151
+  checked: '2026-08-12'
+  source: catalog MCP census
