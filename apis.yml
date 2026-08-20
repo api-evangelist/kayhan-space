@@ -113,6 +113,8 @@ apis:
   humanURL: https://docs.satcat.com
   baseURL: https://api.satcat.com/api/satcat
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
