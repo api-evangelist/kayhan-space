@@ -6,8 +6,14 @@ info:
     Upload an operator ephemeris to Satcat, make it operational, run a
     conjunction screening, and pull the resulting CDMs and plot.
 sourceDescriptions:
-- name: satcat
-  url: ../openapi/kayhan-space-satcat-openapi-original.json
+- name: conjunctionApi
+  url: ../openapi/kayhan-space-conjunction-api-openapi.yml
+  type: openapi
+- name: ephemerisApi
+  url: ../openapi/kayhan-space-ephemeris-api-openapi.yml
+  type: openapi
+- name: screeningApi
+  url: ../openapi/kayhan-space-screening-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: screenEphemeris

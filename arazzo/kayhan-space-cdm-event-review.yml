@@ -6,8 +6,8 @@ info:
     Upload CCSDS Conjunction Data Messages, attach one to a conjunction event,
     and inspect a specific CDM to support a mitigation decision.
 sourceDescriptions:
-- name: satcat
-  url: ../openapi/kayhan-space-satcat-openapi-original.json
+- name: conjunctionApi
+  url: ../openapi/kayhan-space-conjunction-api-openapi.yml
   type: openapi
 workflows:
 - workflowId: reviewConjunctionEvent
