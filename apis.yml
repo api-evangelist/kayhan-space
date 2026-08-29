@@ -11,6 +11,18 @@ description: >-
   orbit-simulation engine. Founded in 2019 and backed by Initialized Capital and
   Techstars, Kayhan Space serves commercial, civil, and defense satellite
   operators.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: unknown
   onboarding: self-serve
