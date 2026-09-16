@@ -1,16 +1,12 @@
 aid: kayhan-space
 name: Kayhan Space
-description: >-
-  Kayhan Space is a spaceflight-safety company building autonomous space traffic
-  coordination and collision-avoidance technology for satellite operators. Its
-  Satcat platform delivers space situational awareness, conjunction assessment
-  (CDM ingestion and analysis), on-orbit screening, ephemeris and Two-Line
-  Element (TLE) catalog services, propagation, orbit determination, maneuver
-  design, and collision-avoidance (COLA) planning through the Satcat Service
-  API. Kayhan also offers Dynamics, an astrodynamics estimation and
-  orbit-simulation engine. Founded in 2019 and backed by Initialized Capital and
-  Techstars, Kayhan Space serves commercial, civil, and defense satellite
-  operators.
+description: Kayhan Space is a spaceflight-safety company building autonomous space traffic coordination
+  and collision-avoidance technology for satellite operators. Its Satcat platform delivers space situational
+  awareness, conjunction assessment (CDM ingestion and analysis), on-orbit screening, ephemeris and Two-Line
+  Element (TLE) catalog services, propagation, orbit determination, maneuver design, and collision-avoidance
+  (COLA) planning through the Satcat Service API. Kayhan also offers Dynamics, an astrodynamics estimation
+  and orbit-simulation engine. Founded in 2019 and backed by Initialized Capital and Techstars, Kayhan
+  Space serves commercial, civil, and defense satellite operators.
 deliveryModel:
   model: saas
   open_source: false
@@ -46,7 +42,7 @@ x-tier: enriched
 x-tier-reason: portfolio-lead-enriched
 specificationVersion: '0.23'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-09-16'
 tags:
 - Company
 - Frontier Tech
@@ -249,8 +245,7 @@ apis:
     url: https://docs.satcat.com
 - aid: kayhan-space:kayhan-space-orbital-determination-api
   name: Kayhan Space Orbital Determination API
-  description: >-
-    The Orbital Determination API from Kayhan Space — 7 operation(s) for orbital determination.
+  description: The Orbital Determination API from Kayhan Space — 7 operation(s) for orbital determination.
   humanURL: https://docs.satcat.com
   baseURL: https://api.satcat.com/api/satcat
   tags:
@@ -291,7 +286,7 @@ apis:
   - type: Documentation
     url: https://docs.satcat.com
 - aid: kayhan-space:kayhan-space-satcat-service-api-api
-  name: Kayhan Space Satcat Service API API
+  name: Kayhan Space Satcat Service API
   description: The Satcat Service API API from Kayhan Space — 1 operation(s) for satcat service api.
   humanURL: https://docs.satcat.com
   baseURL: https://api.satcat.com/api/satcat
@@ -334,8 +329,8 @@ apis:
     url: https://docs.satcat.com
 - aid: kayhan-space:kayhan-space-two-line-elements-tles-api
   name: Kayhan Space Two Line Elements (TLEs) API
-  description: >-
-    The Two Line Elements (TLEs) API from Kayhan Space — 2 operation(s) for two line elements (tles).
+  description: The Two Line Elements (TLEs) API from Kayhan Space — 2 operation(s) for two line elements
+    (tles).
   humanURL: https://docs.satcat.com
   baseURL: https://api.satcat.com/api/satcat
   tags:
@@ -384,7 +379,10 @@ common:
   url: packages/kayhan-space-packages.yml
 - type: X-MCPServerCandidate
   url: mcp/kayhan-space-mcp.yml
-  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate — a tool list derived from the published API contracts, not an existing server. The scorer already read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type surfaces with a server that does not exist.'
+  note: 'Renamed from MCPServer 2026-09-03 (roadmap#247): the manifest self-describes as status: candidate
+    — a tool list derived from the published API contracts, not an existing server. The scorer already
+    read the manifest and reported mcp_server correctly; the MCPServer type was crediting the artifact-type
+    surfaces with a server that does not exist.'
 - type: LLMsTxt
   url: llms/kayhan-space-llms.txt
 - type: Overlay
