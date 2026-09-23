@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Satcat Service Authentication LEOP API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  title: Satcat Service LEOP API
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -78,7 +74,24 @@ paths:
       tags:
       - LEOP
       summary: Spacex Transporter Opm To Tle
-      description: "Returns TLE for all the assets in the SpaceX OPM file.\nThe NORAD ID is assigned as either:\n  - The provided norad_id field in the YAML (if present)\n  - Otherwise 99001, 99002, ...\nThe COSPAR ID is 2024-152A, 2024-152B, ...\nTLE can be derived from ECEF state or \"mean\" orbital elements.\n\n.. note:\nThe SpaceX OPM does not clarify what the \"mean\" elements mean. Here, they are\nassumed to be Kozai mean elements."
+      description: 'Returns TLE for all the assets in the SpaceX OPM file.
+
+        The NORAD ID is assigned as either:
+
+        - The provided norad_id field in the YAML (if present)
+
+        - Otherwise 99001, 99002, ...
+
+        The COSPAR ID is 2024-152A, 2024-152B, ...
+
+        TLE can be derived from ECEF state or "mean" orbital elements.
+
+
+        .. note:
+
+        The SpaceX OPM does not clarify what the "mean" elements mean. Here, they are
+
+        assumed to be Kozai mean elements.'
       operationId: spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
       security:
       - Oauth2Scheme: []
@@ -163,6 +176,15 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
     SpaceXTransporterDeployment:
       properties:
         name:
@@ -225,41 +247,6 @@ components:
       - v_ecef_m_per_s
       - ballistic_coef_kg_per_m2
       title: SpaceXTransporterDeployment
-    Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-      type: object
-      required:
-      - opm_file
-      title: Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
-    Body_opm_to_tle_leop_ccsds_opm_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-        norad_id:
-          type: string
-          title: Norad Id
-        cospar_id:
-          type: string
-          title: Cospar Id
-        ballistic_coefficient_kg_per_m2:
-          anyOf:
-          - type: number
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Ballistic Coefficient Kg Per M2
-      type: object
-      required:
-      - opm_file
-      - norad_id
-      - cospar_id
-      - ballistic_coefficient_kg_per_m2
-      title: Body_opm_to_tle_leop_ccsds_opm_post
     ValidationError:
       properties:
         loc:
@@ -286,40 +273,16 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post:
+    Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post:
       properties:
         opm_file:
           type: string
           contentMediaType: application/octet-stream
           title: Opm File
-        norad_id:
-          type: string
-          title: Norad Id
-        cospar_id:
-          type: string
-          title: Cospar Id
-        ballistic_coefficient_kg_per_m2:
-          anyOf:
-          - type: number
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Ballistic Coefficient Kg Per M2
       type: object
       required:
       - opm_file
-      - norad_id
-      - cospar_id
-      - ballistic_coefficient_kg_per_m2
-      title: Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
     Body_oem_to_tle_leop_oem_post:
       properties:
         oem_file:
@@ -345,6 +308,56 @@ components:
       - cospar_id
       - ballistic_coefficient_kg_per_m2
       title: Body_oem_to_tle_leop_oem_post
+    Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - opm_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
+    Body_opm_to_tle_leop_ccsds_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - opm_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_opm_to_tle_leop_ccsds_opm_post
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

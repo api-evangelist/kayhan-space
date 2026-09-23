@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Satcat Service Authentication Mission Planning API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  title: Satcat Service Mission Planning API
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -282,6 +278,86 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    GroundObserverCreate:
+      properties:
+        sensor_id:
+          type: string
+          title: Sensor Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        tags:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Tags
+        definition:
+          oneOf:
+          - $ref: '#/components/schemas/UDLGroundSensorDefinition'
+          - $ref: '#/components/schemas/GroundStationDefinition'
+          title: Definition
+          description: Observer definition.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              GROUND_STATION: '#/components/schemas/GroundStationDefinition'
+              UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
+      type: object
+      required:
+      - sensor_id
+      - tags
+      - definition
+      title: GroundObserverCreate
+    VisibilityWindowsRequest:
+      properties:
+        primary_rso_data_source:
+          oneOf:
+          - $ref: '#/components/schemas/VisibilityRequestTLEDataSource'
+          - $ref: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+          title: Primary Rso Data Source
+          description: Data source for the RSO state.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              EPHEMERIS: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+              TLE: '#/components/schemas/VisibilityRequestTLEDataSource'
+        observers:
+          items:
+            $ref: '#/components/schemas/VisibilityRequestObserver'
+          type: array
+          title: Observers
+      type: object
+      required:
+      - primary_rso_data_source
+      - observers
+      title: VisibilityWindowsRequest
+    SavedObserverSearchDefinition:
+      properties:
+        source_type:
+          type: string
+          const: SAVED_OBSERVER_SEARCH
+          title: Source Type
+          default: SAVED_OBSERVER_SEARCH
+        owner:
+          type: string
+          enum:
+          - group
+          - public
+          title: Owner
+          default: group
+        tags:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: SavedObserverSearchDefinition
     GroundStationDefinition:
       properties:
         source_type:
@@ -309,19 +385,55 @@ components:
       - longitude_deg
       - altitude_m
       title: GroundStationDefinition
-    UDLGroundSensorDefinition:
+    GroundObserverUpdate:
+      properties:
+        sensor_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Sensor Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        tags:
+          anyOf:
+          - items:
+              type: string
+            type: array
+            minItems: 1
+          - type: 'null'
+          title: Tags
+        definition:
+          anyOf:
+          - oneOf:
+            - $ref: '#/components/schemas/UDLGroundSensorDefinition'
+            - $ref: '#/components/schemas/GroundStationDefinition'
+            description: Observer definition.
+            discriminator:
+              propertyName: source_type
+              mapping:
+                GROUND_STATION: '#/components/schemas/GroundStationDefinition'
+                UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
+          - type: 'null'
+          title: Definition
+      type: object
+      title: GroundObserverUpdate
+    VisibilityRequestEphemerisDataSource:
       properties:
         source_type:
           type: string
-          const: UDL_GROUND_SENSOR
+          const: EPHEMERIS
           title: Source Type
-          default: UDL_GROUND_SENSOR
-        ground_sensor:
-          $ref: '#/components/schemas/UDLGroundSensor'
+          default: EPHEMERIS
+        ephemeris_id:
+          type: string
+          title: Ephemeris Id
       type: object
       required:
-      - ground_sensor
-      title: UDLGroundSensorDefinition
+      - ephemeris_id
+      title: VisibilityRequestEphemerisDataSource
     VisibilityWindow:
       properties:
         aos_time:
@@ -371,6 +483,258 @@ components:
       - observer_id
       - duration_s
       title: VisibilityWindow
+    UDLGroundSensorLocation:
+      properties:
+        lat:
+          type: number
+          title: Lat
+        lon:
+          type: number
+          title: Lon
+        altitude:
+          type: number
+          title: Altitude
+      type: object
+      required:
+      - lat
+      - lon
+      - altitude
+      title: UDLGroundSensorLocation
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    OffsetPageResult_GroundObserverRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/GroundObserverRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[GroundObserverRead]
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UDLSensorAzElLimit:
+      properties:
+        upperLeftAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperleftazimuthlimit
+        upperRightAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperrightazimuthlimit
+        lowerLeftAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerleftazimuthlimit
+        lowerRightAzimuthLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerrightazimuthlimit
+        upperLeftElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperleftelevationlimit
+        upperRightElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Upperrightelevationlimit
+        lowerLeftElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerleftelevationlimit
+        lowerRightElevationLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowerrightelevationlimit
+      type: object
+      title: UDLSensorAzElLimit
+    UDLGroundSensor:
+      properties:
+        sensorName:
+          type: string
+          title: Sensorname
+        idSensor:
+          type: string
+          title: Idsensor
+        source:
+          type: string
+          title: Source
+        classificationMarking:
+          type: string
+          title: Classificationmarking
+        entity:
+          $ref: '#/components/schemas/UDLGroundSensorEntity'
+        sensorcharacteristics:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorCharacteristic'
+            type: array
+          - type: 'null'
+          title: Sensorcharacteristics
+        sensorlimitsCollection:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorAzElLimit'
+            type: array
+          - type: 'null'
+          title: Sensorlimitscollection
+      type: object
+      required:
+      - sensorName
+      - idSensor
+      - source
+      - classificationMarking
+      - entity
+      - sensorcharacteristics
+      - sensorlimitsCollection
+      title: UDLGroundSensor
+      description: 'Compatible with the UDL GroundSensor model.
+
+        Can be used for both ground stations and ground sensors such as radar / EO.'
+    UDLGroundSensorDefinition:
+      properties:
+        source_type:
+          type: string
+          const: UDL_GROUND_SENSOR
+          title: Source Type
+          default: UDL_GROUND_SENSOR
+        ground_sensor:
+          $ref: '#/components/schemas/UDLGroundSensor'
+      type: object
+      required:
+      - ground_sensor
+      title: UDLGroundSensorDefinition
+    UDLSensorCharacteristic:
+      properties:
+        minRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Minrangelimit
+        maxRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxrangelimit
+        maxSunElevationAngle:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxsunelevationangle
+      type: object
+      title: UDLSensorCharacteristic
+    UDLGroundSensorEntity:
+      properties:
+        location:
+          $ref: '#/components/schemas/UDLGroundSensorLocation'
+      type: object
+      required:
+      - location
+      title: UDLGroundSensorEntity
+    VisibilityRequestTLEDataSource:
+      properties:
+        source_type:
+          type: string
+          const: TLE
+          title: Source Type
+          default: TLE
+        line1:
+          type: string
+          title: Line1
+        line2:
+          type: string
+          title: Line2
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_stop_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Stop Time
+      type: object
+      required:
+      - line1
+      - line2
+      title: VisibilityRequestTLEDataSource
+    VisibilityWindowsResult:
+      properties:
+        windows:
+          items:
+            $ref: '#/components/schemas/VisibilityWindow'
+          type: array
+          title: Windows
+      type: object
+      required:
+      - windows
+      title: VisibilityWindowsResult
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     GroundObserverRead:
       properties:
         sensor_id:
@@ -430,366 +794,6 @@ components:
       - created_at
       - updated_at
       title: GroundObserverRead
-    UDLGroundSensorLocation:
-      properties:
-        lat:
-          type: number
-          title: Lat
-        lon:
-          type: number
-          title: Lon
-        altitude:
-          type: number
-          title: Altitude
-      type: object
-      required:
-      - lat
-      - lon
-      - altitude
-      title: UDLGroundSensorLocation
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    UDLSensorAzElLimit:
-      properties:
-        upperLeftAzimuthLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Upperleftazimuthlimit
-        upperRightAzimuthLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Upperrightazimuthlimit
-        lowerLeftAzimuthLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowerleftazimuthlimit
-        lowerRightAzimuthLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowerrightazimuthlimit
-        upperLeftElevationLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Upperleftelevationlimit
-        upperRightElevationLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Upperrightelevationlimit
-        lowerLeftElevationLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowerleftelevationlimit
-        lowerRightElevationLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowerrightelevationlimit
-      type: object
-      title: UDLSensorAzElLimit
-    VisibilityRequestTLEDataSource:
-      properties:
-        source_type:
-          type: string
-          const: TLE
-          title: Source Type
-          default: TLE
-        line1:
-          type: string
-          title: Line1
-        line2:
-          type: string
-          title: Line2
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_stop_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Stop Time
-      type: object
-      required:
-      - line1
-      - line2
-      title: VisibilityRequestTLEDataSource
-    VisibilityRequestEphemerisDataSource:
-      properties:
-        source_type:
-          type: string
-          const: EPHEMERIS
-          title: Source Type
-          default: EPHEMERIS
-        ephemeris_id:
-          type: string
-          title: Ephemeris Id
-      type: object
-      required:
-      - ephemeris_id
-      title: VisibilityRequestEphemerisDataSource
-    SavedObserverSearchDefinition:
-      properties:
-        source_type:
-          type: string
-          const: SAVED_OBSERVER_SEARCH
-          title: Source Type
-          default: SAVED_OBSERVER_SEARCH
-        owner:
-          type: string
-          enum:
-          - group
-          - public
-          title: Owner
-          default: group
-        tags:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Tags
-      type: object
-      required:
-      - tags
-      title: SavedObserverSearchDefinition
-    GroundObserverCreate:
-      properties:
-        sensor_id:
-          type: string
-          title: Sensor Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        tags:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Tags
-        definition:
-          oneOf:
-          - $ref: '#/components/schemas/UDLGroundSensorDefinition'
-          - $ref: '#/components/schemas/GroundStationDefinition'
-          title: Definition
-          description: Observer definition.
-          discriminator:
-            propertyName: source_type
-            mapping:
-              GROUND_STATION: '#/components/schemas/GroundStationDefinition'
-              UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
-      type: object
-      required:
-      - sensor_id
-      - tags
-      - definition
-      title: GroundObserverCreate
-    OffsetPageResult_GroundObserverRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/GroundObserverRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[GroundObserverRead]
-    VisibilityWindowsResult:
-      properties:
-        windows:
-          items:
-            $ref: '#/components/schemas/VisibilityWindow'
-          type: array
-          title: Windows
-      type: object
-      required:
-      - windows
-      title: VisibilityWindowsResult
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UDLSensorCharacteristic:
-      properties:
-        minRangeLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Minrangelimit
-        maxRangeLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Maxrangelimit
-        maxSunElevationAngle:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Maxsunelevationangle
-      type: object
-      title: UDLSensorCharacteristic
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    UDLGroundSensor:
-      properties:
-        sensorName:
-          type: string
-          title: Sensorname
-        idSensor:
-          type: string
-          title: Idsensor
-        source:
-          type: string
-          title: Source
-        classificationMarking:
-          type: string
-          title: Classificationmarking
-        entity:
-          $ref: '#/components/schemas/UDLGroundSensorEntity'
-        sensorcharacteristics:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UDLSensorCharacteristic'
-            type: array
-          - type: 'null'
-          title: Sensorcharacteristics
-        sensorlimitsCollection:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UDLSensorAzElLimit'
-            type: array
-          - type: 'null'
-          title: Sensorlimitscollection
-      type: object
-      required:
-      - sensorName
-      - idSensor
-      - source
-      - classificationMarking
-      - entity
-      - sensorcharacteristics
-      - sensorlimitsCollection
-      title: UDLGroundSensor
-      description: 'Compatible with the UDL GroundSensor model.
-
-        Can be used for both ground stations and ground sensors such as radar / EO.'
-    GroundObserverUpdate:
-      properties:
-        sensor_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Sensor Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        tags:
-          anyOf:
-          - items:
-              type: string
-            type: array
-            minItems: 1
-          - type: 'null'
-          title: Tags
-        definition:
-          anyOf:
-          - oneOf:
-            - $ref: '#/components/schemas/UDLGroundSensorDefinition'
-            - $ref: '#/components/schemas/GroundStationDefinition'
-            description: Observer definition.
-            discriminator:
-              propertyName: source_type
-              mapping:
-                GROUND_STATION: '#/components/schemas/GroundStationDefinition'
-                UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
-          - type: 'null'
-          title: Definition
-      type: object
-      title: GroundObserverUpdate
-    VisibilityWindowsRequest:
-      properties:
-        primary_rso_data_source:
-          oneOf:
-          - $ref: '#/components/schemas/VisibilityRequestTLEDataSource'
-          - $ref: '#/components/schemas/VisibilityRequestEphemerisDataSource'
-          title: Primary Rso Data Source
-          description: Data source for the RSO state.
-          discriminator:
-            propertyName: source_type
-            mapping:
-              EPHEMERIS: '#/components/schemas/VisibilityRequestEphemerisDataSource'
-              TLE: '#/components/schemas/VisibilityRequestTLEDataSource'
-        observers:
-          items:
-            $ref: '#/components/schemas/VisibilityRequestObserver'
-          type: array
-          title: Observers
-      type: object
-      required:
-      - primary_rso_data_source
-      - observers
-      title: VisibilityWindowsRequest
     VisibilityRequestObserver:
       properties:
         id:
@@ -818,14 +822,6 @@ components:
       - id
       - definition
       title: VisibilityRequestObserver
-    UDLGroundSensorEntity:
-      properties:
-        location:
-          $ref: '#/components/schemas/UDLGroundSensorLocation'
-      type: object
-      required:
-      - location
-      title: UDLGroundSensorEntity
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

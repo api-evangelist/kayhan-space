@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Satcat Service Authentication Propagation API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  title: Satcat Service Propagation API
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -96,7 +92,10 @@ paths:
       tags:
       - Propagation
       summary: Create Propagation
-      description: "Submit propagation parameters to Kayhan's system and create propagation job.<br/>\n    Define: Propagation Duration, and Time Step."
+      description: 'Submit propagation parameters to Kayhan''s system and create propagation job.
+
+
+        Define: Propagation Duration, and Time Step.'
       operationId: create_propagation_propagations_post
       security:
       - Oauth2Scheme: []
@@ -178,7 +177,10 @@ paths:
       tags:
       - Propagation
       summary: Update Propagation
-      description: "Adjust propagation parameters to Kayhan's system and update propagation job.<br/>\n    Define: Propagation Duration, and Time Step. By default, only includes Two Body Force Model."
+      description: 'Adjust propagation parameters to Kayhan''s system and update propagation job.
+
+
+        Define: Propagation Duration, and Time Step. By default, only includes Two Body Force Model.'
       operationId: update_propagation_propagations__id__patch
       security:
       - Oauth2Scheme: []
@@ -939,7 +941,16 @@ paths:
       tags:
       - Propagation
       summary: Add Opm
-      description: "Add an OPM file to propagation job.\n    Configures the propagation's initial state and maneuvers.\n\n    If the propagation is configured to use a target_duration instead of an end_time,\n    this endpoint will automatically update the start_time of the propagation to\n    match the epoch of the state vector from the OPM."
+      description: 'Add an OPM file to propagation job.
+
+        Configures the propagation''s initial state and maneuvers.
+
+
+        If the propagation is configured to use a target_duration instead of an end_time,
+
+        this endpoint will automatically update the start_time of the propagation to
+
+        match the epoch of the state vector from the OPM.'
       operationId: add_opm_propagations__id__opm_post
       security:
       - Oauth2Scheme: []
@@ -976,7 +987,9 @@ paths:
       tags:
       - Propagation
       summary: Submit Propagation
-      description: Submit a propagation job for processing. Submitting a propagation job is an idempotent operation. Once a propagation job has been submitted and entered the PENDING state, submitting it again will have no further effect. <br/> If the propagation job as configured at submission fails validation, the propagation job will return HTTP status 422 (Unprocessable Entity) and the propagation job will not enter the PENDING state until the configuration is updated and the propagation job is submitted again.
+      description: 'Submit a propagation job for processing. Submitting a propagation job is an idempotent operation. Once a propagation job has been submitted and entered the PENDING state, submitting it again will have no further effect.
+
+        If the propagation job as configured at submission fails validation, the propagation job will return HTTP status 422 (Unprocessable Entity) and the propagation job will not enter the PENDING state until the configuration is updated and the propagation job is submitted again.'
       operationId: submit_propagation_propagations__id__submit_put
       security:
       - Oauth2Scheme: []
@@ -1049,273 +1062,192 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    Body_add_propagation_forces_propagations__id__forces_post:
+    Body_add_opm_propagations__id__opm_post:
       properties:
-        force_models:
-          $ref: '#/components/schemas/PropagationForceModels'
-          description: Configuration of the propagation job to create
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
       type: object
-      required:
-      - force_models
-      title: Body_add_propagation_forces_propagations__id__forces_post
-    TLERead:
+      title: Body_add_opm_propagations__id__opm_post
+    ForceModelRead:
       properties:
         id:
           type: string
           format: uuid
           title: Id
+        earth_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Model
+        geopotential:
+          type: boolean
+          title: Geopotential
+          default: false
+        geopotential_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Degree
+        geopotential_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Order
+          default: 0
+        drag:
+          type: boolean
+          title: Drag
+          default: false
+        drag_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Drag Model
+        third_bodies:
+          type: boolean
+          title: Third Bodies
+          default: false
+        third_bodies_list:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Third Bodies List
+        solid_tides:
+          type: boolean
+          title: Solid Tides
+          default: false
+        solar_radiation_pressure:
+          type: boolean
+          title: Solar Radiation Pressure
+          default: false
+        ocean_tides:
+          type: boolean
+          title: Ocean Tides
+          default: false
+        oceantides_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Degree
+        oceantides_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Order
+      type: object
+      required:
+      - id
+      title: ForceModelRead
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
         object_name:
           anyOf:
           - type: string
           - type: 'null'
           title: Object Name
-        line1:
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
           anyOf:
-          - type: string
+          - type: number
           - type: 'null'
-          title: Line1
-        line2:
+          title: Coeff Drag
+        coeff_rad:
           anyOf:
-          - type: string
+          - type: number
           - type: 'null'
-          title: Line2
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: 'null'
       type: object
       required:
       - id
-      title: TLERead
-    OceanTides:
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    OffsetPageResult_ManeuverRead_:
       properties:
-        active:
-          type: boolean
-          title: Active
-          description: Set to True to enable force model in propagation.
-          default: true
-        degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Degree
-          description: The degree of OceanTides effect to use.
-          default: 10
-        order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Order
-          description: The order of OceanTides effect to use.
-          default: 10
-      type: object
-      title: OceanTides
-    EarthModel:
-      properties:
-        model:
-          type: string
-          title: Model
-          description: 'Physical characteristics of Earth as described by an Earth Model. Currently supports: "WGS84", "GRS80", "EGM96"'
-          default: EGM96
-      type: object
-      title: EarthModel
-    Body_change_state_vector_propagations__id__states_patch:
-      properties:
-        state_id:
-          type: string
-          format: uuid
-          title: State Id
-          description: UUID of state vector.
-      type: object
-      required:
-      - state_id
-      title: Body_change_state_vector_propagations__id__states_patch
-    PropagationManeuverAdd:
-      properties:
-        type:
-          $ref: '#/components/schemas/ManeuverType'
-          description: Maneuver type (IMPULSE, INSTANTANEOUS, CONSTANTTHRUST
-          default: IMPULSE
-        ignition_epoch:
-          type: string
-          format: date-time
-          title: Ignition Epoch
-          description: Ignition epoch for maneuver.
-        duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Duration
-          description: Duration of maneuver burn (sec), defaults to 0.0 for an impulse/instantaneous maneuver.
-          default: 0.0
-        ref_frame:
-          anyOf:
-          - $ref: '#/components/schemas/Frame'
-          - type: 'null'
-          description: The reference frame with which the maneuver vector is described
-          default: RIC
-        delta_v:
-          anyOf:
-          - $ref: '#/components/schemas/Vector3'
-          - type: 'null'
-        thrust_vector:
-          anyOf:
-          - $ref: '#/components/schemas/Vector3'
-          - type: 'null'
-        specific_impulse:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Specific Impulse
-        delta_mass:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Delta Mass
-      type: object
-      required:
-      - ignition_epoch
-      title: PropagationManeuverAdd
-    CelestialBody:
-      type: string
-      enum:
-      - SUN
-      - EARTH
-      - MOON
-      - MERCURY
-      - VENUS
-      - MARS
-      - JUPITER
-      - SATURN
-      - URANUS
-      - NEPTUNE
-      title: CelestialBody
-      description: 'Enumeration describing a specific celestial body
-
-        for use in computing third body gravitational perturbation.'
-    Drag:
-      properties:
-        active:
-          type: boolean
-          title: Active
-          description: Set to True to enable force model in propagation.
-          default: true
-        atmospheric_model:
-          anyOf:
-          - $ref: '#/components/schemas/AtmosphericModels'
-          - type: 'null'
-          description: Atmospheric model for drag force. Currently only supports "HARRISPRIESTER", "JB2008", "NRLMSISE00"
-          default: NRLMSISE00
-      type: object
-      title: Drag
-    PropagationForceModels:
-      properties:
-        earth_model:
-          anyOf:
-          - $ref: '#/components/schemas/EarthModel'
-          - type: 'null'
-        geopotential:
-          anyOf:
-          - $ref: '#/components/schemas/Geopotential'
-          - type: 'null'
-        third_bodies:
-          anyOf:
-          - $ref: '#/components/schemas/ThirdBodies'
-          - type: 'null'
-        drag:
-          anyOf:
-          - $ref: '#/components/schemas/Drag'
-          - type: 'null'
-        ocean_tides:
-          anyOf:
-          - $ref: '#/components/schemas/OceanTides'
-          - type: 'null'
-        solid_tides:
-          anyOf:
-          - $ref: '#/components/schemas/SolidTides'
-          - type: 'null'
-        solar_radiation_pressure:
-          anyOf:
-          - $ref: '#/components/schemas/SolarRadiationPressure'
-          - type: 'null'
-      type: object
-      title: PropagationForceModels
-    Body_update_propagation_forces_propagations__id__forces_patch:
-      properties:
-        force_models:
-          $ref: '#/components/schemas/PropagationForceModels'
-          description: Configuration of the propagation job to create
-      type: object
-      required:
-      - force_models
-      title: Body_update_propagation_forces_propagations__id__forces_patch
-    PropagationJobParameters:
-      properties:
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
-        target_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Target Duration
-          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
-        timestep:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Timestep
-          description: Propagation Time Step between each reported epoch, in seconds.
-          default: 120
-        purpose:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Purpose
-          description: Purpose of propagation (MANUAL or SCREENING)
-          default: MANUAL
-        infer_interval_from_screening:
-          type: boolean
-          title: Infer Interval From Screening
-          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
-          default: true
-      type: object
-      title: PropagationJobParameters
-    AtmosphericModels:
-      type: string
-      enum:
-      - HARRISPRIESTER
-      - JB2008
-      - NRLMSISE00
-      title: AtmosphericModels
-      description: Supported atmospheric models for drag force.
-    OffsetPagination:
-      properties:
-        offset:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ManeuverRead'
+          type: array
+          title: Items
+        total_count:
           type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
+          title: Total Count
       type: object
-      title: OffsetPagination
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ManeuverRead]
     OffsetPageResult_PropagationRead_:
       properties:
         pagination:
@@ -1419,96 +1351,7 @@ components:
       - type
       - ignition_epoch
       title: ManeuverRead
-    StateVectorRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        pos_x:
-          type: number
-          title: Pos X
-        pos_y:
-          type: number
-          title: Pos Y
-        pos_z:
-          type: number
-          title: Pos Z
-        pos_unit:
-          type: string
-          title: Pos Unit
-        vel_x:
-          type: number
-          title: Vel X
-        vel_y:
-          type: number
-          title: Vel Y
-        vel_z:
-          type: number
-          title: Vel Z
-        vel_unit:
-          type: string
-          title: Vel Unit
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        frame:
-          type: string
-          title: Frame
-        mass:
-          type: number
-          title: Mass
-        coeff_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Drag
-        coeff_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Rad
-        area_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Drag
-        area_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Rad
-        covariance:
-          anyOf:
-          - $ref: '#/components/schemas/CovarianceMatrixRead'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - pos_x
-      - pos_y
-      - pos_z
-      - pos_unit
-      - vel_x
-      - vel_y
-      - vel_z
-      - vel_unit
-      - timestamp
-      - frame
-      - mass
-      title: StateVectorRead
-    SolidTides:
+    SolarRadiationPressure:
       properties:
         active:
           type: boolean
@@ -1516,161 +1359,14 @@ components:
           description: Set to True to enable force model in propagation.
           default: true
       type: object
-      title: SolidTides
-    Body_add_tle_propagations__id__tle_post:
-      properties:
-        tle_id:
-          type: string
-          format: uuid
-          title: Tle Id
-          description: TLE ID
-      type: object
-      required:
-      - tle_id
-      title: Body_add_tle_propagations__id__tle_post
-    Body_add_opm_propagations__id__opm_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-          description: OPM file to upload
-      type: object
-      title: Body_add_opm_propagations__id__opm_post
-    ForceModelRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        earth_model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Earth Model
-        geopotential:
-          type: boolean
-          title: Geopotential
-          default: false
-        geopotential_degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Geopotential Degree
-        geopotential_order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Geopotential Order
-          default: 0
-        drag:
-          type: boolean
-          title: Drag
-          default: false
-        drag_model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Drag Model
-        third_bodies:
-          type: boolean
-          title: Third Bodies
-          default: false
-        third_bodies_list:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Third Bodies List
-        solid_tides:
-          type: boolean
-          title: Solid Tides
-          default: false
-        solar_radiation_pressure:
-          type: boolean
-          title: Solar Radiation Pressure
-          default: false
-        ocean_tides:
-          type: boolean
-          title: Ocean Tides
-          default: false
-        oceantides_degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Oceantides Degree
-        oceantides_order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Oceantides Order
-      type: object
-      required:
-      - id
-      title: ForceModelRead
-    OffsetPageResult_ManeuverRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ManeuverRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ManeuverRead]
-    Body_change_tle_propagations__id__tle_patch:
-      properties:
-        tle_id:
-          type: string
-          format: uuid
-          title: Tle Id
-          description: TLE ID
-      type: object
-      required:
-      - tle_id
-      title: Body_change_tle_propagations__id__tle_patch
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
+      title: SolarRadiationPressure
+    ManeuverType:
+      type: string
+      enum:
+      - IMPULSE
+      - INSTANTANEOUS
+      - CONSTANTTHRUST
+      title: ManeuverType
     PropagationRead:
       properties:
         id:
@@ -1769,26 +1465,118 @@ components:
       - id
       - status
       title: PropagationRead
-    ThirdBodies:
+    PropagationJobParameters:
+      properties:
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+          description: Propagation Time Step between each reported epoch, in seconds.
+          default: 120
+        purpose:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Purpose
+          description: Purpose of propagation (MANUAL or SCREENING)
+          default: MANUAL
+        infer_interval_from_screening:
+          type: boolean
+          title: Infer Interval From Screening
+          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
+          default: true
+      type: object
+      title: PropagationJobParameters
+    SolidTides:
       properties:
         active:
           type: boolean
           title: Active
           description: Set to True to enable force model in propagation.
           default: true
-        celestial_bodies:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/CelestialBody'
-            type: array
-          - type: 'null'
-          title: Celestial Bodies
-          description: 'List of celestial third body force models. Currently supported: "SUN","EARTH", "MOON", "MERCURY", "VENUS", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE"'
-          default:
-          - SUN
-          - MOON
       type: object
-      title: ThirdBodies
+      title: SolidTides
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    Body_add_state_vector_propagations__id__states_post:
+      properties:
+        state_id:
+          type: string
+          format: uuid
+          title: State Id
+          description: UUID of state vector.
+      type: object
+      required:
+      - state_id
+      title: Body_add_state_vector_propagations__id__states_post
     CovarianceMatrixRead:
       properties:
         data:
@@ -1812,16 +1600,84 @@ components:
       - frame
       - length_unit
       title: CovarianceMatrixRead
-    SolarRadiationPressure:
+    Body_change_tle_propagations__id__tle_patch:
       properties:
-        active:
-          type: boolean
-          title: Active
-          description: Set to True to enable force model in propagation.
-          default: true
+        tle_id:
+          type: string
+          format: uuid
+          title: Tle Id
+          description: TLE ID
       type: object
-      title: SolarRadiationPressure
-    Body_add_state_vector_propagations__id__states_post:
+      required:
+      - tle_id
+      title: Body_change_tle_propagations__id__tle_patch
+    CelestialBody:
+      type: string
+      enum:
+      - SUN
+      - EARTH
+      - MOON
+      - MERCURY
+      - VENUS
+      - MARS
+      - JUPITER
+      - SATURN
+      - URANUS
+      - NEPTUNE
+      title: CelestialBody
+      description: 'Enumeration describing a specific celestial body
+
+        for use in computing third body gravitational perturbation.'
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Frame:
+      type: string
+      enum:
+      - EME2000
+      - EME2000
+      - TEME
+      - GCRF
+      - CIRF
+      - ICRF
+      - TIRF
+      - ITRF
+      - ITRF_2014
+      - ITRF_2008
+      - ITRF_2005
+      - ITRF_2000
+      - ITRF_97
+      - ITRF_96
+      - ITRF_94
+      - ITRF_93
+      - ITRF_92
+      - ITRF_91
+      - ITRF_90
+      - ITRF_89
+      - ITRF_88
+      - ITRFEQUINOX
+      - MOD
+      - TOD
+      - GTOD
+      - EFG
+      - VEIS1950
+      - RIC
+      - PTW
+      - TNW
+      - VNB
+      - LVLH
+      - ENCOUNTER
+      - ENU
+      - SEZ
+      - CUSTOM
+      title: Frame
+    Body_change_state_vector_propagations__id__states_patch:
       properties:
         state_id:
           type: string
@@ -1831,14 +1687,139 @@ components:
       type: object
       required:
       - state_id
-      title: Body_add_state_vector_propagations__id__states_post
-    ManeuverType:
+      title: Body_change_state_vector_propagations__id__states_patch
+    ThirdBodies:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        celestial_bodies:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/CelestialBody'
+            type: array
+          - type: 'null'
+          title: Celestial Bodies
+          description: 'List of celestial third body force models. Currently supported: "SUN","EARTH", "MOON", "MERCURY", "VENUS", "MARS", "JUPITER", "SATURN", "URANUS", "NEPTUNE"'
+          default:
+          - SUN
+          - MOON
+      type: object
+      title: ThirdBodies
+    TLERead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+      type: object
+      required:
+      - id
+      title: TLERead
+    AtmosphericModels:
       type: string
       enum:
-      - IMPULSE
-      - INSTANTANEOUS
-      - CONSTANTTHRUST
-      title: ManeuverType
+      - HARRISPRIESTER
+      - JB2008
+      - NRLMSISE00
+      title: AtmosphericModels
+      description: Supported atmospheric models for drag force.
+    OceanTides:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Degree
+          description: The degree of OceanTides effect to use.
+          default: 10
+        order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order
+          description: The order of OceanTides effect to use.
+          default: 10
+      type: object
+      title: OceanTides
+    Geopotential:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Degree
+          description: The degree of geopotential effect to use.
+          default: 70
+        order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Order
+          description: The order of geopotential effect to use.
+          default: 70
+      type: object
+      title: Geopotential
+    Drag:
+      properties:
+        active:
+          type: boolean
+          title: Active
+          description: Set to True to enable force model in propagation.
+          default: true
+        atmospheric_model:
+          anyOf:
+          - $ref: '#/components/schemas/AtmosphericModels'
+          - type: 'null'
+          description: Atmospheric model for drag force. Currently only supports "HARRISPRIESTER", "JB2008", "NRLMSISE00"
+          default: NRLMSISE00
+      type: object
+      title: Drag
+    EarthModel:
+      properties:
+        model:
+          type: string
+          title: Model
+          description: 'Physical characteristics of Earth as described by an Earth Model. Currently supports: "WGS84", "GRS80", "EGM96"'
+          default: EGM96
+      type: object
+      title: EarthModel
+    Body_update_propagation_forces_propagations__id__forces_patch:
+      properties:
+        force_models:
+          $ref: '#/components/schemas/PropagationForceModels'
+          description: Configuration of the propagation job to create
+      type: object
+      required:
+      - force_models
+      title: Body_update_propagation_forces_propagations__id__forces_patch
     Vector3:
       properties:
         x:
@@ -1892,38 +1873,61 @@ components:
       - msg
       - type
       title: ValidationError
-    HTTPValidationError:
+    PropagationManeuverAdd:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        type:
+          $ref: '#/components/schemas/ManeuverType'
+          description: Maneuver type (IMPULSE, INSTANTANEOUS, CONSTANTTHRUST
+          default: IMPULSE
+        ignition_epoch:
+          type: string
+          format: date-time
+          title: Ignition Epoch
+          description: Ignition epoch for maneuver.
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+          description: Duration of maneuver burn (sec), defaults to 0.0 for an impulse/instantaneous maneuver.
+          default: 0.0
+        ref_frame:
+          anyOf:
+          - $ref: '#/components/schemas/Frame'
+          - type: 'null'
+          description: The reference frame with which the maneuver vector is described
+          default: RIC
+        delta_v:
+          anyOf:
+          - $ref: '#/components/schemas/Vector3'
+          - type: 'null'
+        thrust_vector:
+          anyOf:
+          - $ref: '#/components/schemas/Vector3'
+          - type: 'null'
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        delta_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Delta Mass
       type: object
-      title: HTTPValidationError
-    Geopotential:
+      required:
+      - ignition_epoch
+      title: PropagationManeuverAdd
+    Body_add_propagation_forces_propagations__id__forces_post:
       properties:
-        active:
-          type: boolean
-          title: Active
-          description: Set to True to enable force model in propagation.
-          default: true
-        degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Degree
-          description: The degree of geopotential effect to use.
-          default: 70
-        order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Order
-          description: The order of geopotential effect to use.
-          default: 70
+        force_models:
+          $ref: '#/components/schemas/PropagationForceModels'
+          description: Configuration of the propagation job to create
       type: object
-      title: Geopotential
+      required:
+      - force_models
+      title: Body_add_propagation_forces_propagations__id__forces_post
     JobStatus:
       type: string
       enum:
@@ -1934,46 +1938,55 @@ components:
       - FAILURE
       - CANCELED
       title: JobStatus
-    Frame:
+    Body_add_tle_propagations__id__tle_post:
+      properties:
+        tle_id:
+          type: string
+          format: uuid
+          title: Tle Id
+          description: TLE ID
+      type: object
+      required:
+      - tle_id
+      title: Body_add_tle_propagations__id__tle_post
+    PropagationForceModels:
+      properties:
+        earth_model:
+          anyOf:
+          - $ref: '#/components/schemas/EarthModel'
+          - type: 'null'
+        geopotential:
+          anyOf:
+          - $ref: '#/components/schemas/Geopotential'
+          - type: 'null'
+        third_bodies:
+          anyOf:
+          - $ref: '#/components/schemas/ThirdBodies'
+          - type: 'null'
+        drag:
+          anyOf:
+          - $ref: '#/components/schemas/Drag'
+          - type: 'null'
+        ocean_tides:
+          anyOf:
+          - $ref: '#/components/schemas/OceanTides'
+          - type: 'null'
+        solid_tides:
+          anyOf:
+          - $ref: '#/components/schemas/SolidTides'
+          - type: 'null'
+        solar_radiation_pressure:
+          anyOf:
+          - $ref: '#/components/schemas/SolarRadiationPressure'
+          - type: 'null'
+      type: object
+      title: PropagationForceModels
+    SortDirection:
       type: string
       enum:
-      - EME2000
-      - EME2000
-      - TEME
-      - GCRF
-      - CIRF
-      - ICRF
-      - TIRF
-      - ITRF
-      - ITRF_2014
-      - ITRF_2008
-      - ITRF_2005
-      - ITRF_2000
-      - ITRF_97
-      - ITRF_96
-      - ITRF_94
-      - ITRF_93
-      - ITRF_92
-      - ITRF_91
-      - ITRF_90
-      - ITRF_89
-      - ITRF_88
-      - ITRFEQUINOX
-      - MOD
-      - TOD
-      - GTOD
-      - EFG
-      - VEIS1950
-      - RIC
-      - PTW
-      - TNW
-      - VNB
-      - LVLH
-      - ENCOUNTER
-      - ENU
-      - SEZ
-      - CUSTOM
-      title: Frame
+      - asc
+      - desc
+      title: SortDirection
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

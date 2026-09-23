@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Satcat Service Authentication API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -307,18 +303,21 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_login_login_post:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    Body_authenticate_token_oauth_token_post:
       properties:
         grant_type:
           type: string
-          pattern: ^password$
+          pattern: client_credentials
           title: Grant Type
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
         scope:
           type: string
           title: Scope
@@ -334,39 +333,25 @@ components:
           - type: 'null'
           title: Client Secret
       type: object
-      required:
-      - grant_type
-      - username
-      - password
-      title: Body_login_login_post
-    TokenResponse:
+      title: Body_authenticate_token_oauth_token_post
+    OffsetPageResult_APIKeyView_:
       properties:
-        access_token:
-          type: string
-          title: Access Token
-        refresh_token:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Refresh Token
-        expires_in:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Expires In
-        token_type:
-          type: string
-          title: Token Type
-        scope:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Scope
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/APIKeyView'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
       type: object
       required:
-      - access_token
-      - token_type
-      title: TokenResponse
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[APIKeyView]
     ValidationError:
       properties:
         loc:
@@ -393,69 +378,15 @@ components:
       - msg
       - type
       title: ValidationError
-    APIKeyView:
+    APIKeyUpdate:
       properties:
-        client_id:
-          type: string
-          title: Client Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
         name:
           type: string
           title: Name
       type: object
       required:
-      - client_id
-      - created_at
       - name
-      title: APIKeyView
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    OffsetPageResult_APIKeyView_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/APIKeyView'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[APIKeyView]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
+      title: APIKeyUpdate
     GroupListItem:
       properties:
         id:
@@ -503,51 +434,36 @@ components:
       - name
       - slug
       title: GroupListItem
-    Body_authenticate_token_oauth_token_post:
+    APIKeyView:
       properties:
-        grant_type:
-          type: string
-          pattern: client_credentials
-          title: Grant Type
-        scope:
-          type: string
-          title: Scope
-          default: ''
         client_id:
-          anyOf:
-          - type: string
-          - type: 'null'
+          type: string
           title: Client Id
-        client_secret:
+        user_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Client Secret
-      type: object
-      title: Body_authenticate_token_oauth_token_post
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    APIKeyUpdate:
-      properties:
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
         name:
           type: string
           title: Name
       type: object
       required:
+      - client_id
+      - created_at
       - name
-      title: APIKeyUpdate
+      title: APIKeyView
     Body_authenticate_token_oauth_token__post:
       properties:
         grant_type:
@@ -570,6 +486,80 @@ components:
           title: Client Secret
       type: object
       title: Body_authenticate_token_oauth_token__post
+    TokenResponse:
+      properties:
+        access_token:
+          type: string
+          title: Access Token
+        refresh_token:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Refresh Token
+        expires_in:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Expires In
+        token_type:
+          type: string
+          title: Token Type
+        scope:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Scope
+      type: object
+      required:
+      - access_token
+      - token_type
+      title: TokenResponse
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    Body_login_login_post:
+      properties:
+        grant_type:
+          type: string
+          pattern: ^password$
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
+      type: object
+      required:
+      - grant_type
+      - username
+      - password
+      title: Body_login_login_post
     APIKeyCreateRequest:
       properties:
         name:
@@ -592,6 +582,12 @@ components:
       required:
       - name
       title: APIKeyCreateRequest
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

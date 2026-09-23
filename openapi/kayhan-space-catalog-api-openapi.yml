@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Satcat Service Authentication Catalog API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  title: Satcat Service Catalog API
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -203,7 +199,116 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    CatalogPreviewRead:
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    OffsetPageResult_CatalogPreviewRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/CatalogPreviewRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[CatalogPreviewRead]
+    EphemerisType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: EphemerisType
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    EphemerisSource:
+      type: string
+      enum:
+      - CATALOG
+      - SPACE_TRACK_PUBLIC
+      - SPACE_TRACK_PUBLIC_SATCAT
+      - PATHFINDER_API
+      - SATCAT_API
+      - USER_SCREENER
+      - TERTIARY_SCREENER
+      - PATHFINDER_AUTO_THIRDPARTY
+      - KAYHAN_INTERNAL_PROCESS
+      - PATHFINDER_SCREENER_THIRDPARTY
+      - STARLINK_API_PUBLIC
+      - PUBLIC_REPOSITORY
+      - STARLINK_STC_API
+      title: EphemerisSource
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+    CatalogObjectOverview:
+      properties:
+        leo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        meo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        geo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+      type: object
+      required:
+      - leo
+      - meo
+      - geo
+      title: CatalogObjectOverview
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CatalogMinimalRead:
       properties:
         ephemerides_count:
           type: integer
@@ -256,13 +361,6 @@ components:
           type: boolean
           title: Archive Protected
           default: false
-        ephemerides_preview:
-          items:
-            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          type: array
-          title: Ephemerides Preview
-        object_overview:
-          $ref: '#/components/schemas/CatalogObjectOverview'
       type: object
       required:
       - ephemerides_count
@@ -270,9 +368,14 @@ components:
       - created_at
       - catalog_type
       - epoch
-      - ephemerides_preview
-      - object_overview
-      title: CatalogPreviewRead
+      title: CatalogMinimalRead
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
     satcat__schemas__models__Designation:
       type: string
       enum:
@@ -282,45 +385,6 @@ components:
       - THEORETICAL
       - TLE
       title: Designation
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    EphemerisType:
-      type: string
-      enum:
-      - ON_ORBIT
-      - LAUNCH
-      title: EphemerisType
-    OffsetPageResult_EphemerisMetadataWithRSO_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[EphemerisMetadataWithRSO]
-    Context:
-      type: string
-      enum:
-      - ROUTINE
-      - COLA
-      - MAINTENANCE
-      - NOVEL
-      - DECAY
-      title: Context
     EphemerisMetadataWithRSO:
       properties:
         id:
@@ -483,166 +547,7 @@ components:
       - apogee_km
       - perigee_km
       title: EphemerisMetadataWithRSO
-    EphemerisSource:
-      type: string
-      enum:
-      - CATALOG
-      - SPACE_TRACK_PUBLIC
-      - SPACE_TRACK_PUBLIC_SATCAT
-      - PATHFINDER_API
-      - SATCAT_API
-      - USER_SCREENER
-      - TERTIARY_SCREENER
-      - PATHFINDER_AUTO_THIRDPARTY
-      - KAYHAN_INTERNAL_PROCESS
-      - PATHFINDER_SCREENER_THIRDPARTY
-      - STARLINK_API_PUBLIC
-      - PUBLIC_REPOSITORY
-      - STARLINK_STC_API
-      title: EphemerisSource
-    OrbitRegimeOverview:
-      properties:
-        total_count:
-          type: integer
-          title: Total Count
-        deb_count:
-          type: integer
-          title: Deb Count
-        total_count_percent_change_month:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Total Count Percent Change Month
-      type: object
-      required:
-      - total_count
-      - deb_count
-      title: OrbitRegimeOverview
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    EphemerisViewer:
-      properties:
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        event_key_number:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Event Key Number
-      type: object
-      title: EphemerisViewer
-    OffsetPageResult_CatalogPreviewRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/CatalogPreviewRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[CatalogPreviewRead]
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    EphemerisDataFormat:
-      type: string
-      enum:
-      - hdf5
-      - original
-      - gem
-      title: EphemerisDataFormat
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CatalogMinimalRead:
+    CatalogPreviewRead:
       properties:
         ephemerides_count:
           type: integer
@@ -695,6 +600,13 @@ components:
           type: boolean
           title: Archive Protected
           default: false
+        ephemerides_preview:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Ephemerides Preview
+        object_overview:
+          $ref: '#/components/schemas/CatalogObjectOverview'
       type: object
       required:
       - ephemerides_count
@@ -702,28 +614,112 @@ components:
       - created_at
       - catalog_type
       - epoch
-      title: CatalogMinimalRead
-    CatalogType:
-      type: string
-      enum:
-      - SP
-      - TLE
-      - CUSTOM
-      title: CatalogType
-    CatalogObjectOverview:
+      - ephemerides_preview
+      - object_overview
+      title: CatalogPreviewRead
+    OrbitRegimeOverview:
       properties:
-        leo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
-        meo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
-        geo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
+        total_count:
+          type: integer
+          title: Total Count
+        deb_count:
+          type: integer
+          title: Deb Count
+        total_count_percent_change_month:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Count Percent Change Month
       type: object
       required:
-      - leo
-      - meo
-      - geo
-      title: CatalogObjectOverview
+      - total_count
+      - deb_count
+      title: OrbitRegimeOverview
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OffsetPageResult_EphemerisMetadataWithRSO_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EphemerisMetadataWithRSO]
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

@@ -1,18 +1,14 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
-  title: Satcat Service Authentication State Vector API
-  description: '
-
-    Kayhan Space''s Satcat Service API.
+  title: Satcat Service State Vector API
+  description: 'Kayhan Space''s Satcat Service API.
 
 
     ## Features
 
     * **View** historical CDM data for an object.
 
-    * **View** latest CDM data for an object.
-
-    '
+    * **View** latest CDM data for an object.'
   contact:
     email: help@kayhan.space
   version: 1.0.0
@@ -26,7 +22,10 @@ paths:
       tags:
       - State Vector
       summary: Add State Vector
-      description: "Submit state vector to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      description: 'Submit state vector to Kayhan''s system.
+
+
+        Define: State Vector, Coordinate Frame, Epoch.'
       operationId: add_state_vector_states_post
       security:
       - Oauth2Scheme: []
@@ -67,7 +66,7 @@ paths:
       tags:
       - State Vector
       summary: Get State Vector
-      description: Retrieve state vector from Kayhan's system.<br/>
+      description: Retrieve state vector from Kayhan's system.
       operationId: get_state_vector_states__id__get
       security:
       - Oauth2Scheme: []
@@ -96,7 +95,10 @@ paths:
       tags:
       - State Vector
       summary: Update State Vector
-      description: "Update state vector to Kayhan's system.<br/>\n    Define: State Vector, Coordinate Frame, Epoch.<br/>"
+      description: 'Update state vector to Kayhan''s system.
+
+
+        Define: State Vector, Coordinate Frame, Epoch.'
       operationId: update_state_vector_states__id__patch
       security:
       - Oauth2Scheme: []
@@ -132,7 +134,7 @@ paths:
       tags:
       - State Vector
       summary: Remove State Vector
-      description: Delete state vector from Kayhan's system.<br/>
+      description: Delete state vector from Kayhan's system.
       operationId: remove_state_vector_states__id__delete
       security:
       - Oauth2Scheme: []
@@ -161,7 +163,7 @@ paths:
       tags:
       - State Vector
       summary: Get Available State Reference Frames
-      description: Retrieve all supported state vector reference frames from Kayhan's system.<br/>
+      description: Retrieve all supported state vector reference frames from Kayhan's system.
       operationId: get_available_state_reference_frames_states_frames_state_get
       responses:
         '201':
@@ -177,7 +179,7 @@ paths:
       tags:
       - State Vector
       summary: Get Available Covariance Reference Frames
-      description: Retrieve all supported covariance reference frames from Kayhan's system.<br/>
+      description: Retrieve all supported covariance reference frames from Kayhan's system.
       operationId: get_available_covariance_reference_frames_states_frames_covariance_get
       responses:
         '201':
@@ -190,6 +192,78 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CovMatrixFormat:
+      type: string
+      enum:
+      - LT
+      - LT
+      - LT
+      - SQUARE
+      - SQUARE
+      title: CovMatrixFormat
+    Frame:
+      type: string
+      enum:
+      - EME2000
+      - EME2000
+      - TEME
+      - GCRF
+      - CIRF
+      - ICRF
+      - TIRF
+      - ITRF
+      - ITRF_2014
+      - ITRF_2008
+      - ITRF_2005
+      - ITRF_2000
+      - ITRF_97
+      - ITRF_96
+      - ITRF_94
+      - ITRF_93
+      - ITRF_92
+      - ITRF_91
+      - ITRF_90
+      - ITRF_89
+      - ITRF_88
+      - ITRFEQUINOX
+      - MOD
+      - TOD
+      - GTOD
+      - EFG
+      - VEIS1950
+      - RIC
+      - PTW
+      - TNW
+      - VNB
+      - LVLH
+      - ENCOUNTER
+      - ENU
+      - SEZ
+      - CUSTOM
+      title: Frame
+    CovarianceReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - RIC
+          - PTW
+          - TNW
+      type: object
+      title: CovarianceReferenceFrames
     Vector3:
       properties:
         x:
@@ -217,27 +291,63 @@ components:
       - z
       title: Vector3
       description: 3-dimensional physical quantity
-    CovarianceMatrix:
+    Spacecraft:
+      properties:
+        mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mass
+          description: Mass of the Spacecraft, specified in kg
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+          description: Coefficient of drag, unitless. Not to be confused with the Ballistic coefficient (coeff_drag * cross_section_area / mass).
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+          description: Coefficient of solar radiation pressure, unitless.Not to be confused with the SRP Area / Mass coefficient(coeff_srp * cross_section_area / mass).
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+          description: Effective  area  of  the  object  exposed  to  atmospheric drag.Specified in m**2.
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+          description: Effective  area  of  the  object  exposed  to  solar  radiation  pressure.Specified in an area unit, e.g. u.m**2.
+      type: object
+      title: Spacecraft
+    CovarianceMatrixRead:
       properties:
         data:
           items:
             type: number
           type: array
           title: Data
-        ref_frame:
-          $ref: '#/components/schemas/Frame'
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
         length_unit:
           type: string
           title: Length Unit
-        format:
-          $ref: '#/components/schemas/CovMatrixFormat'
       type: object
       required:
       - data
-      - ref_frame
-      - length_unit
       - format
-      title: CovarianceMatrix
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
     ValidationError:
       properties:
         loc:
@@ -264,48 +374,43 @@ components:
       - msg
       - type
       title: ValidationError
-    FullSpacecraftState:
+    CovarianceMatrix:
       properties:
-        pos:
-          $ref: '#/components/schemas/Vector3'
-          description: The position of the object
-        vel:
-          $ref: '#/components/schemas/Vector3'
-          description: The velocity of the object
-        timestamp:
-          type: string
-          title: Timestamp
-          description: The timestamp of the state vector
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
         ref_frame:
           $ref: '#/components/schemas/Frame'
-          description: The reference frame with which the state vector is described
-        covariance_matrix:
-          anyOf:
-          - $ref: '#/components/schemas/CovarianceMatrix'
-          - type: 'null'
-        spacecraft_parameters:
-          $ref: '#/components/schemas/Spacecraft'
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-          description: Name of object
-          default: OBJECT NAME
-        norad_cat_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Cat Id
-          description: NORAD ID of object.
+        length_unit:
+          type: string
+          title: Length Unit
+        format:
+          $ref: '#/components/schemas/CovMatrixFormat'
       type: object
       required:
-      - pos
-      - vel
-      - timestamp
+      - data
       - ref_frame
-      - spacecraft_parameters
-      title: FullSpacecraftState
+      - length_unit
+      - format
+      title: CovarianceMatrix
+    StateVectorReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - TEME
+          - ITRF
+          - GCRF
+          - GTOD
+          - EFG
+      type: object
+      title: StateVectorReferenceFrames
     StateVectorRead:
       properties:
         id:
@@ -395,151 +500,48 @@ components:
       - frame
       - mass
       title: StateVectorRead
-    HTTPValidationError:
+    FullSpacecraftState:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CovarianceReferenceFrames:
-      properties:
-        frames:
-          items:
-            $ref: '#/components/schemas/Frame'
-          type: array
-          title: Frames
-          default:
-          - EME2000
-          - RIC
-          - PTW
-          - TNW
-      type: object
-      title: CovarianceReferenceFrames
-    StateVectorReferenceFrames:
-      properties:
-        frames:
-          items:
-            $ref: '#/components/schemas/Frame'
-          type: array
-          title: Frames
-          default:
-          - EME2000
-          - TEME
-          - ITRF
-          - GCRF
-          - GTOD
-          - EFG
-      type: object
-      title: StateVectorReferenceFrames
-    Spacecraft:
-      properties:
-        mass:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Mass
-          description: Mass of the Spacecraft, specified in kg
-        coeff_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Drag
-          description: Coefficient of drag, unitless. Not to be confused with the Ballistic coefficient (coeff_drag * cross_section_area / mass).
-        coeff_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Rad
-          description: Coefficient of solar radiation pressure, unitless.Not to be confused with the SRP Area / Mass coefficient(coeff_srp * cross_section_area / mass).
-        area_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Drag
-          description: Effective  area  of  the  object  exposed  to  atmospheric drag.Specified in m**2.
-        area_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Rad
-          description: Effective  area  of  the  object  exposed  to  solar  radiation  pressure.Specified in an area unit, e.g. u.m**2.
-      type: object
-      title: Spacecraft
-    CovarianceMatrixRead:
-      properties:
-        data:
-          items:
-            type: number
-          type: array
-          title: Data
-        format:
+        pos:
+          $ref: '#/components/schemas/Vector3'
+          description: The position of the object
+        vel:
+          $ref: '#/components/schemas/Vector3'
+          description: The velocity of the object
+        timestamp:
           type: string
-          title: Format
-        frame:
-          type: string
-          title: Frame
-        length_unit:
-          type: string
-          title: Length Unit
+          title: Timestamp
+          description: The timestamp of the state vector
+        ref_frame:
+          $ref: '#/components/schemas/Frame'
+          description: The reference frame with which the state vector is described
+        covariance_matrix:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrix'
+          - type: 'null'
+        spacecraft_parameters:
+          $ref: '#/components/schemas/Spacecraft'
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+          description: Name of object
+          default: OBJECT NAME
+        norad_cat_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Cat Id
+          description: NORAD ID of object.
       type: object
       required:
-      - data
-      - format
-      - frame
-      - length_unit
-      title: CovarianceMatrixRead
-    Frame:
-      type: string
-      enum:
-      - EME2000
-      - EME2000
-      - TEME
-      - GCRF
-      - CIRF
-      - ICRF
-      - TIRF
-      - ITRF
-      - ITRF_2014
-      - ITRF_2008
-      - ITRF_2005
-      - ITRF_2000
-      - ITRF_97
-      - ITRF_96
-      - ITRF_94
-      - ITRF_93
-      - ITRF_92
-      - ITRF_91
-      - ITRF_90
-      - ITRF_89
-      - ITRF_88
-      - ITRFEQUINOX
-      - MOD
-      - TOD
-      - GTOD
-      - EFG
-      - VEIS1950
-      - RIC
-      - PTW
-      - TNW
-      - VNB
-      - LVLH
-      - ENCOUNTER
-      - ENU
-      - SEZ
-      - CUSTOM
-      title: Frame
-    CovMatrixFormat:
-      type: string
-      enum:
-      - LT
-      - LT
-      - LT
-      - SQUARE
-      - SQUARE
-      title: CovMatrixFormat
+      - pos
+      - vel
+      - timestamp
+      - ref_frame
+      - spacecraft_parameters
+      title: FullSpacecraftState
   securitySchemes:
     Oauth2Scheme:
       type: oauth2
