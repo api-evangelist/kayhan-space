@@ -480,334 +480,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OffsetPageResult:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items: {}
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult
-    PCRemediationMethod:
-      type: string
-      enum:
-      - frisbee
-      - hall
-      - multistep
-      title: PCRemediationMethod
-    ConjunctionListRead:
-      properties:
-        key:
-          type: string
-          title: Key
-        cdm_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cdm Id
-        primary:
-          $ref: '#/components/schemas/RSORead'
-        secondary:
-          $ref: '#/components/schemas/RSORead'
-        miss_distance_km:
-          type: number
-          title: Miss Distance Km
-        event_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Event Id
-        creation_date:
-          type: string
-          format: date-time
-          title: Creation Date
-        originator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Originator
-        tca:
-          type: string
-          format: date-time
-          title: Tca
-        collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Collision Probability
-        collision_probability_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Collision Probability Method
-        original_collision_probability_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Collision Probability Method
-        original_collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Original Collision Probability
-        collision_probability_valid:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Collision Probability Valid
-        failing_vailidity_cause:
-          anyOf:
-          - $ref: '#/components/schemas/FailingValidityCause'
-          - type: 'null'
-        pc_validity_state:
-          anyOf:
-          - $ref: '#/components/schemas/PCValidityState'
-          - type: 'null'
-        recommendation_jsonb:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Recommendation Jsonb
-      type: object
-      required:
-      - key
-      - primary
-      - secondary
-      - miss_distance_km
-      - creation_date
-      - tca
-      title: ConjunctionListRead
-    ConjunctionRead:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Key
-        event_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Event Id
-        event:
-          anyOf:
-          - $ref: '#/components/schemas/EventReadSimple'
-          - type: 'null'
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        designation:
-          $ref: '#/components/schemas/satcat__schemas__common__Designation'
-        cdm_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cdm Id
-        key_number:
-          type: integer
-          title: Key Number
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        insert_epoch:
-          type: string
-          format: date-time
-          title: Insert Epoch
-        creation_date:
-          type: string
-          format: date-time
-          title: Creation Date
-        originator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Originator
-        tca:
-          type: string
-          format: date-time
-          title: Tca
-        miss_distance_km:
-          type: number
-          title: Miss Distance Km
-        relative_velocity_mag_km_s:
-          type: number
-          title: Relative Velocity Mag Km S
-        relative_position_r_km:
-          type: number
-          title: Relative Position R Km
-        relative_position_i_km:
-          type: number
-          title: Relative Position I Km
-        relative_position_c_km:
-          type: number
-          title: Relative Position C Km
-        relative_velocity_r_km_s:
-          type: number
-          title: Relative Velocity R Km S
-        relative_velocity_i_km_s:
-          type: number
-          title: Relative Velocity I Km S
-        relative_velocity_c_km_s:
-          type: number
-          title: Relative Velocity C Km S
-        comment_screening_option:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comment Screening Option
-        collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Collision Probability
-        collision_probability_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Collision Probability Method
-        frisbee_collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Frisbee Collision Probability
-        frisbee_collision_probability_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Frisbee Collision Probability Method
-        original_collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Original Collision Probability
-        original_collision_probability_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Collision Probability Method
-        primary_rso_id:
-          type: string
-          format: uuid
-          title: Primary Rso Id
-        secondary_rso_id:
-          type: string
-          format: uuid
-          title: Secondary Rso Id
-        angle_of_approach:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Angle Of Approach
-        mahalanobis_distance:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Mahalanobis Distance
-        relative_miss_sig_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Miss Sig M
-        relative_sig_r_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig R U M
-        relative_sig_it_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig It U M
-        relative_sig_ct_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig Ct U M
-        primary:
-          anyOf:
-          - $ref: '#/components/schemas/RSODetailedMetadataRead'
-          - type: 'null'
-        secondary:
-          anyOf:
-          - $ref: '#/components/schemas/RSODetailedMetadataRead'
-          - type: 'null'
-        is_intra_org:
-          type: boolean
-          title: Is Intra Org
-        recommendation_jsonb:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Recommendation Jsonb
-        primary_state:
-          anyOf:
-          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
-          - type: 'null'
-        secondary_state:
-          anyOf:
-          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
-          - type: 'null'
-      type: object
-      required:
-      - designation
-      - key_number
-      - insert_epoch
-      - creation_date
-      - tca
-      - miss_distance_km
-      - relative_velocity_mag_km_s
-      - relative_position_r_km
-      - relative_position_i_km
-      - relative_position_c_km
-      - relative_velocity_r_km_s
-      - relative_velocity_i_km_s
-      - relative_velocity_c_km_s
-      - primary_rso_id
-      - secondary_rso_id
-      - is_intra_org
-      title: ConjunctionRead
-    Body_upload_cdms_conjunction_messages_post:
-      properties:
-        cdm_files:
-          items:
-            type: string
-            contentMediaType: application/octet-stream
-          type: array
-          title: Cdm Files
-      type: object
-      required:
-      - cdm_files
-      title: Body_upload_cdms_conjunction_messages_post
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -1243,31 +915,177 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    Body_add_cdm_to_event_events__event_key__ccsds_cdm_post:
+    CDMWriteFormat:
+      type: string
+      enum:
+      - JSON
+      - KVN
+      title: CDMWriteFormat
+    ConjunctionListRead:
       properties:
-        cdm_file:
+        key:
           type: string
-          contentMediaType: application/octet-stream
-          title: Cdm File
-          description: the CCSDS JSON CDM file to be added to the event
+          title: Key
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        primary:
+          $ref: '#/components/schemas/RSORead'
+        secondary:
+          $ref: '#/components/schemas/RSORead'
+        miss_distance_km:
+          type: number
+          title: Miss Distance Km
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        creation_date:
+          type: string
+          format: date-time
+          title: Creation Date
+        originator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Originator
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Collision Probability Method
+        original_collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Collision Probability Method
+        original_collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Collision Probability
+        collision_probability_valid:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Collision Probability Valid
+        failing_vailidity_cause:
+          anyOf:
+          - $ref: '#/components/schemas/FailingValidityCause'
+          - type: 'null'
+        pc_validity_state:
+          anyOf:
+          - $ref: '#/components/schemas/PCValidityState'
+          - type: 'null'
+        recommendation_jsonb:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Recommendation Jsonb
       type: object
       required:
-      - cdm_file
-      title: Body_add_cdm_to_event_events__event_key__ccsds_cdm_post
-    OffsetPagination:
+      - key
+      - primary
+      - secondary
+      - miss_distance_km
+      - creation_date
+      - tca
+      title: ConjunctionListRead
+    RSORead:
       properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
       type: object
-      title: OffsetPagination
+      required:
+      - id
+      title: RSORead
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    OffsetPageResult_EventRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EventRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EventRead]
+    RSOMetadataRead:
+      properties:
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        country:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Country
+        satname:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Satname
+      type: object
+      title: RSOMetadataRead
     RSODetailedMetadataRead:
       properties:
         id:
@@ -1307,43 +1125,257 @@ components:
       required:
       - id
       title: RSODetailedMetadataRead
-    OffsetPageResult_ConjunctionListRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ConjunctionListRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ConjunctionListRead]
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FailingValidityCause:
+    PCRemediationMethod:
       type: string
       enum:
-      - 'NULL'
-      - LOW_DV
-      - DILUTION
-      - MANUAL
-      - VIOLATION
-      - SINGLE_COVARIANCE
-      title: FailingValidityCause
+      - frisbee
+      - hall
+      - multistep
+      title: PCRemediationMethod
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    EventReadSimple:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - key
+      title: EventReadSimple
+    ConjunctionRead:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key
+        event_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Event Id
+        event:
+          anyOf:
+          - $ref: '#/components/schemas/EventReadSimple'
+          - type: 'null'
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        designation:
+          $ref: '#/components/schemas/satcat__schemas__common__Designation'
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        key_number:
+          type: integer
+          title: Key Number
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        insert_epoch:
+          type: string
+          format: date-time
+          title: Insert Epoch
+        creation_date:
+          type: string
+          format: date-time
+          title: Creation Date
+        originator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Originator
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        miss_distance_km:
+          type: number
+          title: Miss Distance Km
+        relative_velocity_mag_km_s:
+          type: number
+          title: Relative Velocity Mag Km S
+        relative_position_r_km:
+          type: number
+          title: Relative Position R Km
+        relative_position_i_km:
+          type: number
+          title: Relative Position I Km
+        relative_position_c_km:
+          type: number
+          title: Relative Position C Km
+        relative_velocity_r_km_s:
+          type: number
+          title: Relative Velocity R Km S
+        relative_velocity_i_km_s:
+          type: number
+          title: Relative Velocity I Km S
+        relative_velocity_c_km_s:
+          type: number
+          title: Relative Velocity C Km S
+        comment_screening_option:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comment Screening Option
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Collision Probability Method
+        frisbee_collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Frisbee Collision Probability
+        frisbee_collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Frisbee Collision Probability Method
+        original_collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Collision Probability
+        original_collision_probability_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Collision Probability Method
+        primary_rso_id:
+          type: string
+          format: uuid
+          title: Primary Rso Id
+        secondary_rso_id:
+          type: string
+          format: uuid
+          title: Secondary Rso Id
+        angle_of_approach:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Of Approach
+        mahalanobis_distance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mahalanobis Distance
+        relative_miss_sig_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Miss Sig M
+        relative_sig_r_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig R U M
+        relative_sig_it_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig It U M
+        relative_sig_ct_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig Ct U M
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/RSODetailedMetadataRead'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/RSODetailedMetadataRead'
+          - type: 'null'
+        is_intra_org:
+          type: boolean
+          title: Is Intra Org
+        recommendation_jsonb:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Recommendation Jsonb
+        primary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        secondary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+      type: object
+      required:
+      - designation
+      - key_number
+      - insert_epoch
+      - creation_date
+      - tca
+      - miss_distance_km
+      - relative_velocity_mag_km_s
+      - relative_position_r_km
+      - relative_position_i_km
+      - relative_position_c_km
+      - relative_velocity_r_km_s
+      - relative_velocity_i_km_s
+      - relative_velocity_c_km_s
+      - primary_rso_id
+      - secondary_rso_id
+      - is_intra_org
+      title: ConjunctionRead
+    satcat__schemas__common__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - THEORETICAL
+      - PREDICTED
+      - DEFINITIVE
+      title: Designation
+    PCValidityState:
+      type: string
+      enum:
+      - PC has been calculated and is available.
+      - PC calculation is in process.
+      - There was a problem calculating PC. Defaulting to the invalid value.
+      - Current PC is invalid for some reason.
+      title: PCValidityState
     EventRead:
       properties:
         id:
@@ -1385,20 +1417,41 @@ components:
       - auto_intent_enabled
       - default_cdm
       title: EventRead
-    CDMWriteFormat:
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    FailingValidityCause:
       type: string
       enum:
-      - JSON
-      - KVN
-      title: CDMWriteFormat
-    satcat__schemas__common__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - THEORETICAL
-      - PREDICTED
-      - DEFINITIVE
-      title: Designation
+      - 'NULL'
+      - LOW_DV
+      - DILUTION
+      - MANUAL
+      - VIOLATION
+      - SINGLE_COVARIANCE
+      title: FailingValidityCause
+    Body_add_cdm_to_event_events__event_key__ccsds_cdm_post:
+      properties:
+        cdm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Cdm File
+          description: the CCSDS JSON CDM file to be added to the event
+      type: object
+      required:
+      - cdm_file
+      title: Body_add_cdm_to_event_events__event_key__ccsds_cdm_post
     ValidationError:
       properties:
         loc:
@@ -1425,13 +1478,25 @@ components:
       - msg
       - type
       title: ValidationError
-    OffsetPageResult_EventRead_:
+    Body_upload_cdms_conjunction_messages_post:
+      properties:
+        cdm_files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Cdm Files
+      type: object
+      required:
+      - cdm_files
+      title: Body_upload_cdms_conjunction_messages_post
+    OffsetPageResult_ConjunctionListRead_:
       properties:
         pagination:
           $ref: '#/components/schemas/OffsetPagination'
         items:
           items:
-            $ref: '#/components/schemas/EventRead'
+            $ref: '#/components/schemas/ConjunctionListRead'
           type: array
           title: Items
         total_count:
@@ -1442,89 +1507,24 @@ components:
       - pagination
       - items
       - total_count
-      title: OffsetPageResult[EventRead]
-    EventReadSimple:
+      title: OffsetPageResult[ConjunctionListRead]
+    OffsetPageResult:
       properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        key:
-          type: string
-          title: Key
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items: {}
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
       type: object
       required:
-      - id
-      - key
-      title: EventReadSimple
-    RSOMetadataRead:
-      properties:
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        country:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Country
-        satname:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Satname
-      type: object
-      title: RSOMetadataRead
-    PCValidityState:
-      type: string
-      enum:
-      - PC has been calculated and is available.
-      - PC calculation is in process.
-      - There was a problem calculating PC. Defaulting to the invalid value.
-      - Current PC is invalid for some reason.
-      title: PCValidityState
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

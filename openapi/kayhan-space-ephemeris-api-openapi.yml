@@ -538,103 +538,30 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    Body_create_ephemeris_from_opm_ephemerides_opm_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-          description: OPM file to upload
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
-        target_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Target Duration
-          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
-        timestep:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Timestep
-          description: Propagation Time Step between each reported epoch, in seconds.
-        purpose:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Purpose
-          description: Purpose of propagation (MANUAL or SCREENING)
-        infer_interval_from_screening:
-          type: boolean
-          title: Infer Interval From Screening
-          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
-          default: true
-      type: object
-      title: Body_create_ephemeris_from_opm_ephemerides_opm_post
-    EphemerisWriteFileFormat:
-      type: string
-      enum:
-      - OEM
-      - OCM
-      - NASA
-      - HDF5
-      - ORIGINAL
-      - STK
-      - JSONVIZ
-      title: EphemerisWriteFileFormat
-      description: Supported Ephemeris file formats for writing
-    Context:
-      type: string
-      enum:
-      - ROUTINE
-      - COLA
-      - MAINTENANCE
-      - NOVEL
-      - DECAY
-      title: Context
     EphemerisType:
       type: string
       enum:
       - ON_ORBIT
       - LAUNCH
       title: EphemerisType
-    EphemerisViewer:
+    OffsetPageResult_EphemerisMetadataWithRSO_:
       properties:
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        event_key_number:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Event Key Number
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
       type: object
-      title: EphemerisViewer
-    Designation-Input:
-      type: string
-      enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EphemerisMetadataWithRSO]
     EphemerisSource:
       type: string
       enum:
@@ -652,6 +579,179 @@ components:
       - PUBLIC_REPOSITORY
       - STARLINK_STC_API
       title: EphemerisSource
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    CatalogMinimalRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      title: CatalogMinimalRead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    EphemerisFrame:
+      type: string
+      enum:
+      - EME2000
+      - GCRF
+      - TDR
+      - ITRF2000
+      - ITRF-93
+      - ITRF-97
+      - TEME
+      - TOD
+      - RTN
+      - TNW
+      title: EphemerisFrame
+      description: Supported Ephemeris file frames
     EphemerisReadFileFormat:
       type: string
       enum:
@@ -732,6 +832,15 @@ components:
           description: Whether the ephemeris describes an on-orbit satellite or a launch vehicle. If not provided, defaults to 'ON_ORBIT'. If LAUNCH is provided alongside a CCSDS OCM file, the `EPOCH_TZERO` will be interpreted as the nominal launch time. If LAUNCH is provided alongside a file format not explicitly designed for launch ephemeris, the first tabulated timestep of the ephemeris file will be considered the nominal launch time. LAUNCH ephemeris files must be specified in an Earth-fixed or pseudo Earth-fixed reference frame; an error will be raised otherwise.
       type: object
       title: Body_create_ephemeris_ephemerides_post
+    Designation-Input:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
     OffsetPagination:
       properties:
         offset:
@@ -746,99 +855,78 @@ components:
           default: 0
       type: object
       title: OffsetPagination
-    CatalogType:
-      type: string
-      enum:
-      - SP
-      - TLE
-      - CUSTOM
-      title: CatalogType
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    CatalogMinimalRead:
-      properties:
-        ephemerides_count:
-          type: integer
-          title: Ephemerides Count
-        id:
+          title: Location
+        msg:
           type: string
-          format: uuid
-          title: Id
-        created_at:
+          title: Message
+        type:
           type: string
-          format: date-time
-          title: Created At
-        catalog_type:
-          $ref: '#/components/schemas/CatalogType'
-        epoch:
-          type: string
-          format: date-time
-          title: Epoch
-        archived:
-          type: boolean
-          title: Archived
-          default: false
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        ready:
-          type: boolean
-          title: Ready
-          default: false
-        data_format:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Format
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        archive_protected:
-          type: boolean
-          title: Archive Protected
-          default: false
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - ephemerides_count
-      - id
-      - created_at
-      - catalog_type
-      - epoch
-      title: CatalogMinimalRead
-    EphemerisDataFormat:
-      type: string
-      enum:
-      - hdf5
-      - original
-      - gem
-      title: EphemerisDataFormat
-    satcat__schemas__models__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    Body_create_ephemeris_from_opm_ephemerides_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+          description: 'OPTIONAL: Propagation Start Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). Include if start time is different than state vector epoch.'
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+          description: 'OPTIONAL: Propagation Target Time in ISOT Format: (Year-Month-DayTHour:Minute:Seconds). NOTE: Must include either target_time or target_duration.'
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+          description: 'OPTIONAL: Propagation Target Duration in Seconds. NOTE: Must include either end_time or target_duration.'
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+          description: Propagation Time Step between each reported epoch, in seconds.
+        purpose:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Purpose
+          description: Purpose of propagation (MANUAL or SCREENING)
+        infer_interval_from_screening:
+          type: boolean
+          title: Infer Interval From Screening
+          description: Whether to allow the time interval of the Propagation to be inferred based on counterpart data assigned to a Screening, if the Propagation is assigned to a Screening. If unsure, leave this enabled.
+          default: true
+      type: object
+      title: Body_create_ephemeris_from_opm_ephemerides_opm_post
     EphemerisMetadataWithRSO:
       properties:
         id:
@@ -1001,106 +1089,18 @@ components:
       - apogee_km
       - perigee_km
       title: EphemerisMetadataWithRSO
-    EphemerisFrame:
+    EphemerisWriteFileFormat:
       type: string
       enum:
-      - EME2000
-      - GCRF
-      - TDR
-      - ITRF2000
-      - ITRF-93
-      - ITRF-97
-      - TEME
-      - TOD
-      - RTN
-      - TNW
-      title: EphemerisFrame
-      description: Supported Ephemeris file frames
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    OffsetPageResult_EphemerisMetadataWithRSO_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[EphemerisMetadataWithRSO]
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+      - OEM
+      - OCM
+      - NASA
+      - HDF5
+      - ORIGINAL
+      - STK
+      - JSONVIZ
+      title: EphemerisWriteFileFormat
+      description: Supported Ephemeris file formats for writing
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

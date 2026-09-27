@@ -392,41 +392,103 @@ components:
           default: cdm
       type: object
       title: SimpleManeuverDesignerSecondaryRSOAttributes
-    OffsetPageResult_ManeuverDesignerProjectRead_:
+    TimestampedSimpleManeuverPlanParameters:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ManeuverDesignerProjectRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
+        man_dv_mag_m_s:
+          type: number
+          title: Man Dv Mag M S
+        man_dv_direction_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Man Dv Direction X
+        man_dv_direction_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Man Dv Direction Y
+        man_dv_direction_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Man Dv Direction Z
+        man_dv_frame:
+          anyOf:
+          - $ref: '#/components/schemas/DVAllowedFrame'
+          - type: 'null'
+        time_utc:
+          type: string
+          title: Time Utc
       type: object
       required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ManeuverDesignerProjectRead]
-    ManeuverDesignerProjectCreate:
+      - man_dv_mag_m_s
+      - time_utc
+      title: TimestampedSimpleManeuverPlanParameters
+    DVAllowedFrame:
+      type: string
+      enum:
+      - RIC
+      - VNB
+      title: DVAllowedFrame
+    RSORead:
       properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    SimpleVariantCreate:
+      properties:
+        original_conjunction_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Original Conjunction Id
+          description: The UUID ("id") of the conjunction to use as the basis for this variant. Mutually exclusive with original_conjunction_key.
+        original_conjunction_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Conjunction Key
+          description: The CDM key of the conjunction to use as the basis for this variant. Mutually exclusive with original_conjunction_id.
         name:
           anyOf:
           - type: string
           - type: 'null'
           title: Name
-          default: Untitled Maneuver Designer Project
-        project_type:
-          type: string
-          enum:
-          - simple
-          - sequencer
-          title: Project Type
-          default: simple
+        settings_data:
+          $ref: '#/components/schemas/SimpleManeuverDesignerSettings'
       type: object
-      title: ManeuverDesignerProjectCreate
+      title: SimpleVariantCreate
     EphemerisViewer:
       properties:
         ephemeris_id:
@@ -442,20 +504,22 @@ components:
           title: Event Key Number
       type: object
       title: EphemerisViewer
-    OffsetPagination:
+    HTTPValidationError:
       properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: OffsetPagination
+      title: HTTPValidationError
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
     SimpleManeuverDesignerRSOAttributes:
       properties:
         mass_kg:
@@ -509,39 +573,251 @@ components:
           default: cdm
       type: object
       title: SimpleManeuverDesignerRSOAttributes
-    SimpleVariantCreate:
+    ManeuverDesignerProjectRead:
       properties:
-        original_conjunction_id:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        user_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Original Conjunction Id
-          description: The UUID ("id") of the conjunction to use as the basis for this variant. Mutually exclusive with original_conjunction_key.
-        original_conjunction_key:
+          title: User Id
+        group_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Original Conjunction Key
-          description: The CDM key of the conjunction to use as the basis for this variant. Mutually exclusive with original_conjunction_id.
+          title: Group Id
         name:
+          type: string
+          title: Name
+        automatically_generated:
+          type: boolean
+          title: Automatically Generated
+        project_type:
+          type: string
+          title: Project Type
+      type: object
+      required:
+      - id
+      - created_at
+      - name
+      - automatically_generated
+      - project_type
+      title: ManeuverDesignerProjectRead
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    ConjunctionMinimal:
+      properties:
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        miss_distance_km:
+          type: number
+          title: Miss Distance Km
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: 'null'
+      type: object
+      required:
+      - tca
+      - miss_distance_km
+      title: ConjunctionMinimal
+    OffsetPageResult_ManeuverDesignerColaPlanRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ManeuverDesignerColaPlanRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ManeuverDesignerColaPlanRead]
+    CDMDataSource:
+      properties:
+        source_type:
+          type: string
+          const: CDM
+          title: Source Type
+          default: CDM
+      type: object
+      title: CDMDataSource
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    ManeuverDesignerColaPlanRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        variant_id:
+          type: string
+          format: uuid
+          title: Variant Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        name:
+          type: string
+          title: Name
+        parameters_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Parameters Data
+        opm_file_content:
           anyOf:
           - type: string
           - type: 'null'
-          title: Name
-        settings_data:
-          $ref: '#/components/schemas/SimpleManeuverDesignerSettings'
+          title: Opm File Content
+        conjunction_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Conjunction Id
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        status:
+          type: string
+          title: Status
+        conjunction:
+          anyOf:
+          - $ref: '#/components/schemas/ConjunctionMinimal'
+          - type: 'null'
       type: object
-      title: SimpleVariantCreate
-    HTTPValidationError:
+      required:
+      - id
+      - created_at
+      - variant_id
+      - name
+      - status
+      title: ManeuverDesignerColaPlanRead
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    GatesManeuverExecutionUncertainty:
+      properties:
+        type:
+          type: string
+          const: GATES
+          title: Type
+          default: GATES
+        magnitude_fixed_error_m_s:
+          type: number
+          minimum: 0.0
+          title: Magnitude Fixed Error M S
+          default: 0.0
+        magnitude_proportional_error_frac:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Magnitude Proportional Error Frac
+          default: 0.0
+        pointing_fixed_error_m_s:
+          type: number
+          minimum: 0.0
+          title: Pointing Fixed Error M S
+          default: 0.0
+        pointing_angle_error_rad:
+          type: number
+          maximum: 1.0
+          minimum: 0.0
+          title: Pointing Angle Error Rad
+          default: 0.0
+      type: object
+      title: GatesManeuverExecutionUncertainty
     SimpleManeuverDesignerSettings:
       properties:
         runner:
@@ -623,246 +899,6 @@ components:
           title: Agg Stats Skip Automaneuver Secondaries
       type: object
       title: SimpleManeuverDesignerSettings
-    GatesManeuverExecutionUncertainty:
-      properties:
-        type:
-          type: string
-          const: GATES
-          title: Type
-          default: GATES
-        magnitude_fixed_error_m_s:
-          type: number
-          minimum: 0.0
-          title: Magnitude Fixed Error M S
-          default: 0.0
-        magnitude_proportional_error_frac:
-          type: number
-          maximum: 1.0
-          minimum: 0.0
-          title: Magnitude Proportional Error Frac
-          default: 0.0
-        pointing_fixed_error_m_s:
-          type: number
-          minimum: 0.0
-          title: Pointing Fixed Error M S
-          default: 0.0
-        pointing_angle_error_rad:
-          type: number
-          maximum: 1.0
-          minimum: 0.0
-          title: Pointing Angle Error Rad
-          default: 0.0
-      type: object
-      title: GatesManeuverExecutionUncertainty
-    EphemerisDataFormat:
-      type: string
-      enum:
-      - hdf5
-      - original
-      - gem
-      title: EphemerisDataFormat
-    ConjunctionMinimal:
-      properties:
-        tca:
-          type: string
-          format: date-time
-          title: Tca
-        miss_distance_km:
-          type: number
-          title: Miss Distance Km
-        launch_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Time
-        collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Collision Probability
-        primary:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
-          - type: 'null'
-        secondary:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
-          - type: 'null'
-      type: object
-      required:
-      - tca
-      - miss_distance_km
-      title: ConjunctionMinimal
-    DVAllowedFrame:
-      type: string
-      enum:
-      - RIC
-      - VNB
-      title: DVAllowedFrame
-    OffsetPageResult_ManeuverDesignerColaPlanRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ManeuverDesignerColaPlanRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ManeuverDesignerColaPlanRead]
-    ManeuverDesignerColaVariantRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        name:
-          type: string
-          title: Name
-        project_id:
-          type: string
-          format: uuid
-          title: Project Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        original_conjunction_id:
-          type: string
-          format: uuid
-          title: Original Conjunction Id
-        settings_data:
-          additionalProperties: true
-          type: object
-          title: Settings Data
-        status:
-          type: string
-          title: Status
-        progress_stage:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Progress Stage
-        progress_current:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Progress Current
-        progress_expected:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Progress Expected
-        tradespace_data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Tradespace Data
-      type: object
-      required:
-      - id
-      - created_at
-      - name
-      - project_id
-      - original_conjunction_id
-      - settings_data
-      - status
-      - progress_stage
-      - progress_current
-      - progress_expected
-      title: ManeuverDesignerColaVariantRead
-    ManeuverDesignerColaPlanRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        variant_id:
-          type: string
-          format: uuid
-          title: Variant Id
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        name:
-          type: string
-          title: Name
-        parameters_data:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - items: {}
-            type: array
-          - type: 'null'
-          title: Parameters Data
-        opm_file_content:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Opm File Content
-        conjunction_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Conjunction Id
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        status:
-          type: string
-          title: Status
-        conjunction:
-          anyOf:
-          - $ref: '#/components/schemas/ConjunctionMinimal'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - created_at
-      - variant_id
-      - name
-      - status
-      title: ManeuverDesignerColaPlanRead
     EphemerisMetadataWithRSOMinimalRead:
       properties:
         id:
@@ -958,147 +994,6 @@ components:
       - items
       - total_count
       title: OffsetPageResult[ManeuverDesignerColaVariantRead]
-    CDMDataSource:
-      properties:
-        source_type:
-          type: string
-          const: CDM
-          title: Source Type
-          default: CDM
-      type: object
-      title: CDMDataSource
-    TimestampedSimpleManeuverPlanParameters:
-      properties:
-        man_dv_mag_m_s:
-          type: number
-          title: Man Dv Mag M S
-        man_dv_direction_x:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Man Dv Direction X
-        man_dv_direction_y:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Man Dv Direction Y
-        man_dv_direction_z:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Man Dv Direction Z
-        man_dv_frame:
-          anyOf:
-          - $ref: '#/components/schemas/DVAllowedFrame'
-          - type: 'null'
-        time_utc:
-          type: string
-          title: Time Utc
-      type: object
-      required:
-      - man_dv_mag_m_s
-      - time_utc
-      title: TimestampedSimpleManeuverPlanParameters
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ManeuverDesignerProjectRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        name:
-          type: string
-          title: Name
-        automatically_generated:
-          type: boolean
-          title: Automatically Generated
-        project_type:
-          type: string
-          title: Project Type
-      type: object
-      required:
-      - id
-      - created_at
-      - name
-      - automatically_generated
-      - project_type
-      title: ManeuverDesignerProjectRead
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
     EphemerisDataSource:
       properties:
         source_type:
@@ -1113,12 +1008,117 @@ components:
       required:
       - ephemeris_id
       title: EphemerisDataSource
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+    OffsetPageResult_ManeuverDesignerProjectRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ManeuverDesignerProjectRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ManeuverDesignerProjectRead]
+    ManeuverDesignerColaVariantRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        name:
+          type: string
+          title: Name
+        project_id:
+          type: string
+          format: uuid
+          title: Project Id
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        original_conjunction_id:
+          type: string
+          format: uuid
+          title: Original Conjunction Id
+        settings_data:
+          additionalProperties: true
+          type: object
+          title: Settings Data
+        status:
+          type: string
+          title: Status
+        progress_stage:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Progress Stage
+        progress_current:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Progress Current
+        progress_expected:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Progress Expected
+        tradespace_data:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - items: {}
+            type: array
+          - type: 'null'
+          title: Tradespace Data
+      type: object
+      required:
+      - id
+      - created_at
+      - name
+      - project_id
+      - original_conjunction_id
+      - settings_data
+      - status
+      - progress_stage
+      - progress_current
+      - progress_expected
+      title: ManeuverDesignerColaVariantRead
+    ManeuverDesignerProjectCreate:
+      properties:
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+          default: Untitled Maneuver Designer Project
+        project_type:
+          type: string
+          enum:
+          - simple
+          - sequencer
+          title: Project Type
+          default: simple
+      type: object
+      title: ManeuverDesignerProjectCreate
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

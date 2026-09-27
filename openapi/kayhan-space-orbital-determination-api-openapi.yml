@@ -328,24 +328,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    Body_upload_gnss_file_od__object_id__upload_post:
-      properties:
-        file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: File
-          description: The OD data file to upload. Supported names include gnss_*.json|csv|navsol, maneuver_*.opm|txt, and azel_*.json.
-      type: object
-      title: Body_upload_gnss_file_od__object_id__upload_post
     ValidationError:
       properties:
         loc:
@@ -378,6 +360,24 @@ components:
       - asc
       - desc
       title: SortDirection
+    Body_upload_gnss_file_od__object_id__upload_post:
+      properties:
+        file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: File
+          description: The OD data file to upload. Supported names include gnss_*.json|csv|navsol, maneuver_*.opm|txt, and azel_*.json.
+      type: object
+      title: Body_upload_gnss_file_od__object_id__upload_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

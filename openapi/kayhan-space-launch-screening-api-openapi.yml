@@ -378,393 +378,64 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ForceModelRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        earth_model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Earth Model
-        geopotential:
-          type: boolean
-          title: Geopotential
-          default: false
-        geopotential_degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Geopotential Degree
-        geopotential_order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Geopotential Order
-          default: 0
-        drag:
-          type: boolean
-          title: Drag
-          default: false
-        drag_model:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Drag Model
-        third_bodies:
-          type: boolean
-          title: Third Bodies
-          default: false
-        third_bodies_list:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Third Bodies List
-        solid_tides:
-          type: boolean
-          title: Solid Tides
-          default: false
-        solar_radiation_pressure:
-          type: boolean
-          title: Solar Radiation Pressure
-          default: false
-        ocean_tides:
-          type: boolean
-          title: Ocean Tides
-          default: false
-        oceantides_degree:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Oceantides Degree
-        oceantides_order:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Oceantides Order
-      type: object
-      required:
-      - id
-      title: ForceModelRead
-    Context:
-      type: string
-      enum:
-      - ROUTINE
-      - COLA
-      - MAINTENANCE
-      - NOVEL
-      - DECAY
-      title: Context
-    LaunchOption:
-      properties:
-        launch_time:
-          type: string
-          format: date-time
-          title: Launch Time
-        n_conjunctions:
-          type: integer
-          title: N Conjunctions
-      type: object
-      required:
-      - launch_time
-      - n_conjunctions
-      title: LaunchOption
-    PrimaryReadWithCoverage:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        catalog_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Catalog Id
-        propagation_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Propagation Id
-        ephemeris:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          - type: 'null'
-        catalog:
-          anyOf:
-          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
-          - type: 'null'
-        propagation:
-          anyOf:
-          - $ref: '#/components/schemas/PropagationRead'
-          - type: 'null'
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        interest_interval_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Interest Interval Start
-        interest_interval_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Interest Interval End
-        coverage_level:
-          anyOf:
-          - $ref: '#/components/schemas/CoverageLevel'
-          - type: 'null'
-        coverage_ratio:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coverage Ratio
-      type: object
-      required:
-      - id
-      title: PrimaryReadWithCoverage
-    LaunchWindowPrimary:
-      properties:
-        primary:
-          $ref: '#/components/schemas/PrimaryReadWithCoverage'
-        launch_window_periods:
-          items:
-            $ref: '#/components/schemas/LaunchWindowPeriod'
-          type: array
-          title: Launch Window Periods
-        secondary_types:
-          items:
-            $ref: '#/components/schemas/ObjectTypeCategory'
-          type: array
-          title: Secondary Types
-        percent_blackout:
-          type: number
-          maximum: 100.0
-          minimum: 0.0
-          title: Percent Blackout
-      type: object
-      required:
-      - primary
-      - launch_window_periods
-      - secondary_types
-      - percent_blackout
-      title: LaunchWindowPrimary
-    StateVectorRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        pos_x:
-          type: number
-          title: Pos X
-        pos_y:
-          type: number
-          title: Pos Y
-        pos_z:
-          type: number
-          title: Pos Z
-        pos_unit:
-          type: string
-          title: Pos Unit
-        vel_x:
-          type: number
-          title: Vel X
-        vel_y:
-          type: number
-          title: Vel Y
-        vel_z:
-          type: number
-          title: Vel Z
-        vel_unit:
-          type: string
-          title: Vel Unit
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        frame:
-          type: string
-          title: Frame
-        mass:
-          type: number
-          title: Mass
-        coeff_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Drag
-        coeff_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coeff Rad
-        area_drag:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Drag
-        area_rad:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Area Rad
-        covariance:
-          anyOf:
-          - $ref: '#/components/schemas/CovarianceMatrixRead'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - pos_x
-      - pos_y
-      - pos_z
-      - pos_unit
-      - vel_x
-      - vel_y
-      - vel_z
-      - vel_unit
-      - timestamp
-      - frame
-      - mass
-      title: StateVectorRead
     EphemerisType:
       type: string
       enum:
       - ON_ORBIT
       - LAUNCH
       title: EphemerisType
-    EphemerisViewer:
+    LaunchWindowPeriod:
       properties:
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        event_key_number:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Event Key Number
-      type: object
-      title: EphemerisViewer
-    ManeuverRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        type:
-          type: string
-          title: Type
-        ignition_epoch:
+        start_time:
           type: string
           format: date-time
-          title: Ignition Epoch
-        delta_mass:
+          title: Start Time
+        end_time:
+          type: string
+          format: date-time
+          title: End Time
+        duration_s:
+          type: number
+          title: Duration S
+        blackout:
+          type: boolean
+          title: Blackout
+        n_conjunctions_total:
+          type: integer
+          title: N Conjunctions Total
+        n_conjunctions_list:
           anyOf:
-          - type: number
+          - items:
+              type: integer
+            type: array
           - type: 'null'
-          title: Delta Mass
-        ref_frame:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ref Frame
-        deltav_x:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav X
-        deltav_y:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav Y
-        deltav_z:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav Z
-        deltav_unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Deltav Unit
-        thrust_x:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust X
-        thrust_y:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust Y
-        thrust_z:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust Z
-        thrust_unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Thrust Unit
-        duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Duration
-        specific_impulse:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Specific Impulse
-        rso_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Rso Id
+          title: N Conjunctions List
       type: object
       required:
-      - id
-      - type
-      - ignition_epoch
-      title: ManeuverRead
+      - start_time
+      - end_time
+      - duration_s
+      - blackout
+      - n_conjunctions_total
+      title: LaunchWindowPeriod
+    OffsetPageResult_LaunchOption_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/LaunchOption'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[LaunchOption]
     EphemerisSource:
       type: string
       enum:
@@ -880,66 +551,72 @@ components:
       - id
       - status
       title: PropagationRead
-    LaunchWindowPeriodOffsetPageResult:
+    CatalogPreviewWithEphemeridesCount:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items: {}
-          type: array
-          title: Items
-        total_count:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+        ephemerides_count:
           type: integer
-          title: Total Count
-        percent_blackout:
-          type: number
-          title: Percent Blackout
+          title: Ephemerides Count
       type: object
       required:
-      - pagination
-      - items
-      - total_count
-      - percent_blackout
-      title: LaunchWindowPeriodOffsetPageResult
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    OffsetPageResult_LaunchOption_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/LaunchOption'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[LaunchOption]
-    CatalogType:
+      - id
+      - catalog_type
+      - epoch
+      - ephemerides_count
+      title: CatalogPreviewWithEphemeridesCount
+    JobStatus:
       type: string
       enum:
-      - SP
-      - TLE
-      - CUSTOM
-      title: CatalogType
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
     CovarianceMatrixRead:
       properties:
         data:
@@ -963,6 +640,84 @@ components:
       - frame
       - length_unit
       title: CovarianceMatrixRead
+    CoverageLevel:
+      type: string
+      enum:
+      - NO_OVERLAP
+      - PARTIAL
+      - FULL
+      title: CoverageLevel
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    LaunchWindowPeriodOffsetPageResult:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items: {}
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+        percent_blackout:
+          type: number
+          title: Percent Blackout
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      - percent_blackout
+      title: LaunchWindowPeriodOffsetPageResult
     HTTPValidationError:
       properties:
         detail:
@@ -972,6 +727,116 @@ components:
           title: Detail
       type: object
       title: HTTPValidationError
+    OffsetPageResult_LaunchWindowPrimary_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/LaunchWindowPrimary'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[LaunchWindowPrimary]
+    ManeuverRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        type:
+          type: string
+          title: Type
+        ignition_epoch:
+          type: string
+          format: date-time
+          title: Ignition Epoch
+        delta_mass:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Delta Mass
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        deltav_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav X
+        deltav_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Y
+        deltav_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Deltav Z
+        deltav_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Deltav Unit
+        thrust_x:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust X
+        thrust_y:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Y
+        thrust_z:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Thrust Z
+        thrust_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thrust Unit
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+      type: object
+      required:
+      - id
+      - type
+      - ignition_epoch
+      title: ManeuverRead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
     CatalogMinimalRead:
       properties:
         ephemerides_count:
@@ -1033,6 +898,50 @@ components:
       - catalog_type
       - epoch
       title: CatalogMinimalRead
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    LaunchWindowPrimary:
+      properties:
+        primary:
+          $ref: '#/components/schemas/PrimaryReadWithCoverage'
+        launch_window_periods:
+          items:
+            $ref: '#/components/schemas/LaunchWindowPeriod'
+          type: array
+          title: Launch Window Periods
+        secondary_types:
+          items:
+            $ref: '#/components/schemas/ObjectTypeCategory'
+          type: array
+          title: Secondary Types
+        percent_blackout:
+          type: number
+          maximum: 100.0
+          minimum: 0.0
+          title: Percent Blackout
+      type: object
+      required:
+      - primary
+      - launch_window_periods
+      - secondary_types
+      - percent_blackout
+      title: LaunchWindowPrimary
     TLERead:
       properties:
         id:
@@ -1065,36 +974,48 @@ components:
       - original
       - gem
       title: EphemerisDataFormat
-    CatalogPreviewWithEphemeridesCount:
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    PrimaryReadWithCoverage:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        catalog_type:
-          $ref: '#/components/schemas/CatalogType'
-        epoch:
-          type: string
-          format: date-time
-          title: Epoch
-        archived:
-          type: boolean
-          title: Archived
-          default: false
-        filename:
+        ephemeris_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Filename
-        ready:
-          type: boolean
-          title: Ready
-          default: false
-        data_format:
+          title: Ephemeris Id
+        catalog_id:
           anyOf:
           - type: string
+            format: uuid
           - type: 'null'
-          title: Data Format
+          title: Catalog Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        ephemeris:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
+          - type: 'null'
+        propagation:
+          anyOf:
+          - $ref: '#/components/schemas/PropagationRead'
+          - type: 'null'
         usable_time_start:
           anyOf:
           - type: string
@@ -1107,29 +1028,245 @@ components:
             format: date-time
           - type: 'null'
           title: Usable Time End
-        archive_protected:
-          type: boolean
-          title: Archive Protected
-          default: false
-        ephemerides_count:
-          type: integer
-          title: Ephemerides Count
+        interest_interval_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval Start
+        interest_interval_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval End
+        coverage_level:
+          anyOf:
+          - $ref: '#/components/schemas/CoverageLevel'
+          - type: 'null'
+        coverage_ratio:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coverage Ratio
       type: object
       required:
       - id
-      - catalog_type
-      - epoch
-      - ephemerides_count
-      title: CatalogPreviewWithEphemeridesCount
-    satcat__schemas__models__Designation:
+      title: PrimaryReadWithCoverage
+    ObjectTypeCategory:
       type: string
       enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
+      - MANNED
+      - PAYLOAD
+      - DEBRIS
+      - UNKNOWN
+      title: ObjectTypeCategory
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ConjunctionListFileFormat:
+      type: string
+      enum:
+      - ALL_SORTED
+      - JSON
+      - CSV
+      title: ConjunctionListFileFormat
+    ForceModelRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        earth_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Earth Model
+        geopotential:
+          type: boolean
+          title: Geopotential
+          default: false
+        geopotential_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Degree
+        geopotential_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Geopotential Order
+          default: 0
+        drag:
+          type: boolean
+          title: Drag
+          default: false
+        drag_model:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Drag Model
+        third_bodies:
+          type: boolean
+          title: Third Bodies
+          default: false
+        third_bodies_list:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Third Bodies List
+        solid_tides:
+          type: boolean
+          title: Solid Tides
+          default: false
+        solar_radiation_pressure:
+          type: boolean
+          title: Solar Radiation Pressure
+          default: false
+        ocean_tides:
+          type: boolean
+          title: Ocean Tides
+          default: false
+        oceantides_degree:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Degree
+        oceantides_order:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Oceantides Order
+      type: object
+      required:
+      - id
+      title: ForceModelRead
     EphemerisMetadataWithRSO:
       properties:
         id:
@@ -1292,157 +1429,20 @@ components:
       - apogee_km
       - perigee_km
       title: EphemerisMetadataWithRSO
-    ConjunctionListFileFormat:
-      type: string
-      enum:
-      - ALL_SORTED
-      - JSON
-      - CSV
-      title: ConjunctionListFileFormat
-    ObjectTypeCategory:
-      type: string
-      enum:
-      - MANNED
-      - PAYLOAD
-      - DEBRIS
-      - UNKNOWN
-      title: ObjectTypeCategory
-    OffsetPageResult_LaunchWindowPrimary_:
+    LaunchOption:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/LaunchWindowPrimary'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[LaunchWindowPrimary]
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    CoverageLevel:
-      type: string
-      enum:
-      - NO_OVERLAP
-      - PARTIAL
-      - FULL
-      title: CoverageLevel
-    JobStatus:
-      type: string
-      enum:
-      - CREATED
-      - PENDING
-      - RUNNING
-      - SUCCESS
-      - FAILURE
-      - CANCELED
-      title: JobStatus
-    LaunchWindowPeriod:
-      properties:
-        start_time:
+        launch_time:
           type: string
           format: date-time
-          title: Start Time
-        end_time:
-          type: string
-          format: date-time
-          title: End Time
-        duration_s:
-          type: number
-          title: Duration S
-        blackout:
-          type: boolean
-          title: Blackout
-        n_conjunctions_total:
+          title: Launch Time
+        n_conjunctions:
           type: integer
-          title: N Conjunctions Total
-        n_conjunctions_list:
-          anyOf:
-          - items:
-              type: integer
-            type: array
-          - type: 'null'
-          title: N Conjunctions List
+          title: N Conjunctions
       type: object
       required:
-      - start_time
-      - end_time
-      - duration_s
-      - blackout
-      - n_conjunctions_total
-      title: LaunchWindowPeriod
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+      - launch_time
+      - n_conjunctions
+      title: LaunchOption
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

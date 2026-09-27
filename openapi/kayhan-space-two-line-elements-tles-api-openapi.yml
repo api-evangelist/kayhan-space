@@ -160,40 +160,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    TLE:
-      properties:
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-          description: Object name.
-        line1:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line1
-          description: TLE First Line.
-        line2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line2
-          description: TLE Second Line.
-      type: object
-      required:
-      - line1
-      - line2
-      title: TLE
     ValidationError:
       properties:
         loc:
@@ -245,6 +211,40 @@ components:
       required:
       - id
       title: TLERead
+    TLE:
+      properties:
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+          description: Object name.
+        line1:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line1
+          description: TLE First Line.
+        line2:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Line2
+          description: TLE Second Line.
+      type: object
+      required:
+      - line1
+      - line2
+      title: TLE
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

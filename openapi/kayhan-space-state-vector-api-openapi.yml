@@ -192,15 +192,32 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
-      title: HTTPValidationError
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     CovMatrixFormat:
       type: string
       enum:
@@ -210,87 +227,15 @@ components:
       - SQUARE
       - SQUARE
       title: CovMatrixFormat
-    Frame:
-      type: string
-      enum:
-      - EME2000
-      - EME2000
-      - TEME
-      - GCRF
-      - CIRF
-      - ICRF
-      - TIRF
-      - ITRF
-      - ITRF_2014
-      - ITRF_2008
-      - ITRF_2005
-      - ITRF_2000
-      - ITRF_97
-      - ITRF_96
-      - ITRF_94
-      - ITRF_93
-      - ITRF_92
-      - ITRF_91
-      - ITRF_90
-      - ITRF_89
-      - ITRF_88
-      - ITRFEQUINOX
-      - MOD
-      - TOD
-      - GTOD
-      - EFG
-      - VEIS1950
-      - RIC
-      - PTW
-      - TNW
-      - VNB
-      - LVLH
-      - ENCOUNTER
-      - ENU
-      - SEZ
-      - CUSTOM
-      title: Frame
-    CovarianceReferenceFrames:
+    HTTPValidationError:
       properties:
-        frames:
+        detail:
           items:
-            $ref: '#/components/schemas/Frame'
+            $ref: '#/components/schemas/ValidationError'
           type: array
-          title: Frames
-          default:
-          - EME2000
-          - RIC
-          - PTW
-          - TNW
+          title: Detail
       type: object
-      title: CovarianceReferenceFrames
-    Vector3:
-      properties:
-        x:
-          type: number
-          title: X
-          description: The first element of the vector
-        y:
-          type: number
-          title: Y
-          description: The second element of the vector
-        z:
-          type: number
-          title: Z
-          description: The third element of the vector
-        unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Unit
-          description: The unit of the vector
-      type: object
-      required:
-      - x
-      - y
-      - z
-      title: Vector3
-      description: 3-dimensional physical quantity
+      title: HTTPValidationError
     Spacecraft:
       properties:
         mass:
@@ -325,55 +270,6 @@ components:
           description: Effective  area  of  the  object  exposed  to  solar  radiation  pressure.Specified in an area unit, e.g. u.m**2.
       type: object
       title: Spacecraft
-    CovarianceMatrixRead:
-      properties:
-        data:
-          items:
-            type: number
-          type: array
-          title: Data
-        format:
-          type: string
-          title: Format
-        frame:
-          type: string
-          title: Frame
-        length_unit:
-          type: string
-          title: Length Unit
-      type: object
-      required:
-      - data
-      - format
-      - frame
-      - length_unit
-      title: CovarianceMatrixRead
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
     CovarianceMatrix:
       properties:
         data:
@@ -395,22 +291,33 @@ components:
       - length_unit
       - format
       title: CovarianceMatrix
-    StateVectorReferenceFrames:
+    Vector3:
       properties:
-        frames:
-          items:
-            $ref: '#/components/schemas/Frame'
-          type: array
-          title: Frames
-          default:
-          - EME2000
-          - TEME
-          - ITRF
-          - GCRF
-          - GTOD
-          - EFG
+        x:
+          type: number
+          title: X
+          description: The first element of the vector
+        y:
+          type: number
+          title: Y
+          description: The second element of the vector
+        z:
+          type: number
+          title: Z
+          description: The third element of the vector
+        unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Unit
+          description: The unit of the vector
       type: object
-      title: StateVectorReferenceFrames
+      required:
+      - x
+      - y
+      - z
+      title: Vector3
+      description: 3-dimensional physical quantity
     StateVectorRead:
       properties:
         id:
@@ -542,6 +449,99 @@ components:
       - ref_frame
       - spacecraft_parameters
       title: FullSpacecraftState
+    StateVectorReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - TEME
+          - ITRF
+          - GCRF
+          - GTOD
+          - EFG
+      type: object
+      title: StateVectorReferenceFrames
+    CovarianceMatrixRead:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
+        length_unit:
+          type: string
+          title: Length Unit
+      type: object
+      required:
+      - data
+      - format
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
+    Frame:
+      type: string
+      enum:
+      - EME2000
+      - EME2000
+      - TEME
+      - GCRF
+      - CIRF
+      - ICRF
+      - TIRF
+      - ITRF
+      - ITRF_2014
+      - ITRF_2008
+      - ITRF_2005
+      - ITRF_2000
+      - ITRF_97
+      - ITRF_96
+      - ITRF_94
+      - ITRF_93
+      - ITRF_92
+      - ITRF_91
+      - ITRF_90
+      - ITRF_89
+      - ITRF_88
+      - ITRFEQUINOX
+      - MOD
+      - TOD
+      - GTOD
+      - EFG
+      - VEIS1950
+      - RIC
+      - PTW
+      - TNW
+      - VNB
+      - LVLH
+      - ENCOUNTER
+      - ENU
+      - SEZ
+      - CUSTOM
+      title: Frame
+    CovarianceReferenceFrames:
+      properties:
+        frames:
+          items:
+            $ref: '#/components/schemas/Frame'
+          type: array
+          title: Frames
+          default:
+          - EME2000
+          - RIC
+          - PTW
+          - TNW
+      type: object
+      title: CovarianceReferenceFrames
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

@@ -185,41 +185,32 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    HTTPValidationError:
+    ValidationError:
       properties:
-        detail:
+        loc:
           items:
-            $ref: '#/components/schemas/ValidationError'
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    OffsetPageResult_ConjunctionRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ConjunctionRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ConjunctionRead]
-    satcat__schemas__common__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - THEORETICAL
-      - PREDICTED
-      - DEFINITIVE
-      title: Designation
+      - loc
+      - msg
+      - type
+      title: ValidationError
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -655,66 +646,33 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    ValidationError:
+    OffsetPageResult_ConjunctionRead_:
       properties:
-        loc:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
           items:
-            anyOf:
-            - type: string
-            - type: integer
+            $ref: '#/components/schemas/ConjunctionRead'
           type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    OffsetPagination:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ConjunctionRead]
+    HTTPValidationError:
       properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: OffsetPagination
-    EventReadSimple:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - id
-      - key
-      title: EventReadSimple
+      title: HTTPValidationError
     RSOMetadataRead:
       properties:
         norad_id:
@@ -773,6 +731,40 @@ components:
       required:
       - id
       title: RSODetailedMetadataRead
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    EventReadSimple:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - key
+      title: EventReadSimple
     ConjunctionRead:
       properties:
         id:
@@ -981,6 +973,14 @@ components:
       - secondary_rso_id
       - is_intra_org
       title: ConjunctionRead
+    satcat__schemas__common__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - THEORETICAL
+      - PREDICTED
+      - DEFINITIVE
+      title: Designation
   securitySchemes:
     Oauth2Scheme:
       type: oauth2
