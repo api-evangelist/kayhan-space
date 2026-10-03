@@ -329,7 +329,7 @@ components:
       - msg
       - type
       title: ValidationError
-    Body_authenticate_token_oauth_token_post:
+    Body_authenticate_token_oauth_token__post:
       properties:
         grant_type:
           type: string
@@ -350,7 +350,7 @@ components:
           - type: 'null'
           title: Client Secret
       type: object
-      title: Body_authenticate_token_oauth_token_post
+      title: Body_authenticate_token_oauth_token__post
     APIKeyUpdate:
       properties:
         name:
@@ -360,38 +360,6 @@ components:
       required:
       - name
       title: APIKeyUpdate
-    Body_login_login_post:
-      properties:
-        grant_type:
-          type: string
-          pattern: ^password$
-          title: Grant Type
-        username:
-          type: string
-          title: Username
-        password:
-          type: string
-          title: Password
-        scope:
-          type: string
-          title: Scope
-          default: ''
-        client_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Id
-        client_secret:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Client Secret
-      type: object
-      required:
-      - grant_type
-      - username
-      - password
-      title: Body_login_login_post
     HTTPValidationError:
       properties:
         detail:
@@ -431,24 +399,6 @@ components:
       - created_at
       - name
       title: APIKeyView
-    OffsetPageResult_APIKeyView_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/APIKeyView'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[APIKeyView]
     TokenResponse:
       properties:
         access_token:
@@ -477,6 +427,52 @@ components:
       - access_token
       - token_type
       title: TokenResponse
+    APIKeyCreateRequest:
+      properties:
+        name:
+          type: string
+          title: Name
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        type:
+          type: string
+          enum:
+          - personal
+          - group
+          title: Type
+          default: personal
+      type: object
+      required:
+      - name
+      title: APIKeyCreateRequest
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    OffsetPageResult_APIKeyView_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/APIKeyView'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[APIKeyView]
     GroupListItem:
       properties:
         id:
@@ -524,7 +520,7 @@ components:
       - name
       - slug
       title: GroupListItem
-    Body_authenticate_token_oauth_token__post:
+    Body_authenticate_token_oauth_token_post:
       properties:
         grant_type:
           type: string
@@ -545,7 +541,7 @@ components:
           - type: 'null'
           title: Client Secret
       type: object
-      title: Body_authenticate_token_oauth_token__post
+      title: Body_authenticate_token_oauth_token_post
     OffsetPagination:
       properties:
         offset:
@@ -560,34 +556,38 @@ components:
           default: 0
       type: object
       title: OffsetPagination
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    APIKeyCreateRequest:
+    Body_login_login_post:
       properties:
-        name:
+        grant_type:
           type: string
-          title: Name
-        group_id:
+          pattern: ^password$
+          title: Grant Type
+        username:
+          type: string
+          title: Username
+        password:
+          type: string
+          title: Password
+        scope:
+          type: string
+          title: Scope
+          default: ''
+        client_id:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Group Id
-        type:
-          type: string
-          enum:
-          - personal
-          - group
-          title: Type
-          default: personal
+          title: Client Id
+        client_secret:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Client Secret
       type: object
       required:
-      - name
-      title: APIKeyCreateRequest
+      - grant_type
+      - username
+      - password
+      title: Body_login_login_post
   securitySchemes:
     Oauth2Scheme:
       type: oauth2
