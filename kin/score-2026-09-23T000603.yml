@@ -1,21 +1,19 @@
-# Kin Score artifact — kayhan-space — 2026-09-01T210448
+# Kin Score artifact — kayhan-space — 2026-09-23T000603
 # The API Evangelist rating (https://github.com/api-evangelist/kin-score). Generated; do not edit.
 ---
 kin_score:
   slug: kayhan-space
-  schema_version: 0.18.0
-  scored_at: '2026-09-01'
-  run_ts: 2026-09-01T210448
-  composite: 42.2
+  schema_version: 0.22.0
+  scored_at: '2026-09-23'
+  run_ts: 2026-09-23T000603
+  composite: 42.5
   band: developing
   facets:
     discoverability: 75.9
     contract_quality: 53.3
-    governance: 18.2
-    operational_transparency: 2.6
-    developer_ergonomics: 66.1
-    commercial_clarity: 27.6
     contract_governance: 18.2
+    operational_transparency: 10.5
+    developer_ergonomics: 66.1
     access_clarity: 27.6
   agent_readiness:
     score: 28.5
