@@ -97,15 +97,6 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
     ValidationError:
       properties:
         loc:
@@ -132,15 +123,6 @@ components:
       - msg
       - type
       title: ValidationError
-    SatReportModel:
-      properties:
-        norad_id:
-          type: integer
-          title: Norad Id
-      type: object
-      required:
-      - norad_id
-      title: SatReportModel
     QuestionModel:
       properties:
         question:
@@ -150,6 +132,24 @@ components:
       required:
       - question
       title: QuestionModel
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SatReportModel:
+      properties:
+        norad_id:
+          type: integer
+          title: Norad Id
+      type: object
+      required:
+      - norad_id
+      title: SatReportModel
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

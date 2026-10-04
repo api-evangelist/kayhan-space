@@ -278,98 +278,67 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
+    VisibilityRequestEphemerisDataSource:
       properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
+        source_type:
           type: string
-          title: Message
-        type:
+          const: EPHEMERIS
+          title: Source Type
+          default: EPHEMERIS
+        ephemeris_id:
           type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
+          title: Ephemeris Id
       type: object
       required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UDLGroundSensorLocation:
+      - ephemeris_id
+      title: VisibilityRequestEphemerisDataSource
+    SensitivityRegion:
       properties:
-        lat:
+        nominal_pc:
           type: number
-          title: Lat
-        lon:
-          type: number
-          title: Lon
-        altitude:
-          type: number
-          title: Altitude
-      type: object
-      required:
-      - lat
-      - lon
-      - altitude
-      title: UDLGroundSensorLocation
-    SensitivityCurve:
-      properties:
-        scales:
-          items:
-            type: number
-          type: array
-          title: Scales
-        values:
-          items:
-            type: number
-          type: array
-          title: Values
-        maxima:
-          items:
-            items: {}
-            type: array
-          type: array
-          title: Maxima
-        is_sensitive:
+          title: Nominal Pc
+        pc_error:
           type: boolean
-          title: Is Sensitive
+          title: Pc Error
+        primary:
+          $ref: '#/components/schemas/PcSensitivity'
+        secondary:
+          $ref: '#/components/schemas/PcSensitivity'
+        combined:
+          $ref: '#/components/schemas/PcSensitivity'
       type: object
       required:
-      - scales
-      - values
-      - maxima
-      - is_sensitive
-      title: SensitivityCurve
-    KepElem:
+      - nominal_pc
+      - pc_error
+      - primary
+      - secondary
+      - combined
+      title: SensitivityRegion
+    CDMKepElem:
       properties:
-        system:
+        primary:
           anyOf:
-          - $ref: '#/components/schemas/SupportedSystems'
+          - $ref: '#/components/schemas/KepElem'
           - type: 'null'
-        elem_set:
+        secondary:
           anyOf:
-          - $ref: '#/components/schemas/ElemSet'
+          - $ref: '#/components/schemas/KepElem'
           - type: 'null'
-        cov:
-          anyOf:
-          - items:
-              items:
-                type: number
-              type: array
-            type: array
-          - type: 'null'
-          title: Cov
       type: object
-      title: KepElem
+      title: CDMKepElem
+    UDLGroundSensorDefinition:
+      properties:
+        source_type:
+          type: string
+          const: UDL_GROUND_SENSOR
+          title: Source Type
+          default: UDL_GROUND_SENSOR
+        ground_sensor:
+          $ref: '#/components/schemas/UDLGroundSensor'
+      type: object
+      required:
+      - ground_sensor
+      title: UDLGroundSensorDefinition
     ObjectTrackingOpportunities:
       properties:
         ephemeris_id:
@@ -385,338 +354,6 @@ components:
       - request
       - result
       title: ObjectTrackingOpportunities
-    HBRSensitivityTradespace:
-      properties:
-        points:
-          items:
-            $ref: '#/components/schemas/HBRSensitivityTradespacePoint'
-          type: array
-          title: Points
-      type: object
-      required:
-      - points
-      title: HBRSensitivityTradespace
-    UDLGroundSensorEntity:
-      properties:
-        location:
-          $ref: '#/components/schemas/UDLGroundSensorLocation'
-      type: object
-      required:
-      - location
-      title: UDLGroundSensorEntity
-    VisibilityRequestEphemerisDataSource:
-      properties:
-        source_type:
-          type: string
-          const: EPHEMERIS
-          title: Source Type
-          default: EPHEMERIS
-        ephemeris_id:
-          type: string
-          title: Ephemeris Id
-      type: object
-      required:
-      - ephemeris_id
-      title: VisibilityRequestEphemerisDataSource
-    SupportedSystems:
-      type: string
-      enum:
-      - EQUINOCITAL
-      - KEPLERIAN
-      - CARTESIAN
-      title: SupportedSystems
-    NominalPC:
-      properties:
-        primary_hbr_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Primary Hbr M
-        secondary_hbr_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Secondary Hbr M
-        pc:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Pc
-        pc_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Pc Method
-      type: object
-      title: NominalPC
-    PlanePointOrEllipse:
-      properties:
-        name:
-          type: string
-          title: Name
-        x_km:
-          type: number
-          title: X Km
-        y_km:
-          type: number
-          title: Y Km
-        angle_deg:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Angle Deg
-        semi_major_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Semi Major Km
-        semi_minor_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Semi Minor Km
-      type: object
-      required:
-      - name
-      - x_km
-      - y_km
-      title: PlanePointOrEllipse
-    VisibilityWindowsRequest:
-      properties:
-        primary_rso_data_source:
-          oneOf:
-          - $ref: '#/components/schemas/VisibilityRequestTLEDataSource'
-          - $ref: '#/components/schemas/VisibilityRequestEphemerisDataSource'
-          title: Primary Rso Data Source
-          description: Data source for the RSO state.
-          discriminator:
-            propertyName: source_type
-            mapping:
-              EPHEMERIS: '#/components/schemas/VisibilityRequestEphemerisDataSource'
-              TLE: '#/components/schemas/VisibilityRequestTLEDataSource'
-        observers:
-          items:
-            $ref: '#/components/schemas/VisibilityRequestObserver'
-          type: array
-          title: Observers
-      type: object
-      required:
-      - primary_rso_data_source
-      - observers
-      title: VisibilityWindowsRequest
-    SavedObserverSearchDefinition:
-      properties:
-        source_type:
-          type: string
-          const: SAVED_OBSERVER_SEARCH
-          title: Source Type
-          default: SAVED_OBSERVER_SEARCH
-        owner:
-          type: string
-          enum:
-          - group
-          - public
-          title: Owner
-          default: group
-        tags:
-          items:
-            type: string
-          type: array
-          minItems: 1
-          title: Tags
-      type: object
-      required:
-      - tags
-      title: SavedObserverSearchDefinition
-    UDLGroundSensorDefinition:
-      properties:
-        source_type:
-          type: string
-          const: UDL_GROUND_SENSOR
-          title: Source Type
-          default: UDL_GROUND_SENSOR
-        ground_sensor:
-          $ref: '#/components/schemas/UDLGroundSensor'
-      type: object
-      required:
-      - ground_sensor
-      title: UDLGroundSensorDefinition
-    UDLSensorCharacteristic:
-      properties:
-        minRangeLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Minrangelimit
-        maxRangeLimit:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Maxrangelimit
-        maxSunElevationAngle:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Maxsunelevationangle
-      type: object
-      title: UDLSensorCharacteristic
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    ElemSet:
-      properties:
-        semi_major_axis_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Semi Major Axis Km
-        eccentricity:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Eccentricity
-        inclination:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Inclination
-        true_anomaly:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: True Anomaly
-        argument_of_periapsis:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Argument Of Periapsis
-        raan:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Raan
-        apogee_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Apogee Km
-        perigee_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Perigee Km
-      type: object
-      title: ElemSet
-    VisibilityWindow:
-      properties:
-        aos_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Aos Time
-        aos_el_deg:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Aos El Deg
-        los_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Los Time
-        los_el_deg:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Los El Deg
-        max_el_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Max El Time
-        max_el_deg:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Max El Deg
-        observer_id:
-          type: string
-          title: Observer Id
-        duration_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Duration S
-          readOnly: true
-      type: object
-      required:
-      - observer_id
-      - duration_s
-      title: VisibilityWindow
-    UDLGroundSensor:
-      properties:
-        sensorName:
-          type: string
-          title: Sensorname
-        idSensor:
-          type: string
-          title: Idsensor
-        source:
-          type: string
-          title: Source
-        classificationMarking:
-          type: string
-          title: Classificationmarking
-        entity:
-          $ref: '#/components/schemas/UDLGroundSensorEntity'
-        sensorcharacteristics:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UDLSensorCharacteristic'
-            type: array
-          - type: 'null'
-          title: Sensorcharacteristics
-        sensorlimitsCollection:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/UDLSensorAzElLimit'
-            type: array
-          - type: 'null'
-          title: Sensorlimitscollection
-      type: object
-      required:
-      - sensorName
-      - idSensor
-      - source
-      - classificationMarking
-      - entity
-      - sensorcharacteristics
-      - sensorlimitsCollection
-      title: UDLGroundSensor
-      description: 'Compatible with the UDL GroundSensor model.
-
-        Can be used for both ground stations and ground sensors such as radar / EO.'
-    CDMKepElem:
-      properties:
-        primary:
-          anyOf:
-          - $ref: '#/components/schemas/KepElem'
-          - type: 'null'
-        secondary:
-          anyOf:
-          - $ref: '#/components/schemas/KepElem'
-          - type: 'null'
-      type: object
-      title: CDMKepElem
     PlotTrajectory:
       properties:
         time:
@@ -814,34 +451,30 @@ components:
       - xyz_frame
       - unit
       title: PlotTrajectory
-    VisibilityRequestObserver:
+    SupportedSystems:
+      type: string
+      enum:
+      - EQUINOCITAL
+      - KEPLERIAN
+      - CARTESIAN
+      title: SupportedSystems
+    HBRSensitivity:
       properties:
-        id:
-          type: string
-          title: Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        definition:
-          oneOf:
-          - $ref: '#/components/schemas/UDLGroundSensorDefinition'
-          - $ref: '#/components/schemas/GroundStationDefinition'
-          - $ref: '#/components/schemas/SavedObserverSearchDefinition'
-          title: Definition
-          description: Observer definition.
-          discriminator:
-            propertyName: source_type
-            mapping:
-              GROUND_STATION: '#/components/schemas/GroundStationDefinition'
-              SAVED_OBSERVER_SEARCH: '#/components/schemas/SavedObserverSearchDefinition'
-              UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
+        primary_hbr_m:
+          type: number
+          title: Primary Hbr M
+        secondary_hbr_m:
+          type: number
+          title: Secondary Hbr M
+        pc:
+          type: number
+          title: Pc
       type: object
       required:
-      - id
-      - definition
-      title: VisibilityRequestObserver
+      - primary_hbr_m
+      - secondary_hbr_m
+      - pc
+      title: HBRSensitivity
     Plot:
       properties:
         name:
@@ -865,154 +498,67 @@ components:
       - position_over_time
       - orbital_period_s
       title: Plot
-    HBRSensitivityTradespacePoint:
+    UDLGroundSensorLocation:
       properties:
-        primary_hbr_m:
+        lat:
           type: number
-          title: Primary Hbr M
-        secondary_hbr_m:
+          title: Lat
+        lon:
           type: number
-          title: Secondary Hbr M
-        pc:
+          title: Lon
+        altitude:
           type: number
-          title: Pc
+          title: Altitude
       type: object
       required:
-      - primary_hbr_m
-      - secondary_hbr_m
-      - pc
-      title: HBRSensitivityTradespacePoint
-    PcSensitivity:
+      - lat
+      - lon
+      - altitude
+      title: UDLGroundSensorLocation
+    ElemSet:
       properties:
-        cov:
-          $ref: '#/components/schemas/SensitivityCurve'
-        hbr:
-          $ref: '#/components/schemas/SensitivityCurve'
-      type: object
-      required:
-      - cov
-      - hbr
-      title: PcSensitivity
-    VisibilityRequestTLEDataSource:
-      properties:
-        source_type:
-          type: string
-          const: TLE
-          title: Source Type
-          default: TLE
-        line1:
-          type: string
-          title: Line1
-        line2:
-          type: string
-          title: Line2
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_stop_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Stop Time
-      type: object
-      required:
-      - line1
-      - line2
-      title: VisibilityRequestTLEDataSource
-    TrackingOpportunities:
-      properties:
-        primary:
-          anyOf:
-          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
-          - type: 'null'
-        secondary:
-          anyOf:
-          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
-          - type: 'null'
-      type: object
-      title: TrackingOpportunities
-    VisibilityWindowsResult:
-      properties:
-        windows:
-          items:
-            $ref: '#/components/schemas/VisibilityWindow'
-          type: array
-          title: Windows
-      type: object
-      required:
-      - windows
-      title: VisibilityWindowsResult
-    SensitivityRegion:
-      properties:
-        nominal_pc:
-          type: number
-          title: Nominal Pc
-        pc_error:
-          type: boolean
-          title: Pc Error
-        primary:
-          $ref: '#/components/schemas/PcSensitivity'
-        secondary:
-          $ref: '#/components/schemas/PcSensitivity'
-        combined:
-          $ref: '#/components/schemas/PcSensitivity'
-      type: object
-      required:
-      - nominal_pc
-      - pc_error
-      - primary
-      - secondary
-      - combined
-      title: SensitivityRegion
-    GroundStationDefinition:
-      properties:
-        source_type:
-          type: string
-          const: GROUND_STATION
-          title: Source Type
-          default: GROUND_STATION
-        latitude_deg:
-          type: number
-          title: Latitude Deg
-        longitude_deg:
-          type: number
-          title: Longitude Deg
-        altitude_m:
-          type: number
-          title: Altitude M
-        min_elevation_deg:
+        semi_major_axis_km:
           anyOf:
           - type: number
           - type: 'null'
-          title: Min Elevation Deg
-      type: object
-      required:
-      - latitude_deg
-      - longitude_deg
-      - altitude_m
-      title: GroundStationDefinition
-    HBRSensitivityRegion:
-      properties:
-        nominal_pc:
-          $ref: '#/components/schemas/NominalPC'
-        scales:
-          items:
-            $ref: '#/components/schemas/HBRSensitivity'
-          type: array
-          title: Scales
-        tradespace:
+          title: Semi Major Axis Km
+        eccentricity:
           anyOf:
-          - $ref: '#/components/schemas/HBRSensitivityTradespace'
+          - type: number
           - type: 'null'
+          title: Eccentricity
+        inclination:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Inclination
+        true_anomaly:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: True Anomaly
+        argument_of_periapsis:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Argument Of Periapsis
+        raan:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Raan
+        apogee_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Apogee Km
+        perigee_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Perigee Km
       type: object
-      required:
-      - nominal_pc
-      - scales
-      title: HBRSensitivityRegion
+      title: ElemSet
     UDLSensorAzElLimit:
       properties:
         upperLeftAzimuthLimit:
@@ -1057,7 +603,187 @@ components:
           title: Lowerrightelevationlimit
       type: object
       title: UDLSensorAzElLimit
-    HBRSensitivity:
+    NominalPC:
+      properties:
+        primary_hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Primary Hbr M
+        secondary_hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Secondary Hbr M
+        pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Pc
+        pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Pc Method
+      type: object
+      title: NominalPC
+    VisibilityWindowsResult:
+      properties:
+        windows:
+          items:
+            $ref: '#/components/schemas/VisibilityWindow'
+          type: array
+          title: Windows
+      type: object
+      required:
+      - windows
+      title: VisibilityWindowsResult
+    UDLGroundSensorEntity:
+      properties:
+        location:
+          $ref: '#/components/schemas/UDLGroundSensorLocation'
+      type: object
+      required:
+      - location
+      title: UDLGroundSensorEntity
+    VisibilityWindowsRequest:
+      properties:
+        primary_rso_data_source:
+          oneOf:
+          - $ref: '#/components/schemas/VisibilityRequestTLEDataSource'
+          - $ref: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+          title: Primary Rso Data Source
+          description: Data source for the RSO state.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              EPHEMERIS: '#/components/schemas/VisibilityRequestEphemerisDataSource'
+              TLE: '#/components/schemas/VisibilityRequestTLEDataSource'
+        observers:
+          items:
+            $ref: '#/components/schemas/VisibilityRequestObserver'
+          type: array
+          title: Observers
+      type: object
+      required:
+      - primary_rso_data_source
+      - observers
+      title: VisibilityWindowsRequest
+    HBRSensitivityTradespace:
+      properties:
+        points:
+          items:
+            $ref: '#/components/schemas/HBRSensitivityTradespacePoint'
+          type: array
+          title: Points
+      type: object
+      required:
+      - points
+      title: HBRSensitivityTradespace
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    UDLSensorCharacteristic:
+      properties:
+        minRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Minrangelimit
+        maxRangeLimit:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxrangelimit
+        maxSunElevationAngle:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Maxsunelevationangle
+      type: object
+      title: UDLSensorCharacteristic
+    SavedObserverSearchDefinition:
+      properties:
+        source_type:
+          type: string
+          const: SAVED_OBSERVER_SEARCH
+          title: Source Type
+          default: SAVED_OBSERVER_SEARCH
+        owner:
+          type: string
+          enum:
+          - group
+          - public
+          title: Owner
+          default: group
+        tags:
+          items:
+            type: string
+          type: array
+          minItems: 1
+          title: Tags
+      type: object
+      required:
+      - tags
+      title: SavedObserverSearchDefinition
+    SensitivityCurve:
+      properties:
+        scales:
+          items:
+            type: number
+          type: array
+          title: Scales
+        values:
+          items:
+            type: number
+          type: array
+          title: Values
+        maxima:
+          items:
+            items: {}
+            type: array
+          type: array
+          title: Maxima
+        is_sensitive:
+          type: boolean
+          title: Is Sensitive
+      type: object
+      required:
+      - scales
+      - values
+      - maxima
+      - is_sensitive
+      title: SensitivityCurve
+    TrackingOpportunities:
+      properties:
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/ObjectTrackingOpportunities'
+          - type: 'null'
+      type: object
+      title: TrackingOpportunities
+    PcSensitivity:
+      properties:
+        cov:
+          $ref: '#/components/schemas/SensitivityCurve'
+        hbr:
+          $ref: '#/components/schemas/SensitivityCurve'
+      type: object
+      required:
+      - cov
+      - hbr
+      title: PcSensitivity
+    HBRSensitivityTradespacePoint:
       properties:
         primary_hbr_m:
           type: number
@@ -1073,7 +799,281 @@ components:
       - primary_hbr_m
       - secondary_hbr_m
       - pc
-      title: HBRSensitivity
+      title: HBRSensitivityTradespacePoint
+    HBRSensitivityRegion:
+      properties:
+        nominal_pc:
+          $ref: '#/components/schemas/NominalPC'
+        scales:
+          items:
+            $ref: '#/components/schemas/HBRSensitivity'
+          type: array
+          title: Scales
+        tradespace:
+          anyOf:
+          - $ref: '#/components/schemas/HBRSensitivityTradespace'
+          - type: 'null'
+      type: object
+      required:
+      - nominal_pc
+      - scales
+      title: HBRSensitivityRegion
+    PlanePointOrEllipse:
+      properties:
+        name:
+          type: string
+          title: Name
+        x_km:
+          type: number
+          title: X Km
+        y_km:
+          type: number
+          title: Y Km
+        angle_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Deg
+        semi_major_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Semi Major Km
+        semi_minor_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Semi Minor Km
+      type: object
+      required:
+      - name
+      - x_km
+      - y_km
+      title: PlanePointOrEllipse
+    VisibilityRequestTLEDataSource:
+      properties:
+        source_type:
+          type: string
+          const: TLE
+          title: Source Type
+          default: TLE
+        line1:
+          type: string
+          title: Line1
+        line2:
+          type: string
+          title: Line2
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_stop_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Stop Time
+      type: object
+      required:
+      - line1
+      - line2
+      title: VisibilityRequestTLEDataSource
+    VisibilityRequestObserver:
+      properties:
+        id:
+          type: string
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        definition:
+          oneOf:
+          - $ref: '#/components/schemas/UDLGroundSensorDefinition'
+          - $ref: '#/components/schemas/GroundStationDefinition'
+          - $ref: '#/components/schemas/SavedObserverSearchDefinition'
+          title: Definition
+          description: Observer definition.
+          discriminator:
+            propertyName: source_type
+            mapping:
+              GROUND_STATION: '#/components/schemas/GroundStationDefinition'
+              SAVED_OBSERVER_SEARCH: '#/components/schemas/SavedObserverSearchDefinition'
+              UDL_GROUND_SENSOR: '#/components/schemas/UDLGroundSensorDefinition'
+      type: object
+      required:
+      - id
+      - definition
+      title: VisibilityRequestObserver
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UDLGroundSensor:
+      properties:
+        sensorName:
+          type: string
+          title: Sensorname
+        idSensor:
+          type: string
+          title: Idsensor
+        source:
+          type: string
+          title: Source
+        classificationMarking:
+          type: string
+          title: Classificationmarking
+        entity:
+          $ref: '#/components/schemas/UDLGroundSensorEntity'
+        sensorcharacteristics:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorCharacteristic'
+            type: array
+          - type: 'null'
+          title: Sensorcharacteristics
+        sensorlimitsCollection:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/UDLSensorAzElLimit'
+            type: array
+          - type: 'null'
+          title: Sensorlimitscollection
+      type: object
+      required:
+      - sensorName
+      - idSensor
+      - source
+      - classificationMarking
+      - entity
+      - sensorcharacteristics
+      - sensorlimitsCollection
+      title: UDLGroundSensor
+      description: 'Compatible with the UDL GroundSensor model.
+
+        Can be used for both ground stations and ground sensors such as radar / EO.'
+    KepElem:
+      properties:
+        system:
+          anyOf:
+          - $ref: '#/components/schemas/SupportedSystems'
+          - type: 'null'
+        elem_set:
+          anyOf:
+          - $ref: '#/components/schemas/ElemSet'
+          - type: 'null'
+        cov:
+          anyOf:
+          - items:
+              items:
+                type: number
+              type: array
+            type: array
+          - type: 'null'
+          title: Cov
+      type: object
+      title: KepElem
+    VisibilityWindow:
+      properties:
+        aos_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Aos Time
+        aos_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Aos El Deg
+        los_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Los Time
+        los_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Los El Deg
+        max_el_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Max El Time
+        max_el_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Max El Deg
+        observer_id:
+          type: string
+          title: Observer Id
+        duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration S
+          readOnly: true
+      type: object
+      required:
+      - observer_id
+      - duration_s
+      title: VisibilityWindow
+    GroundStationDefinition:
+      properties:
+        source_type:
+          type: string
+          const: GROUND_STATION
+          title: Source Type
+          default: GROUND_STATION
+        latitude_deg:
+          type: number
+          title: Latitude Deg
+        longitude_deg:
+          type: number
+          title: Longitude Deg
+        altitude_m:
+          type: number
+          title: Altitude M
+        min_elevation_deg:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Min Elevation Deg
+      type: object
+      required:
+      - latitude_deg
+      - longitude_deg
+      - altitude_m
+      title: GroundStationDefinition
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

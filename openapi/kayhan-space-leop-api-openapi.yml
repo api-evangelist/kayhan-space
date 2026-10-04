@@ -176,42 +176,6 @@ paths:
       - Oauth2Scheme: []
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-      type: object
-      required:
-      - opm_file
-      title: Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
     HTTPValidationError:
       properties:
         detail:
@@ -246,31 +210,6 @@ components:
       - cospar_id
       - ballistic_coefficient_kg_per_m2
       title: Body_spacex_operator_opm_to_tle_leop_spacex_opm_operator_post
-    Body_oem_to_tle_leop_oem_post:
-      properties:
-        oem_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Oem File
-        norad_id:
-          type: string
-          title: Norad Id
-        cospar_id:
-          type: string
-          title: Cospar Id
-        ballistic_coefficient_kg_per_m2:
-          anyOf:
-          - type: number
-          - type: string
-            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
-          title: Ballistic Coefficient Kg Per M2
-      type: object
-      required:
-      - oem_file
-      - norad_id
-      - cospar_id
-      - ballistic_coefficient_kg_per_m2
-      title: Body_oem_to_tle_leop_oem_post
     SpaceXTransporterDeployment:
       properties:
         name:
@@ -333,6 +272,31 @@ components:
       - v_ecef_m_per_s
       - ballistic_coef_kg_per_m2
       title: SpaceXTransporterDeployment
+    Body_oem_to_tle_leop_oem_post:
+      properties:
+        oem_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Oem File
+        norad_id:
+          type: string
+          title: Norad Id
+        cospar_id:
+          type: string
+          title: Cospar Id
+        ballistic_coefficient_kg_per_m2:
+          anyOf:
+          - type: number
+          - type: string
+            pattern: ^(?!^[-+.]*$)[+-]?0*\d*\.?\d*$
+          title: Ballistic Coefficient Kg Per M2
+      type: object
+      required:
+      - oem_file
+      - norad_id
+      - cospar_id
+      - ballistic_coefficient_kg_per_m2
+      title: Body_oem_to_tle_leop_oem_post
     Body_opm_to_tle_leop_ccsds_opm_post:
       properties:
         opm_file:
@@ -358,6 +322,42 @@ components:
       - cospar_id
       - ballistic_coefficient_kg_per_m2
       title: Body_opm_to_tle_leop_ccsds_opm_post
+    Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+      type: object
+      required:
+      - opm_file
+      title: Body_spacex_transporter_opm_to_tle_leop_spacex_opm_transporter_post
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

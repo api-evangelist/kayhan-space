@@ -480,117 +480,12 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    EventReadSimple:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - id
-      - key
-      title: EventReadSimple
-    FailingValidityCause:
+    CDMWriteFormat:
       type: string
       enum:
-      - 'NULL'
-      - LOW_DV
-      - DILUTION
-      - MANUAL
-      - VIOLATION
-      - SINGLE_COVARIANCE
-      title: FailingValidityCause
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    Body_upload_cdms_conjunction_messages_post:
-      properties:
-        cdm_files:
-          items:
-            type: string
-            contentMediaType: application/octet-stream
-          type: array
-          title: Cdm Files
-      type: object
-      required:
-      - cdm_files
-      title: Body_upload_cdms_conjunction_messages_post
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
+      - JSON
+      - KVN
+      title: CDMWriteFormat
     PCValidityState:
       type: string
       enum:
@@ -599,14 +494,6 @@ components:
       - There was a problem calculating PC. Defaulting to the invalid value.
       - Current PC is invalid for some reason.
       title: PCValidityState
-    satcat__schemas__common__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - THEORETICAL
-      - PREDICTED
-      - DEFINITIVE
-      title: Designation
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -1042,13 +929,100 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    PCRemediationMethod:
+    EventReadSimple:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - key
+      title: EventReadSimple
+    SortDirection:
       type: string
       enum:
-      - frisbee
-      - hall
-      - multistep
-      title: PCRemediationMethod
+      - asc
+      - desc
+      title: SortDirection
+    RSODetailedMetadataRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        rso_metadata:
+          anyOf:
+          - $ref: '#/components/schemas/RSOMetadataRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      title: RSODetailedMetadataRead
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
     ConjunctionListRead:
       properties:
         key:
@@ -1133,60 +1107,72 @@ components:
       - creation_date
       - tca
       title: ConjunctionListRead
-    RSODetailedMetadataRead:
+    PCRemediationMethod:
+      type: string
+      enum:
+      - frisbee
+      - hall
+      - multistep
+      title: PCRemediationMethod
+    OffsetPageResult_EventRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EventRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EventRead]
+    EventRead:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        rso_metadata:
-          anyOf:
-          - $ref: '#/components/schemas/RSOMetadataRead'
-          - type: 'null'
+        key:
+          type: string
+          title: Key
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
+        tca_range_start:
+          type: string
+          format: date-time
+          title: Tca Range Start
+        tca_range_end:
+          type: string
+          format: date-time
+          title: Tca Range End
+        auto_intent_enabled:
+          type: boolean
+          title: Auto Intent Enabled
+        default_cdm:
+          $ref: '#/components/schemas/ConjunctionRead'
       type: object
       required:
       - id
-      title: RSODetailedMetadataRead
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+      - key
+      - created_at
+      - updated_at
+      - tca_range_start
+      - tca_range_end
+      - auto_intent_enabled
+      - default_cdm
+      title: EventRead
     Body_add_cdm_to_event_events__event_key__ccsds_cdm_post:
       properties:
         cdm_file:
@@ -1198,6 +1184,54 @@ components:
       required:
       - cdm_file
       title: Body_add_cdm_to_event_events__event_key__ccsds_cdm_post
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    FailingValidityCause:
+      type: string
+      enum:
+      - 'NULL'
+      - LOW_DV
+      - DILUTION
+      - MANUAL
+      - VIOLATION
+      - SINGLE_COVARIANCE
+      title: FailingValidityCause
+    OffsetPageResult:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items: {}
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult
+    Body_upload_cdms_conjunction_messages_post:
+      properties:
+        cdm_files:
+          items:
+            type: string
+            contentMediaType: application/octet-stream
+          type: array
+          title: Cdm Files
+      type: object
+      required:
+      - cdm_files
+      title: Body_upload_cdms_conjunction_messages_post
     OffsetPageResult_ConjunctionListRead_:
       properties:
         pagination:
@@ -1443,88 +1477,54 @@ components:
       - secondary_rso_id
       - is_intra_org
       title: ConjunctionRead
-    OffsetPageResult:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items: {}
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult
-    EventRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        key:
-          type: string
-          title: Key
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        tca_range_start:
-          type: string
-          format: date-time
-          title: Tca Range Start
-        tca_range_end:
-          type: string
-          format: date-time
-          title: Tca Range End
-        auto_intent_enabled:
-          type: boolean
-          title: Auto Intent Enabled
-        default_cdm:
-          $ref: '#/components/schemas/ConjunctionRead'
-      type: object
-      required:
-      - id
-      - key
-      - created_at
-      - updated_at
-      - tca_range_start
-      - tca_range_end
-      - auto_intent_enabled
-      - default_cdm
-      title: EventRead
-    OffsetPageResult_EventRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/EventRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[EventRead]
-    CDMWriteFormat:
+    satcat__schemas__common__Designation:
       type: string
       enum:
-      - JSON
-      - KVN
-      title: CDMWriteFormat
+      - OPERATIONAL
+      - THEORETICAL
+      - PREDICTED
+      - DEFINITIVE
+      title: Designation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

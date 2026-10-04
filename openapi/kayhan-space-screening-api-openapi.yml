@@ -1400,472 +1400,43 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    OffsetPageResult_CatalogScreeningPreviewRead_:
+    ScreenableCreate:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/CatalogScreeningPreviewRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[CatalogScreeningPreviewRead]
-    EphemerisGroup:
-      type: string
-      enum:
-      - OPERATOR_REPOSITORY
-      - TASKING_REPOSITORY
-      title: EphemerisGroup
-    satcat__schemas__models__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
-    EphemerisMetadataWithRSOMinimalRead:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        rso_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Rso Id
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        data_format:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisDataFormat'
-          - type: 'null'
-        custom_storage_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Custom Storage Path
-        altitude_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Altitude Km
-        repository_public:
-          type: boolean
-          title: Repository Public
-          default: false
-        event_public:
-          type: boolean
-          title: Event Public
-          default: false
-        shared_event_keys:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EphemerisViewer'
-            type: array
-          - type: 'null'
-          title: Shared Event Keys
-        rso:
-          anyOf:
-          - $ref: '#/components/schemas/RSORead'
-          - type: 'null'
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        covariance_corrected:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Covariance Corrected
-        source_ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Ephemeris Id
-      type: object
-      title: EphemerisMetadataWithRSOMinimalRead
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    OffsetPageResult_SecondaryReadWithCoverage_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/SecondaryReadWithCoverage'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[SecondaryReadWithCoverage]
-    EphemerisSource:
-      type: string
-      enum:
-      - CATALOG
-      - SPACE_TRACK_PUBLIC
-      - SPACE_TRACK_PUBLIC_SATCAT
-      - PATHFINDER_API
-      - SATCAT_API
-      - USER_SCREENER
-      - TERTIARY_SCREENER
-      - PATHFINDER_AUTO_THIRDPARTY
-      - KAYHAN_INTERNAL_PROCESS
-      - PATHFINDER_SCREENER_THIRDPARTY
-      - STARLINK_API_PUBLIC
-      - PUBLIC_REPOSITORY
-      - STARLINK_STC_API
-      title: EphemerisSource
-    EphemerisMetadataWithRSO:
-      properties:
-        id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Id
-        rso_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Rso Id
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        data_format:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisDataFormat'
-          - type: 'null'
-        custom_storage_path:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Custom Storage Path
-        altitude_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Altitude Km
-        repository_public:
-          type: boolean
-          title: Repository Public
-          default: false
-        event_public:
-          type: boolean
-          title: Event Public
-          default: false
-        shared_event_keys:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/EphemerisViewer'
-            type: array
-          - type: 'null'
-          title: Shared Event Keys
-        rso:
-          anyOf:
-          - $ref: '#/components/schemas/RSORead'
-          - type: 'null'
-        user_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: User Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        covariance_corrected:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Covariance Corrected
-        source_ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Source Ephemeris Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        ephemeris_source:
-          $ref: '#/components/schemas/EphemerisSource'
-        solution_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Solution Time
-        has_covariance:
-          type: boolean
-          title: Has Covariance
-        ephemeris_type:
-          $ref: '#/components/schemas/EphemerisType'
-        discontinuities:
-          items:
-            type: string
-            format: date-time
-          type: array
-          title: Discontinuities
-          default: []
-        comments:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Comments
-        apogee_km:
-          type: number
-          title: Apogee Km
-        perigee_km:
-          type: number
-          title: Perigee Km
-        archived:
-          type: boolean
-          title: Archived
-          default: false
-        hbr_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Hbr M
-        current_operational:
-          type: boolean
-          title: Current Operational
-          default: false
-        launch_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Time
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        context:
-          anyOf:
-          - $ref: '#/components/schemas/Context'
-          - type: 'null'
-        designation:
-          anyOf:
-          - $ref: '#/components/schemas/satcat__schemas__models__Designation'
-          - type: 'null'
-        catalog:
-          anyOf:
-          - $ref: '#/components/schemas/CatalogMinimalRead'
-          - type: 'null'
-      type: object
-      required:
-      - ephemeris_source
-      - has_covariance
-      - ephemeris_type
-      - apogee_km
-      - perigee_km
-      title: EphemerisMetadataWithRSO
-    EventReadSimple:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        key:
-          type: string
-          title: Key
-      type: object
-      required:
-      - id
-      - key
-      title: EventReadSimple
-    PropagationRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        status:
-          $ref: '#/components/schemas/JobStatus'
         ephemeris_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Ephemeris Id
-        start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Start Time
-        end_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: End Time
-        started_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Started At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        target_duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Target Duration
-        timestep:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Timestep
-        maneuver_count:
-          type: integer
-          title: Maneuver Count
-          default: 0
-        state_vector:
-          anyOf:
-          - $ref: '#/components/schemas/StateVectorRead'
-          - type: 'null'
-        forces:
-          anyOf:
-          - $ref: '#/components/schemas/ForceModelRead'
-          - type: 'null'
-        maneuvers:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ManeuverRead'
-            type: array
-          - type: 'null'
-          title: Maneuvers
-        tle:
-          anyOf:
-          - $ref: '#/components/schemas/TLERead'
-          - type: 'null'
-        tle_id:
+        catalog_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Tle Id
-        state_vector_id:
+          title: Catalog Id
+        propagation_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: State Vector Id
-        rso:
+          title: Propagation Id
+        ephemeris_group:
           anyOf:
-          - $ref: '#/components/schemas/RSORead'
+          - $ref: '#/components/schemas/EphemerisGroup'
           - type: 'null'
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
       type: object
-      required:
-      - id
-      - status
-      title: PropagationRead
-    CoverageLevel:
+      title: ScreenableCreate
+    EphemerisGroup:
       type: string
       enum:
-      - NO_OVERLAP
-      - PARTIAL
-      - FULL
-      title: CoverageLevel
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
+      - OPERATOR_REPOSITORY
+      - TASKING_REPOSITORY
+      title: EphemerisGroup
     ScreeningRead:
       properties:
         id:
@@ -2082,302 +1653,141 @@ components:
       - primary_sources_count
       - secondary_sources_count
       title: ScreeningRead
-    ScreeningPreview:
+    OffsetPageResult_SecondaryReadWithCoverage_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/SecondaryReadWithCoverage'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[SecondaryReadWithCoverage]
+    EphemerisViewer:
+      properties:
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        event_key_number:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Event Key Number
+      type: object
+      title: EphemerisViewer
+    OffsetPageResult_CatalogScreeningPreviewRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/CatalogScreeningPreviewRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[CatalogScreeningPreviewRead]
+    OffsetPageResult_EphemerisMetadataScreeningRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataScreeningRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[EphemerisMetadataScreeningRead]
+    ScheduledScreeningRead:
       properties:
         id:
           type: string
           format: uuid
           title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        updated_at:
+          type: string
+          format: date-time
+          title: Updated At
         group_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Group Id
-        owner:
-          anyOf:
-          - $ref: '#/components/schemas/UserProfilePreview'
-          - type: 'null'
-        status:
-          $ref: '#/components/schemas/JobStatus'
-        started_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Started At
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        threshold_radius_km:
-          type: number
-          title: Threshold Radius Km
-        threshold_radius_manned_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Manned Km
-        threshold_radius_active_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Active Km
-        threshold_radius_debris_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Debris Km
-        default_secondary_hbr_m:
-          type: number
-          title: Default Secondary Hbr M
-        auto_archive:
-          type: boolean
-          title: Auto Archive
-        include_primary_vs_primary:
-          type: boolean
-          title: Include Primary Vs Primary
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-        screening_type:
-          $ref: '#/components/schemas/ScreeningType'
-        hard_body_shape:
-          $ref: '#/components/schemas/HardBodyShape'
-        strict_coverage:
-          type: boolean
-          title: Strict Coverage
-        publish_cdms:
-          type: boolean
-          title: Publish Cdms
-        screen_count_expected:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Screen Count Expected
-        screen_count_current:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Screen Count Current
-        launch_window_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window Start
-        launch_window_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window End
-        launch_window_cadence_s:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Launch Window Cadence S
-        archived:
-          type: boolean
-          title: Archived
-        percent_complete:
-          type: number
-          title: Percent Complete
-        primary_sources_count:
-          type: integer
-          title: Primary Sources Count
-          default: 0
-        secondary_sources_count:
-          type: integer
-          title: Secondary Sources Count
-          default: 0
-        primaries_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Primaries Count
-        secondaries_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Secondaries Count
-        lowest_miss_distance_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowest Miss Distance Km
-        highest_pc:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Highest Pc
-        next_tca:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Next Tca
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_duration_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Duration S
-        propagation_timestep_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Timestep S
-        secondary_any_coverage_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Any Coverage End
-        secondary_any_coverage_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Any Coverage Start
-        secondary_full_coverage_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Full Coverage End
-        secondary_full_coverage_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Full Coverage Start
-        failure_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Failure Message
-        conjunctions_count:
-          type: integer
-          title: Conjunctions Count
-        high_risk_conjunctions_count:
-          type: integer
-          title: High Risk Conjunctions Count
-        high_risk_pc:
-          type: number
-          title: High Risk Pc
-        high_risk_md_km:
-          type: number
-          title: High Risk Md Km
-        low_risk_pc:
-          type: number
-          title: Low Risk Pc
-        low_risk_md_km:
-          type: number
-          title: Low Risk Md Km
-        ssc_sustainability_threshold_conjunction_count:
-          type: integer
-          title: Ssc Sustainability Threshold Conjunction Count
-        ssc_maneuver_planning_threshold_conjunction_count:
-          type: integer
-          title: Ssc Maneuver Planning Threshold Conjunction Count
-        conjunctions_preview:
-          items:
-            $ref: '#/components/schemas/ConjunctionMinimal'
-          type: array
-          title: Conjunctions Preview
-          default: []
-        primary_sources_preview:
-          items:
-            $ref: '#/components/schemas/ScreenableRead'
-          type: array
-          title: Primary Sources Preview
-          default: []
-        secondary_sources_preview:
-          items:
-            $ref: '#/components/schemas/ScreenableRead'
-          type: array
-          title: Secondary Sources Preview
-          default: []
-        primary_rsos_count:
-          type: integer
-          title: Primary Rsos Count
-          default: 0
-        primary_rsos_preview:
-          items:
-            $ref: '#/components/schemas/RSODetailedMetadataRead'
-          type: array
-          title: Primary Rsos Preview
-          default: []
-        secondary_rsos_count:
-          type: integer
-          title: Secondary Rsos Count
-          default: 0
-        secondary_rsos_preview:
-          items:
-            $ref: '#/components/schemas/RSODetailedMetadataRead'
-          type: array
-          title: Secondary Rsos Preview
-          default: []
-        propagations_count:
-          type: integer
-          title: Propagations Count
-          default: 0
-        schedule_id:
+        last_screening_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Schedule Id
+          title: Last Screening Id
+        next_run_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Run At
+        last_run_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Last Run At
+        cadence_hr:
+          type: integer
+          title: Cadence Hr
+        start_time:
+          type: string
+          format: time
+          title: Start Time
+        enabled:
+          type: boolean
+          title: Enabled
+        config:
+          additionalProperties: true
+          type: object
+          title: Config
+        last_screening:
+          anyOf:
+          - $ref: '#/components/schemas/ScreeningPreview'
+          - type: 'null'
       type: object
       required:
       - id
-      - status
-      - threshold_radius_km
-      - default_secondary_hbr_m
-      - auto_archive
-      - include_primary_vs_primary
-      - screening_type
-      - hard_body_shape
-      - strict_coverage
-      - publish_cdms
-      - archived
-      - percent_complete
-      - conjunctions_count
-      - high_risk_conjunctions_count
-      - high_risk_pc
-      - high_risk_md_km
-      - low_risk_pc
-      - low_risk_md_km
-      - ssc_sustainability_threshold_conjunction_count
-      - ssc_maneuver_planning_threshold_conjunction_count
-      title: ScreeningPreview
+      - created_at
+      - updated_at
+      - cadence_hr
+      - start_time
+      - enabled
+      - config
+      title: ScheduledScreeningRead
     CatalogPreviewWithEphemeridesCount:
       properties:
         id:
@@ -2434,591 +1844,13 @@ components:
       - epoch
       - ephemerides_count
       title: CatalogPreviewWithEphemeridesCount
-    ScreeningPreviewWithCoverage:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        owner:
-          anyOf:
-          - $ref: '#/components/schemas/UserProfilePreview'
-          - type: 'null'
-        status:
-          $ref: '#/components/schemas/JobStatus'
-        started_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Started At
-        created_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Created At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        threshold_radius_km:
-          type: number
-          title: Threshold Radius Km
-        threshold_radius_manned_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Manned Km
-        threshold_radius_active_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Active Km
-        threshold_radius_debris_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Debris Km
-        default_secondary_hbr_m:
-          type: number
-          title: Default Secondary Hbr M
-        auto_archive:
-          type: boolean
-          title: Auto Archive
-        include_primary_vs_primary:
-          type: boolean
-          title: Include Primary Vs Primary
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-        screening_type:
-          $ref: '#/components/schemas/ScreeningType'
-        hard_body_shape:
-          $ref: '#/components/schemas/HardBodyShape'
-        strict_coverage:
-          type: boolean
-          title: Strict Coverage
-        publish_cdms:
-          type: boolean
-          title: Publish Cdms
-        screen_count_expected:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Screen Count Expected
-        screen_count_current:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Screen Count Current
-        launch_window_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window Start
-        launch_window_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window End
-        launch_window_cadence_s:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Launch Window Cadence S
-        archived:
-          type: boolean
-          title: Archived
-        percent_complete:
-          type: number
-          title: Percent Complete
-        primary_sources_count:
-          type: integer
-          title: Primary Sources Count
-          default: 0
-        secondary_sources_count:
-          type: integer
-          title: Secondary Sources Count
-          default: 0
-        primaries_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Primaries Count
-        secondaries_count:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Secondaries Count
-        lowest_miss_distance_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Lowest Miss Distance Km
-        highest_pc:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Highest Pc
-        next_tca:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Next Tca
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_duration_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Duration S
-        propagation_timestep_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Timestep S
-        secondary_any_coverage_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Any Coverage End
-        secondary_any_coverage_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Any Coverage Start
-        secondary_full_coverage_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Full Coverage End
-        secondary_full_coverage_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Secondary Full Coverage Start
-        failure_message:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Failure Message
-        conjunctions_count:
-          type: integer
-          title: Conjunctions Count
-        high_risk_conjunctions_count:
-          type: integer
-          title: High Risk Conjunctions Count
-        high_risk_pc:
-          type: number
-          title: High Risk Pc
-        high_risk_md_km:
-          type: number
-          title: High Risk Md Km
-        low_risk_pc:
-          type: number
-          title: Low Risk Pc
-        low_risk_md_km:
-          type: number
-          title: Low Risk Md Km
-        ssc_sustainability_threshold_conjunction_count:
-          type: integer
-          title: Ssc Sustainability Threshold Conjunction Count
-        ssc_maneuver_planning_threshold_conjunction_count:
-          type: integer
-          title: Ssc Maneuver Planning Threshold Conjunction Count
-        conjunctions_preview:
-          items:
-            $ref: '#/components/schemas/ConjunctionMinimal'
-          type: array
-          title: Conjunctions Preview
-          default: []
-        primary_sources_preview:
-          items:
-            $ref: '#/components/schemas/ScreenableRead'
-          type: array
-          title: Primary Sources Preview
-          default: []
-        secondary_sources_preview:
-          items:
-            $ref: '#/components/schemas/ScreenableRead'
-          type: array
-          title: Secondary Sources Preview
-          default: []
-        primary_rsos_count:
-          type: integer
-          title: Primary Rsos Count
-          default: 0
-        primary_rsos_preview:
-          items:
-            $ref: '#/components/schemas/RSODetailedMetadataRead'
-          type: array
-          title: Primary Rsos Preview
-          default: []
-        secondary_rsos_count:
-          type: integer
-          title: Secondary Rsos Count
-          default: 0
-        secondary_rsos_preview:
-          items:
-            $ref: '#/components/schemas/RSODetailedMetadataRead'
-          type: array
-          title: Secondary Rsos Preview
-          default: []
-        propagations_count:
-          type: integer
-          title: Propagations Count
-          default: 0
-        schedule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Schedule Id
-        coverage_level:
-          anyOf:
-          - $ref: '#/components/schemas/CoverageLevel'
-          - type: 'null'
-        coverage_ratio:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coverage Ratio
-        primary_rso_counts_by_source:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Primary Rso Counts By Source
-        secondary_rso_counts_by_source:
-          anyOf:
-          - additionalProperties: true
-            type: object
-          - type: 'null'
-          title: Secondary Rso Counts By Source
-      type: object
-      required:
-      - id
-      - status
-      - threshold_radius_km
-      - default_secondary_hbr_m
-      - auto_archive
-      - include_primary_vs_primary
-      - screening_type
-      - hard_body_shape
-      - strict_coverage
-      - publish_cdms
-      - archived
-      - percent_complete
-      - conjunctions_count
-      - high_risk_conjunctions_count
-      - high_risk_pc
-      - high_risk_md_km
-      - low_risk_pc
-      - low_risk_md_km
-      - ssc_sustainability_threshold_conjunction_count
-      - ssc_maneuver_planning_threshold_conjunction_count
-      title: ScreeningPreviewWithCoverage
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    CatalogScreeningPreviewRead:
-      properties:
-        ephemerides_count:
-          type: integer
-          title: Ephemerides Count
-        id:
-          type: string
-          format: uuid
-          title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        catalog_type:
-          $ref: '#/components/schemas/CatalogType'
-        epoch:
-          type: string
-          format: date-time
-          title: Epoch
-        archived:
-          type: boolean
-          title: Archived
-          default: false
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        ready:
-          type: boolean
-          title: Ready
-          default: false
-        data_format:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Format
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        archive_protected:
-          type: boolean
-          title: Archive Protected
-          default: false
-        ephemerides_preview:
-          items:
-            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          type: array
-          title: Ephemerides Preview
-        object_overview:
-          $ref: '#/components/schemas/CatalogObjectOverview'
-        is_primary:
-          type: boolean
-          title: Is Primary
-        is_secondary:
-          type: boolean
-          title: Is Secondary
-      type: object
-      required:
-      - ephemerides_count
-      - id
-      - created_at
-      - catalog_type
-      - epoch
-      - ephemerides_preview
-      - object_overview
-      - is_primary
-      - is_secondary
-      title: CatalogScreeningPreviewRead
-    HardBodyShape:
+    CoverageLevel:
       type: string
       enum:
-      - SQUARE
-      - CIRCLE
-      title: HardBodyShape
-    TLERead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        line1:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line1
-        line2:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Line2
-      type: object
-      required:
-      - id
-      title: TLERead
-    ManeuverRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        type:
-          type: string
-          title: Type
-        ignition_epoch:
-          type: string
-          format: date-time
-          title: Ignition Epoch
-        delta_mass:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Delta Mass
-        ref_frame:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Ref Frame
-        deltav_x:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav X
-        deltav_y:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav Y
-        deltav_z:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Deltav Z
-        deltav_unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Deltav Unit
-        thrust_x:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust X
-        thrust_y:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust Y
-        thrust_z:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Thrust Z
-        thrust_unit:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Thrust Unit
-        duration:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Duration
-        specific_impulse:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Specific Impulse
-        rso_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Rso Id
-      type: object
-      required:
-      - id
-      - type
-      - ignition_epoch
-      title: ManeuverRead
-    ScreenableCreate:
-      properties:
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        catalog_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Catalog Id
-        propagation_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Propagation Id
-        ephemeris_group:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisGroup'
-          - type: 'null'
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-      type: object
-      title: ScreenableCreate
-    satcat__schemas__common__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - THEORETICAL
-      - PREDICTED
-      - DEFINITIVE
-      title: Designation
+      - NO_OVERLAP
+      - PARTIAL
+      - FULL
+      title: CoverageLevel
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -3454,22 +2286,376 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    EphemerisViewer:
+    ScreenableRead:
       properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
         ephemeris_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
           title: Ephemeris Id
-        event_key_number:
+        catalog_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Catalog Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        ephemeris:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
+          - type: 'null'
+        propagation:
+          anyOf:
+          - $ref: '#/components/schemas/PropagationRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      title: ScreenableRead
+    ScreeningType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: ScreeningType
+    CatalogObjectOverview:
+      properties:
+        leo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        meo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+        geo:
+          $ref: '#/components/schemas/OrbitRegimeOverview'
+      type: object
+      required:
+      - leo
+      - meo
+      - geo
+      title: CatalogObjectOverview
+    EventReadSimple:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        key:
+          type: string
+          title: Key
+      type: object
+      required:
+      - id
+      - key
+      title: EventReadSimple
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    PropagationRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Start Time
+        end_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: End Time
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        target_duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Target Duration
+        timestep:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Timestep
+        maneuver_count:
+          type: integer
+          title: Maneuver Count
+          default: 0
+        state_vector:
+          anyOf:
+          - $ref: '#/components/schemas/StateVectorRead'
+          - type: 'null'
+        forces:
+          anyOf:
+          - $ref: '#/components/schemas/ForceModelRead'
+          - type: 'null'
+        maneuvers:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ManeuverRead'
+            type: array
+          - type: 'null'
+          title: Maneuvers
+        tle:
+          anyOf:
+          - $ref: '#/components/schemas/TLERead'
+          - type: 'null'
+        tle_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Tle Id
+        state_vector_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: State Vector Id
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - status
+      title: PropagationRead
+    ScreeningCreate:
+      properties:
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+          default: 15.0
+        threshold_radius_manned_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Manned Km
+        threshold_radius_active_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Active Km
+        threshold_radius_debris_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Debris Km
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+          default: 5.0
+        auto_archive:
+          type: boolean
+          title: Auto Archive
+          default: false
+        include_primary_vs_primary:
+          type: boolean
+          title: Include Primary Vs Primary
+          default: false
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+          default: Screening
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+        screening_type:
+          $ref: '#/components/schemas/ScreeningType'
+          default: ON_ORBIT
+        launch_window_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window Start
+        launch_window_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window End
+        launch_window_cadence_s:
           anyOf:
           - type: integer
+            minimum: 1.0
           - type: 'null'
-          title: Event Key Number
+          title: Launch Window Cadence S
+        hard_body_shape:
+          $ref: '#/components/schemas/HardBodyShape'
+          default: SQUARE
+        strict_coverage:
+          type: boolean
+          title: Strict Coverage
+          default: false
+        publish_cdms:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Publish Cdms
+          default: false
+        primaries:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ScreenableCreate'
+            type: array
+          - type: 'null'
+          title: Primaries
+        secondaries:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ScreenableCreate'
+            type: array
+          - type: 'null'
+          title: Secondaries
+        schedule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Schedule Id
       type: object
-      title: EphemerisViewer
-    SecondaryReadWithCoverage:
+      title: ScreeningCreate
+    CatalogMinimalRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      title: CatalogMinimalRead
+    HardBodyShape:
+      type: string
+      enum:
+      - SQUARE
+      - CIRCLE
+      title: HardBodyShape
+    OffsetPageResult_ScheduledScreeningRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ScheduledScreeningRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ScheduledScreeningRead]
+    PrimaryReadWithCoverage:
       properties:
         id:
           type: string
@@ -3529,60 +2715,596 @@ components:
             format: date-time
           - type: 'null'
           title: Interest Interval End
+        coverage_level:
+          anyOf:
+          - $ref: '#/components/schemas/CoverageLevel'
+          - type: 'null'
+        coverage_ratio:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coverage Ratio
       type: object
       required:
       - id
-      title: SecondaryReadWithCoverage
-    CatalogType:
+      title: PrimaryReadWithCoverage
+    EphemerisSource:
       type: string
       enum:
-      - SP
-      - TLE
-      - CUSTOM
-      title: CatalogType
-    JobStatus:
-      type: string
-      enum:
-      - CREATED
-      - PENDING
-      - RUNNING
-      - SUCCESS
-      - FAILURE
-      - CANCELED
-      title: JobStatus
-    ConjunctionMinimal:
+      - CATALOG
+      - SPACE_TRACK_PUBLIC
+      - SPACE_TRACK_PUBLIC_SATCAT
+      - PATHFINDER_API
+      - SATCAT_API
+      - USER_SCREENER
+      - TERTIARY_SCREENER
+      - PATHFINDER_AUTO_THIRDPARTY
+      - KAYHAN_INTERNAL_PROCESS
+      - PATHFINDER_SCREENER_THIRDPARTY
+      - STARLINK_API_PUBLIC
+      - PUBLIC_REPOSITORY
+      - STARLINK_STC_API
+      title: EphemerisSource
+    Body_add_screenables_batch_screenings__id__screenables_batch_post:
       properties:
-        tca:
+        primaries:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ScreenableCreate'
+            type: array
+          - type: 'null'
+          title: Primaries
+          description: Configuration of the primaries to add
+        secondaries:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/ScreenableCreate'
+            type: array
+          - type: 'null'
+          title: Secondaries
+          description: Configuration of the secondaries to add
+      type: object
+      title: Body_add_screenables_batch_screenings__id__screenables_batch_post
+    RSODetailedMetadataRead:
+      properties:
+        id:
           type: string
-          format: date-time
-          title: Tca
-        miss_distance_km:
-          type: number
-          title: Miss Distance Km
-        launch_time:
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        rso_metadata:
+          anyOf:
+          - $ref: '#/components/schemas/RSOMetadataRead'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      title: RSODetailedMetadataRead
+    CovarianceMatrixRead:
+      properties:
+        data:
+          items:
+            type: number
+          type: array
+          title: Data
+        format:
+          type: string
+          title: Format
+        frame:
+          type: string
+          title: Frame
+        length_unit:
+          type: string
+          title: Length Unit
+      type: object
+      required:
+      - data
+      - format
+      - frame
+      - length_unit
+      title: CovarianceMatrixRead
+    ScreeningPreview:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        owner:
+          anyOf:
+          - $ref: '#/components/schemas/UserProfilePreview'
+          - type: 'null'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        started_at:
           anyOf:
           - type: string
             format: date-time
           - type: 'null'
-          title: Launch Time
-        collision_probability:
+          title: Started At
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+        threshold_radius_manned_km:
           anyOf:
           - type: number
           - type: 'null'
-          title: Collision Probability
-        primary:
+          title: Threshold Radius Manned Km
+        threshold_radius_active_km:
           anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: number
           - type: 'null'
-        secondary:
+          title: Threshold Radius Active Km
+        threshold_radius_debris_km:
           anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Debris Km
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+        auto_archive:
+          type: boolean
+          title: Auto Archive
+        include_primary_vs_primary:
+          type: boolean
+          title: Include Primary Vs Primary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+        screening_type:
+          $ref: '#/components/schemas/ScreeningType'
+        hard_body_shape:
+          $ref: '#/components/schemas/HardBodyShape'
+        strict_coverage:
+          type: boolean
+          title: Strict Coverage
+        publish_cdms:
+          type: boolean
+          title: Publish Cdms
+        screen_count_expected:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Expected
+        screen_count_current:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Current
+        launch_window_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window Start
+        launch_window_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window End
+        launch_window_cadence_s:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Launch Window Cadence S
+        archived:
+          type: boolean
+          title: Archived
+        percent_complete:
+          type: number
+          title: Percent Complete
+        primary_sources_count:
+          type: integer
+          title: Primary Sources Count
+          default: 0
+        secondary_sources_count:
+          type: integer
+          title: Secondary Sources Count
+          default: 0
+        primaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Primaries Count
+        secondaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Secondaries Count
+        lowest_miss_distance_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowest Miss Distance Km
+        highest_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Highest Pc
+        next_tca:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Tca
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        secondary_any_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage End
+        secondary_any_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage Start
+        secondary_full_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage End
+        secondary_full_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage Start
+        failure_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Message
+        conjunctions_count:
+          type: integer
+          title: Conjunctions Count
+        high_risk_conjunctions_count:
+          type: integer
+          title: High Risk Conjunctions Count
+        high_risk_pc:
+          type: number
+          title: High Risk Pc
+        high_risk_md_km:
+          type: number
+          title: High Risk Md Km
+        low_risk_pc:
+          type: number
+          title: Low Risk Pc
+        low_risk_md_km:
+          type: number
+          title: Low Risk Md Km
+        ssc_sustainability_threshold_conjunction_count:
+          type: integer
+          title: Ssc Sustainability Threshold Conjunction Count
+        ssc_maneuver_planning_threshold_conjunction_count:
+          type: integer
+          title: Ssc Maneuver Planning Threshold Conjunction Count
+        conjunctions_preview:
+          items:
+            $ref: '#/components/schemas/ConjunctionMinimal'
+          type: array
+          title: Conjunctions Preview
+          default: []
+        primary_sources_preview:
+          items:
+            $ref: '#/components/schemas/ScreenableRead'
+          type: array
+          title: Primary Sources Preview
+          default: []
+        secondary_sources_preview:
+          items:
+            $ref: '#/components/schemas/ScreenableRead'
+          type: array
+          title: Secondary Sources Preview
+          default: []
+        primary_rsos_count:
+          type: integer
+          title: Primary Rsos Count
+          default: 0
+        primary_rsos_preview:
+          items:
+            $ref: '#/components/schemas/RSODetailedMetadataRead'
+          type: array
+          title: Primary Rsos Preview
+          default: []
+        secondary_rsos_count:
+          type: integer
+          title: Secondary Rsos Count
+          default: 0
+        secondary_rsos_preview:
+          items:
+            $ref: '#/components/schemas/RSODetailedMetadataRead'
+          type: array
+          title: Secondary Rsos Preview
+          default: []
+        propagations_count:
+          type: integer
+          title: Propagations Count
+          default: 0
+        schedule_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Schedule Id
+      type: object
+      required:
+      - id
+      - status
+      - threshold_radius_km
+      - default_secondary_hbr_m
+      - auto_archive
+      - include_primary_vs_primary
+      - screening_type
+      - hard_body_shape
+      - strict_coverage
+      - publish_cdms
+      - archived
+      - percent_complete
+      - conjunctions_count
+      - high_risk_conjunctions_count
+      - high_risk_pc
+      - high_risk_md_km
+      - low_risk_pc
+      - low_risk_md_km
+      - ssc_sustainability_threshold_conjunction_count
+      - ssc_maneuver_planning_threshold_conjunction_count
+      title: ScreeningPreview
+    StateVectorRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+        pos_x:
+          type: number
+          title: Pos X
+        pos_y:
+          type: number
+          title: Pos Y
+        pos_z:
+          type: number
+          title: Pos Z
+        pos_unit:
+          type: string
+          title: Pos Unit
+        vel_x:
+          type: number
+          title: Vel X
+        vel_y:
+          type: number
+          title: Vel Y
+        vel_z:
+          type: number
+          title: Vel Z
+        vel_unit:
+          type: string
+          title: Vel Unit
+        timestamp:
+          type: string
+          format: date-time
+          title: Timestamp
+        frame:
+          type: string
+          title: Frame
+        mass:
+          type: number
+          title: Mass
+        coeff_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Drag
+        coeff_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coeff Rad
+        area_drag:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Drag
+        area_rad:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Area Rad
+        covariance:
+          anyOf:
+          - $ref: '#/components/schemas/CovarianceMatrixRead'
           - type: 'null'
       type: object
       required:
-      - tca
-      - miss_distance_km
-      title: ConjunctionMinimal
+      - id
+      - pos_x
+      - pos_y
+      - pos_z
+      - pos_unit
+      - vel_x
+      - vel_y
+      - vel_z
+      - vel_unit
+      - timestamp
+      - frame
+      - mass
+      title: StateVectorRead
+    Context:
+      type: string
+      enum:
+      - ROUTINE
+      - COLA
+      - MAINTENANCE
+      - NOVEL
+      - DECAY
+      title: Context
+    EphemerisDataFormat:
+      type: string
+      enum:
+      - hdf5
+      - original
+      - gem
+      title: EphemerisDataFormat
+    EphemerisMetadataWithRSOMinimalRead:
+      properties:
+        id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Id
+        rso_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data_format:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisDataFormat'
+          - type: 'null'
+        custom_storage_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Storage Path
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+        repository_public:
+          type: boolean
+          title: Repository Public
+          default: false
+        event_public:
+          type: boolean
+          title: Event Public
+          default: false
+        shared_event_keys:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EphemerisViewer'
+            type: array
+          - type: 'null'
+          title: Shared Event Keys
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        covariance_corrected:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Covariance Corrected
+        source_ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Ephemeris Id
+      type: object
+      title: EphemerisMetadataWithRSOMinimalRead
     ForceModelRead:
       properties:
         id:
@@ -3653,6 +3375,148 @@ components:
       required:
       - id
       title: ForceModelRead
+    SecondaryReadWithCoverage:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        catalog_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Catalog Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        ephemeris:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          - type: 'null'
+        catalog:
+          anyOf:
+          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
+          - type: 'null'
+        propagation:
+          anyOf:
+          - $ref: '#/components/schemas/PropagationRead'
+          - type: 'null'
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        interest_interval_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval Start
+        interest_interval_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Interest Interval End
+      type: object
+      required:
+      - id
+      title: SecondaryReadWithCoverage
+    CatalogScreeningPreviewRead:
+      properties:
+        ephemerides_count:
+          type: integer
+          title: Ephemerides Count
+        id:
+          type: string
+          format: uuid
+          title: Id
+        created_at:
+          type: string
+          format: date-time
+          title: Created At
+        catalog_type:
+          $ref: '#/components/schemas/CatalogType'
+        epoch:
+          type: string
+          format: date-time
+          title: Epoch
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        ready:
+          type: boolean
+          title: Ready
+          default: false
+        data_format:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Data Format
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        archive_protected:
+          type: boolean
+          title: Archive Protected
+          default: false
+        ephemerides_preview:
+          items:
+            $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          type: array
+          title: Ephemerides Preview
+        object_overview:
+          $ref: '#/components/schemas/CatalogObjectOverview'
+        is_primary:
+          type: boolean
+          title: Is Primary
+        is_secondary:
+          type: boolean
+          title: Is Secondary
+      type: object
+      required:
+      - ephemerides_count
+      - id
+      - created_at
+      - catalog_type
+      - epoch
+      - ephemerides_preview
+      - object_overview
+      - is_primary
+      - is_secondary
+      title: CatalogScreeningPreviewRead
     EphemerisMetadataScreeningRead:
       properties:
         id:
@@ -3823,24 +3687,172 @@ components:
       - is_primary
       - is_secondary
       title: EphemerisMetadataScreeningRead
-    OffsetPageResult_ConjunctionRead_:
+    ScreeningUpdate:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ConjunctionRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        threshold_radius_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Km
+        threshold_radius_manned_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Manned Km
+        threshold_radius_active_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Active Km
+        threshold_radius_debris_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Debris Km
+        default_secondary_hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Default Secondary Hbr M
+        auto_archive:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Auto Archive
+        include_primary_vs_primary:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Include Primary Vs Primary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+        screening_type:
+          anyOf:
+          - $ref: '#/components/schemas/ScreeningType'
+          - type: 'null'
+        launch_window_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window Start
+        launch_window_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window End
+        launch_window_cadence_s:
+          anyOf:
+          - type: integer
+            minimum: 1.0
+          - type: 'null'
+          title: Launch Window Cadence S
+        hard_body_shape:
+          anyOf:
+          - $ref: '#/components/schemas/HardBodyShape'
+          - type: 'null'
+        strict_coverage:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Strict Coverage
+        publish_cdms:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Publish Cdms
+      type: object
+      title: ScreeningUpdate
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
       type: object
       required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ConjunctionRead]
+      - id
+      title: RSORead
+    CatalogType:
+      type: string
+      enum:
+      - SP
+      - TLE
+      - CUSTOM
+      title: CatalogType
+    ConjunctionMinimal:
+      properties:
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        miss_distance_km:
+          type: number
+          title: Miss Distance Km
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: 'null'
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisMetadataWithRSOMinimalRead'
+          - type: 'null'
+      type: object
+      required:
+      - tca
+      - miss_distance_km
+      title: ConjunctionMinimal
     ScreeningReadMinimal:
       properties:
         id:
@@ -3884,400 +3896,91 @@ components:
       - id
       - title
       title: ScreeningReadMinimal
-    RSODetailedMetadataRead:
+    ManeuverRead:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        rso_metadata:
-          anyOf:
-          - $ref: '#/components/schemas/RSOMetadataRead'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      title: RSODetailedMetadataRead
-    CatalogMinimalRead:
-      properties:
-        ephemerides_count:
-          type: integer
-          title: Ephemerides Count
-        id:
+        type:
           type: string
-          format: uuid
-          title: Id
-        created_at:
+          title: Type
+        ignition_epoch:
           type: string
           format: date-time
-          title: Created At
-        catalog_type:
-          $ref: '#/components/schemas/CatalogType'
-        epoch:
-          type: string
-          format: date-time
-          title: Epoch
-        archived:
-          type: boolean
-          title: Archived
-          default: false
-        filename:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Filename
-        ready:
-          type: boolean
-          title: Ready
-          default: false
-        data_format:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Data Format
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        archive_protected:
-          type: boolean
-          title: Archive Protected
-          default: false
-      type: object
-      required:
-      - ephemerides_count
-      - id
-      - created_at
-      - catalog_type
-      - epoch
-      title: CatalogMinimalRead
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    StateVectorRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-        pos_x:
-          type: number
-          title: Pos X
-        pos_y:
-          type: number
-          title: Pos Y
-        pos_z:
-          type: number
-          title: Pos Z
-        pos_unit:
-          type: string
-          title: Pos Unit
-        vel_x:
-          type: number
-          title: Vel X
-        vel_y:
-          type: number
-          title: Vel Y
-        vel_z:
-          type: number
-          title: Vel Z
-        vel_unit:
-          type: string
-          title: Vel Unit
-        timestamp:
-          type: string
-          format: date-time
-          title: Timestamp
-        frame:
-          type: string
-          title: Frame
-        mass:
-          type: number
-          title: Mass
-        coeff_drag:
+          title: Ignition Epoch
+        delta_mass:
           anyOf:
           - type: number
           - type: 'null'
-          title: Coeff Drag
-        coeff_rad:
+          title: Delta Mass
+        ref_frame:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Ref Frame
+        deltav_x:
           anyOf:
           - type: number
           - type: 'null'
-          title: Coeff Rad
-        area_drag:
+          title: Deltav X
+        deltav_y:
           anyOf:
           - type: number
           - type: 'null'
-          title: Area Drag
-        area_rad:
+          title: Deltav Y
+        deltav_z:
           anyOf:
           - type: number
           - type: 'null'
-          title: Area Rad
-        covariance:
+          title: Deltav Z
+        deltav_unit:
           anyOf:
-          - $ref: '#/components/schemas/CovarianceMatrixRead'
+          - type: string
           - type: 'null'
-      type: object
-      required:
-      - id
-      - pos_x
-      - pos_y
-      - pos_z
-      - pos_unit
-      - vel_x
-      - vel_y
-      - vel_z
-      - vel_unit
-      - timestamp
-      - frame
-      - mass
-      title: StateVectorRead
-    OrbitRegimeOverview:
-      properties:
-        total_count:
-          type: integer
-          title: Total Count
-        deb_count:
-          type: integer
-          title: Deb Count
-        total_count_percent_change_month:
+          title: Deltav Unit
+        thrust_x:
           anyOf:
           - type: number
           - type: 'null'
-          title: Total Count Percent Change Month
-      type: object
-      required:
-      - total_count
-      - deb_count
-      title: OrbitRegimeOverview
-    Body_add_screenables_batch_screenings__id__screenables_batch_post:
-      properties:
-        primaries:
+          title: Thrust X
+        thrust_y:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/ScreenableCreate'
-            type: array
+          - type: number
           - type: 'null'
-          title: Primaries
-          description: Configuration of the primaries to add
-        secondaries:
+          title: Thrust Y
+        thrust_z:
           anyOf:
-          - items:
-              $ref: '#/components/schemas/ScreenableCreate'
-            type: array
+          - type: number
           - type: 'null'
-          title: Secondaries
-          description: Configuration of the secondaries to add
-      type: object
-      title: Body_add_screenables_batch_screenings__id__screenables_batch_post
-    PrimaryReadWithCoverage:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        ephemeris_id:
+          title: Thrust Z
+        thrust_unit:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Thrust Unit
+        duration:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Duration
+        specific_impulse:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Specific Impulse
+        rso_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Ephemeris Id
-        catalog_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Catalog Id
-        propagation_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Propagation Id
-        ephemeris:
-          anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
-          - type: 'null'
-        catalog:
-          anyOf:
-          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
-          - type: 'null'
-        propagation:
-          anyOf:
-          - $ref: '#/components/schemas/PropagationRead'
-          - type: 'null'
-        usable_time_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time Start
-        usable_time_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Usable Time End
-        interest_interval_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Interest Interval Start
-        interest_interval_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Interest Interval End
-        coverage_level:
-          anyOf:
-          - $ref: '#/components/schemas/CoverageLevel'
-          - type: 'null'
-        coverage_ratio:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Coverage Ratio
+          title: Rso Id
       type: object
       required:
       - id
-      title: PrimaryReadWithCoverage
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
-    OffsetPageResult_EphemerisMetadataScreeningRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/EphemerisMetadataScreeningRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[EphemerisMetadataScreeningRead]
-    CovarianceMatrixRead:
-      properties:
-        data:
-          items:
-            type: number
-          type: array
-          title: Data
-        format:
-          type: string
-          title: Format
-        frame:
-          type: string
-          title: Frame
-        length_unit:
-          type: string
-          title: Length Unit
-      type: object
-      required:
-      - data
-      - format
-      - frame
-      - length_unit
-      title: CovarianceMatrixRead
-    OffsetPageResult_ScheduledScreeningRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/ScheduledScreeningRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[ScheduledScreeningRead]
-    ScreeningType:
-      type: string
-      enum:
-      - ON_ORBIT
-      - LAUNCH
-      title: ScreeningType
-    CatalogObjectOverview:
-      properties:
-        leo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
-        meo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
-        geo:
-          $ref: '#/components/schemas/OrbitRegimeOverview'
-      type: object
-      required:
-      - leo
-      - meo
-      - geo
-      title: CatalogObjectOverview
+      - type
+      - ignition_epoch
+      title: ManeuverRead
     OffsetPageResult_PrimaryReadWithCoverage_:
       properties:
         pagination:
@@ -4296,85 +3999,573 @@ components:
       - items
       - total_count
       title: OffsetPageResult[PrimaryReadWithCoverage]
-    UserProfilePreview:
+    TLERead:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        username:
+        object_name:
           anyOf:
           - type: string
           - type: 'null'
-          title: Username
-        full_name:
+          title: Object Name
+        line1:
           anyOf:
           - type: string
           - type: 'null'
-          title: Full Name
-        avatar_url:
+          title: Line1
+        line2:
           anyOf:
           - type: string
           - type: 'null'
-          title: Avatar Url
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
+          title: Line2
       type: object
       required:
       - id
-      title: UserProfilePreview
-    Context:
-      type: string
-      enum:
-      - ROUTINE
-      - COLA
-      - MAINTENANCE
-      - NOVEL
-      - DECAY
-      title: Context
-    ScreenableRead:
+      title: TLERead
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    ScreeningPreviewWithCoverage:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        ephemeris_id:
+        group_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Ephemeris Id
-        catalog_id:
+          title: Group Id
+        owner:
+          anyOf:
+          - $ref: '#/components/schemas/UserProfilePreview'
+          - type: 'null'
+        status:
+          $ref: '#/components/schemas/JobStatus'
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        created_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Created At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+        threshold_radius_manned_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Manned Km
+        threshold_radius_active_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Active Km
+        threshold_radius_debris_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Threshold Radius Debris Km
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+        auto_archive:
+          type: boolean
+          title: Auto Archive
+        include_primary_vs_primary:
+          type: boolean
+          title: Include Primary Vs Primary
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+        screening_type:
+          $ref: '#/components/schemas/ScreeningType'
+        hard_body_shape:
+          $ref: '#/components/schemas/HardBodyShape'
+        strict_coverage:
+          type: boolean
+          title: Strict Coverage
+        publish_cdms:
+          type: boolean
+          title: Publish Cdms
+        screen_count_expected:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Expected
+        screen_count_current:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Screen Count Current
+        launch_window_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window Start
+        launch_window_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Window End
+        launch_window_cadence_s:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Launch Window Cadence S
+        archived:
+          type: boolean
+          title: Archived
+        percent_complete:
+          type: number
+          title: Percent Complete
+        primary_sources_count:
+          type: integer
+          title: Primary Sources Count
+          default: 0
+        secondary_sources_count:
+          type: integer
+          title: Secondary Sources Count
+          default: 0
+        primaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Primaries Count
+        secondaries_count:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Secondaries Count
+        lowest_miss_distance_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Lowest Miss Distance Km
+        highest_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Highest Pc
+        next_tca:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Next Tca
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        secondary_any_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage End
+        secondary_any_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Any Coverage Start
+        secondary_full_coverage_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage End
+        secondary_full_coverage_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Secondary Full Coverage Start
+        failure_message:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Failure Message
+        conjunctions_count:
+          type: integer
+          title: Conjunctions Count
+        high_risk_conjunctions_count:
+          type: integer
+          title: High Risk Conjunctions Count
+        high_risk_pc:
+          type: number
+          title: High Risk Pc
+        high_risk_md_km:
+          type: number
+          title: High Risk Md Km
+        low_risk_pc:
+          type: number
+          title: Low Risk Pc
+        low_risk_md_km:
+          type: number
+          title: Low Risk Md Km
+        ssc_sustainability_threshold_conjunction_count:
+          type: integer
+          title: Ssc Sustainability Threshold Conjunction Count
+        ssc_maneuver_planning_threshold_conjunction_count:
+          type: integer
+          title: Ssc Maneuver Planning Threshold Conjunction Count
+        conjunctions_preview:
+          items:
+            $ref: '#/components/schemas/ConjunctionMinimal'
+          type: array
+          title: Conjunctions Preview
+          default: []
+        primary_sources_preview:
+          items:
+            $ref: '#/components/schemas/ScreenableRead'
+          type: array
+          title: Primary Sources Preview
+          default: []
+        secondary_sources_preview:
+          items:
+            $ref: '#/components/schemas/ScreenableRead'
+          type: array
+          title: Secondary Sources Preview
+          default: []
+        primary_rsos_count:
+          type: integer
+          title: Primary Rsos Count
+          default: 0
+        primary_rsos_preview:
+          items:
+            $ref: '#/components/schemas/RSODetailedMetadataRead'
+          type: array
+          title: Primary Rsos Preview
+          default: []
+        secondary_rsos_count:
+          type: integer
+          title: Secondary Rsos Count
+          default: 0
+        secondary_rsos_preview:
+          items:
+            $ref: '#/components/schemas/RSODetailedMetadataRead'
+          type: array
+          title: Secondary Rsos Preview
+          default: []
+        propagations_count:
+          type: integer
+          title: Propagations Count
+          default: 0
+        schedule_id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Catalog Id
-        propagation_id:
+          title: Schedule Id
+        coverage_level:
+          anyOf:
+          - $ref: '#/components/schemas/CoverageLevel'
+          - type: 'null'
+        coverage_ratio:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Coverage Ratio
+        primary_rso_counts_by_source:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Primary Rso Counts By Source
+        secondary_rso_counts_by_source:
+          anyOf:
+          - additionalProperties: true
+            type: object
+          - type: 'null'
+          title: Secondary Rso Counts By Source
+      type: object
+      required:
+      - id
+      - status
+      - threshold_radius_km
+      - default_secondary_hbr_m
+      - auto_archive
+      - include_primary_vs_primary
+      - screening_type
+      - hard_body_shape
+      - strict_coverage
+      - publish_cdms
+      - archived
+      - percent_complete
+      - conjunctions_count
+      - high_risk_conjunctions_count
+      - high_risk_pc
+      - high_risk_md_km
+      - low_risk_pc
+      - low_risk_md_km
+      - ssc_sustainability_threshold_conjunction_count
+      - ssc_maneuver_planning_threshold_conjunction_count
+      title: ScreeningPreviewWithCoverage
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+    OffsetPageResult:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items: {}
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult
+    EphemerisMetadataWithRSO:
+      properties:
+        id:
           anyOf:
           - type: string
             format: uuid
           - type: 'null'
-          title: Propagation Id
-        ephemeris:
+          title: Id
+        rso_id:
           anyOf:
-          - $ref: '#/components/schemas/EphemerisMetadataWithRSO'
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Rso Id
+        filename:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Filename
+        data_format:
+          anyOf:
+          - $ref: '#/components/schemas/EphemerisDataFormat'
+          - type: 'null'
+        custom_storage_path:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Custom Storage Path
+        altitude_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Altitude Km
+        repository_public:
+          type: boolean
+          title: Repository Public
+          default: false
+        event_public:
+          type: boolean
+          title: Event Public
+          default: false
+        shared_event_keys:
+          anyOf:
+          - items:
+              $ref: '#/components/schemas/EphemerisViewer'
+            type: array
+          - type: 'null'
+          title: Shared Event Keys
+        rso:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        user_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: User Id
+        group_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Group Id
+        covariance_corrected:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Covariance Corrected
+        source_ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Source Ephemeris Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        ephemeris_source:
+          $ref: '#/components/schemas/EphemerisSource'
+        solution_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Solution Time
+        has_covariance:
+          type: boolean
+          title: Has Covariance
+        ephemeris_type:
+          $ref: '#/components/schemas/EphemerisType'
+        discontinuities:
+          items:
+            type: string
+            format: date-time
+          type: array
+          title: Discontinuities
+          default: []
+        comments:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Comments
+        apogee_km:
+          type: number
+          title: Apogee Km
+        perigee_km:
+          type: number
+          title: Perigee Km
+        archived:
+          type: boolean
+          title: Archived
+          default: false
+        hbr_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Hbr M
+        current_operational:
+          type: boolean
+          title: Current Operational
+          default: false
+        launch_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Launch Time
+        usable_time_start:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time Start
+        usable_time_end:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Usable Time End
+        context:
+          anyOf:
+          - $ref: '#/components/schemas/Context'
+          - type: 'null'
+        designation:
+          anyOf:
+          - $ref: '#/components/schemas/satcat__schemas__models__Designation'
           - type: 'null'
         catalog:
           anyOf:
-          - $ref: '#/components/schemas/CatalogPreviewWithEphemeridesCount'
-          - type: 'null'
-        propagation:
-          anyOf:
-          - $ref: '#/components/schemas/PropagationRead'
+          - $ref: '#/components/schemas/CatalogMinimalRead'
           - type: 'null'
       type: object
       required:
-      - id
-      title: ScreenableRead
+      - ephemeris_source
+      - has_covariance
+      - ephemeris_type
+      - apogee_km
+      - perigee_km
+      title: EphemerisMetadataWithRSO
+    OrbitRegimeOverview:
+      properties:
+        total_count:
+          type: integer
+          title: Total Count
+        deb_count:
+          type: integer
+          title: Deb Count
+        total_count_percent_change_month:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Total Count Percent Change Month
+      type: object
+      required:
+      - total_count
+      - deb_count
+      title: OrbitRegimeOverview
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
     RSOMetadataRead:
       properties:
         norad_id:
@@ -4394,6 +4585,24 @@ components:
           title: Satname
       type: object
       title: RSOMetadataRead
+    OffsetPageResult_ScreeningPreviewWithCoverage_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/ScreeningPreviewWithCoverage'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[ScreeningPreviewWithCoverage]
     ConjunctionRead:
       properties:
         id:
@@ -4602,306 +4811,97 @@ components:
       - secondary_rso_id
       - is_intra_org
       title: ConjunctionRead
+    satcat__schemas__common__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - THEORETICAL
+      - PREDICTED
+      - DEFINITIVE
+      title: Designation
     EphemerisType:
       type: string
       enum:
       - ON_ORBIT
       - LAUNCH
       title: EphemerisType
-    OffsetPageResult:
+    ValidationError:
       properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items: {}
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
           type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
       type: object
       required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult
-    ScreeningCreate:
-      properties:
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        threshold_radius_km:
-          type: number
-          title: Threshold Radius Km
-          default: 15.0
-        threshold_radius_manned_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Manned Km
-        threshold_radius_active_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Active Km
-        threshold_radius_debris_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Debris Km
-        default_secondary_hbr_m:
-          type: number
-          title: Default Secondary Hbr M
-          default: 5.0
-        auto_archive:
-          type: boolean
-          title: Auto Archive
-          default: false
-        include_primary_vs_primary:
-          type: boolean
-          title: Include Primary Vs Primary
-          default: false
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-          default: Screening
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-        screening_type:
-          $ref: '#/components/schemas/ScreeningType'
-          default: ON_ORBIT
-        launch_window_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window Start
-        launch_window_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window End
-        launch_window_cadence_s:
-          anyOf:
-          - type: integer
-            minimum: 1.0
-          - type: 'null'
-          title: Launch Window Cadence S
-        hard_body_shape:
-          $ref: '#/components/schemas/HardBodyShape'
-          default: SQUARE
-        strict_coverage:
-          type: boolean
-          title: Strict Coverage
-          default: false
-        publish_cdms:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Publish Cdms
-          default: false
-        primaries:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ScreenableCreate'
-            type: array
-          - type: 'null'
-          title: Primaries
-        secondaries:
-          anyOf:
-          - items:
-              $ref: '#/components/schemas/ScreenableCreate'
-            type: array
-          - type: 'null'
-          title: Secondaries
-        schedule_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Schedule Id
-      type: object
-      title: ScreeningCreate
-    ScheduledScreeningRead:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    UserProfilePreview:
       properties:
         id:
           type: string
           format: uuid
           title: Id
-        created_at:
-          type: string
-          format: date-time
-          title: Created At
-        updated_at:
-          type: string
-          format: date-time
-          title: Updated At
-        group_id:
+        username:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Group Id
-        last_screening_id:
+          title: Username
+        full_name:
           anyOf:
           - type: string
-            format: uuid
           - type: 'null'
-          title: Last Screening Id
-        next_run_at:
+          title: Full Name
+        avatar_url:
           anyOf:
           - type: string
-            format: date-time
           - type: 'null'
-          title: Next Run At
-        last_run_at:
+          title: Avatar Url
+        email:
           anyOf:
           - type: string
-            format: date-time
           - type: 'null'
-          title: Last Run At
-        cadence_hr:
-          type: integer
-          title: Cadence Hr
-        start_time:
-          type: string
-          format: time
-          title: Start Time
-        enabled:
-          type: boolean
-          title: Enabled
-        config:
-          additionalProperties: true
-          type: object
-          title: Config
-        last_screening:
-          anyOf:
-          - $ref: '#/components/schemas/ScreeningPreview'
-          - type: 'null'
+          title: Email
       type: object
       required:
       - id
-      - created_at
-      - updated_at
-      - cadence_hr
-      - start_time
-      - enabled
-      - config
-      title: ScheduledScreeningRead
-    ScreeningUpdate:
+      title: UserProfilePreview
+    OffsetPagination:
       properties:
-        group_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Group Id
-        threshold_radius_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Km
-        threshold_radius_manned_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Manned Km
-        threshold_radius_active_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Active Km
-        threshold_radius_debris_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Threshold Radius Debris Km
-        default_secondary_hbr_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Default Secondary Hbr M
-        auto_archive:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Auto Archive
-        include_primary_vs_primary:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Include Primary Vs Primary
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-        screening_type:
-          anyOf:
-          - $ref: '#/components/schemas/ScreeningType'
-          - type: 'null'
-        launch_window_start:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window Start
-        launch_window_end:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Launch Window End
-        launch_window_cadence_s:
-          anyOf:
-          - type: integer
-            minimum: 1.0
-          - type: 'null'
-          title: Launch Window Cadence S
-        hard_body_shape:
-          anyOf:
-          - $ref: '#/components/schemas/HardBodyShape'
-          - type: 'null'
-        strict_coverage:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Strict Coverage
-        publish_cdms:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Publish Cdms
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
       type: object
-      title: ScreeningUpdate
-    EphemerisDataFormat:
-      type: string
-      enum:
-      - hdf5
-      - original
-      - gem
-      title: EphemerisDataFormat
-    OffsetPageResult_ScreeningPreviewWithCoverage_:
+      title: OffsetPagination
+    OffsetPageResult_ConjunctionRead_:
       properties:
         pagination:
           $ref: '#/components/schemas/OffsetPagination'
         items:
           items:
-            $ref: '#/components/schemas/ScreeningPreviewWithCoverage'
+            $ref: '#/components/schemas/ConjunctionRead'
           type: array
           title: Items
         total_count:
@@ -4912,7 +4912,7 @@ components:
       - pagination
       - items
       - total_count
-      title: OffsetPageResult[ScreeningPreviewWithCoverage]
+      title: OffsetPageResult[ConjunctionRead]
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

@@ -297,89 +297,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    satcat__schemas__models__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    ScreeningParams:
-      properties:
-        threshold_radius_km:
-          type: number
-          title: Threshold Radius Km
-          default: 15
-        default_secondary_hbr_m:
-          type: number
-          title: Default Secondary Hbr M
-          default: 5
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_duration_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Duration S
-        propagation_timestep_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Timestep S
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-      type: object
-      title: ScreeningParams
-    FailingValidityCause:
-      type: string
-      enum:
-      - 'NULL'
-      - LOW_DV
-      - DILUTION
-      - MANUAL
-      - VIOLATION
-      - SINGLE_COVARIANCE
-      title: FailingValidityCause
     ScreeningRead:
       properties:
         id:
@@ -596,260 +513,6 @@ components:
       - primary_sources_count
       - secondary_sources_count
       title: ScreeningRead
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
-    MitigationScenarioRead:
-      properties:
-        key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Key
-        event_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Event Key
-        cdm_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cdm Id
-        primary_solution_type:
-          type: string
-          title: Primary Solution Type
-        secondary_solution_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Secondary Solution Type
-        originator:
-          type: string
-          title: Originator
-        designation:
-          $ref: '#/components/schemas/satcat__schemas__models__Designation'
-        derived_from_cdm_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Derived From Cdm Key
-        avm_status:
-          anyOf:
-          - $ref: '#/components/schemas/JobStatus'
-          - type: 'null'
-        collision_probability:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Collision Probability
-        original_cdm_pc:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Original Cdm Pc
-        collision_probability_valid:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Collision Probability Valid
-        original_cdm_pc_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Original Cdm Pc Method
-        failing_validity_cause:
-          anyOf:
-          - $ref: '#/components/schemas/FailingValidityCause'
-          - type: 'null'
-        updated_pc_available:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Updated Pc Available
-        updated_pc_method:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Updated Pc Method
-        miss_distance_km:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Miss Distance Km
-        tca:
-          type: string
-          format: date-time
-          title: Tca
-        creation_date:
-          type: string
-          format: date-time
-          title: Creation Date
-        latest:
-          type: boolean
-          title: Latest
-        stale_primary_data_warning:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Stale Primary Data Warning
-        has_history:
-          type: boolean
-          title: Has History
-        angle_of_approach:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Angle Of Approach
-        mahalanobis_distance:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Mahalanobis Distance
-        relative_speed_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Speed M
-        relative_miss_sig_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Miss Sig M
-        relative_position_r_km:
-          type: number
-          title: Relative Position R Km
-        relative_sig_r_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig R U M
-        relative_position_i_km:
-          type: number
-          title: Relative Position I Km
-        relative_sig_it_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig It U M
-        relative_position_c_km:
-          type: number
-          title: Relative Position C Km
-        relative_sig_ct_u_m:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Relative Sig Ct U M
-        primary_rso_id:
-          type: string
-          format: uuid
-          title: Primary Rso Id
-        primary:
-          anyOf:
-          - $ref: '#/components/schemas/RSORead'
-          - type: 'null'
-        primary_state:
-          anyOf:
-          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
-          - type: 'null'
-        secondary_rso_id:
-          type: string
-          format: uuid
-          title: Secondary Rso Id
-        secondary:
-          anyOf:
-          - $ref: '#/components/schemas/RSORead'
-          - type: 'null'
-        secondary_state:
-          anyOf:
-          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
-          - type: 'null'
-        constellation_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Constellation Name
-        constellation_id:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Constellation Id
-        scenario:
-          anyOf:
-          - $ref: '#/components/schemas/ScenarioRead'
-          - type: 'null'
-        is_robust:
-          anyOf:
-          - type: boolean
-          - type: 'null'
-          title: Is Robust
-      type: object
-      required:
-      - primary_solution_type
-      - originator
-      - designation
-      - tca
-      - creation_date
-      - latest
-      - has_history
-      - relative_position_r_km
-      - relative_position_i_km
-      - relative_position_c_km
-      - primary_rso_id
-      - secondary_rso_id
-      title: MitigationScenarioRead
-    RSORead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        norad_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Norad Id
-        international_designator:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: International Designator
-        object_type:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type
-        object_type_category:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Type Category
-        object_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Object Name
-      type: object
-      required:
-      - id
-      title: RSORead
-    HardBodyShape:
-      type: string
-      enum:
-      - SQUARE
-      - CIRCLE
-      title: HardBodyShape
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -1285,16 +948,230 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    JobStatus:
+    ScenarioFailureType:
       type: string
       enum:
-      - CREATED
-      - PENDING
-      - RUNNING
-      - SUCCESS
-      - FAILURE
-      - CANCELED
-      title: JobStatus
+      - SATCAT
+      - NO_EPHEMERIS_OVERLAP
+      - PROPAGATION
+      title: ScenarioFailureType
+    ScreeningType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: ScreeningType
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    MitigationScenarioRead:
+      properties:
+        key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Key
+        event_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Event Key
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        primary_solution_type:
+          type: string
+          title: Primary Solution Type
+        secondary_solution_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Secondary Solution Type
+        originator:
+          type: string
+          title: Originator
+        designation:
+          $ref: '#/components/schemas/satcat__schemas__models__Designation'
+        derived_from_cdm_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Derived From Cdm Key
+        avm_status:
+          anyOf:
+          - $ref: '#/components/schemas/JobStatus'
+          - type: 'null'
+        collision_probability:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Collision Probability
+        original_cdm_pc:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Original Cdm Pc
+        collision_probability_valid:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Collision Probability Valid
+        original_cdm_pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Original Cdm Pc Method
+        failing_validity_cause:
+          anyOf:
+          - $ref: '#/components/schemas/FailingValidityCause'
+          - type: 'null'
+        updated_pc_available:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Updated Pc Available
+        updated_pc_method:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Updated Pc Method
+        miss_distance_km:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Miss Distance Km
+        tca:
+          type: string
+          format: date-time
+          title: Tca
+        creation_date:
+          type: string
+          format: date-time
+          title: Creation Date
+        latest:
+          type: boolean
+          title: Latest
+        stale_primary_data_warning:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Stale Primary Data Warning
+        has_history:
+          type: boolean
+          title: Has History
+        angle_of_approach:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Angle Of Approach
+        mahalanobis_distance:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Mahalanobis Distance
+        relative_speed_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Speed M
+        relative_miss_sig_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Miss Sig M
+        relative_position_r_km:
+          type: number
+          title: Relative Position R Km
+        relative_sig_r_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig R U M
+        relative_position_i_km:
+          type: number
+          title: Relative Position I Km
+        relative_sig_it_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig It U M
+        relative_position_c_km:
+          type: number
+          title: Relative Position C Km
+        relative_sig_ct_u_m:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Relative Sig Ct U M
+        primary_rso_id:
+          type: string
+          format: uuid
+          title: Primary Rso Id
+        primary:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        primary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        secondary_rso_id:
+          type: string
+          format: uuid
+          title: Secondary Rso Id
+        secondary:
+          anyOf:
+          - $ref: '#/components/schemas/RSORead'
+          - type: 'null'
+        secondary_state:
+          anyOf:
+          - $ref: '#/components/schemas/SpacecraftConjunctionStateRead'
+          - type: 'null'
+        constellation_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation Name
+        constellation_id:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation Id
+        scenario:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioRead'
+          - type: 'null'
+        is_robust:
+          anyOf:
+          - type: boolean
+          - type: 'null'
+          title: Is Robust
+      type: object
+      required:
+      - primary_solution_type
+      - originator
+      - designation
+      - tca
+      - creation_date
+      - latest
+      - has_history
+      - relative_position_r_km
+      - relative_position_i_km
+      - relative_position_c_km
+      - primary_rso_id
+      - secondary_rso_id
+      title: MitigationScenarioRead
+    HardBodyShape:
+      type: string
+      enum:
+      - SQUARE
+      - CIRCLE
+      title: HardBodyShape
     ScenarioRead:
       properties:
         id:
@@ -1378,21 +1255,15 @@ components:
       - status
       - autogenerated
       title: ScenarioRead
-    HTTPValidationError:
+    Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post:
       properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
       type: object
-      title: HTTPValidationError
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
+      title: Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
     OffsetPageResult_MitigationScenarioRead_:
       properties:
         pagination:
@@ -1411,6 +1282,79 @@ components:
       - items
       - total_count
       title: OffsetPageResult[MitigationScenarioRead]
+    RSORead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        norad_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Norad Id
+        international_designator:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: International Designator
+        object_type:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type
+        object_type_category:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Type Category
+        object_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Object Name
+      type: object
+      required:
+      - id
+      title: RSORead
+    ScreeningParams:
+      properties:
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+          default: 15
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+          default: 5
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+      type: object
+      title: ScreeningParams
     ScreeningSubmit:
       properties:
         screening_params:
@@ -1426,21 +1370,70 @@ components:
           default: SP
       type: object
       title: ScreeningSubmit
-    Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post:
+    HTTPValidationError:
       properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-          description: OPM file to upload
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
       type: object
-      title: Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
-    ScreeningType:
+      title: HTTPValidationError
+    FailingValidityCause:
       type: string
       enum:
-      - ON_ORBIT
-      - LAUNCH
-      title: ScreeningType
+      - 'NULL'
+      - LOW_DV
+      - DILUTION
+      - MANUAL
+      - VIOLATION
+      - SINGLE_COVARIANCE
+      title: FailingValidityCause
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
     UserProfilePreview:
       properties:
         id:
@@ -1471,13 +1464,20 @@ components:
       required:
       - id
       title: UserProfilePreview
-    ScenarioFailureType:
-      type: string
-      enum:
-      - SATCAT
-      - NO_EPHEMERIS_OVERLAP
-      - PROPAGATION
-      title: ScenarioFailureType
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
   securitySchemes:
     Oauth2Scheme:
       type: oauth2

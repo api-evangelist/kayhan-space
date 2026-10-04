@@ -328,12 +328,6 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
     HTTPValidationError:
       properties:
         detail:
@@ -352,6 +346,12 @@ components:
           description: The OD data file to upload. Supported names include gnss_*.json|csv|navsol, maneuver_*.opm|txt, and azel_*.json.
       type: object
       title: Body_upload_gnss_file_od__object_id__upload_post
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
     ValidationError:
       properties:
         loc:
