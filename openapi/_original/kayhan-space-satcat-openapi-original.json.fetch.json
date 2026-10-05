@@ -1,0 +1,12 @@
+{
+ "url": "https://api.satcat.com/openapi.json",
+ "requested_url": "https://api.satcat.com/openapi.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 303237,
+ "sha256": "9a3b0a312528fb6047d4b21377edd61257d00551034a86f21d7a36b73e995330",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 0.968), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
