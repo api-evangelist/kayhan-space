@@ -297,6 +297,60 @@ paths:
                 $ref: '#/components/schemas/HTTPValidationError'
 components:
   schemas:
+    HTTPValidationError:
+      properties:
+        detail:
+          items:
+            $ref: '#/components/schemas/ValidationError'
+          type: array
+          title: Detail
+      type: object
+      title: HTTPValidationError
+    SortDirection:
+      type: string
+      enum:
+      - asc
+      - desc
+      title: SortDirection
+    ValidationError:
+      properties:
+        loc:
+          items:
+            anyOf:
+            - type: string
+            - type: integer
+          type: array
+          title: Location
+        msg:
+          type: string
+          title: Message
+        type:
+          type: string
+          title: Error Type
+        input:
+          title: Input
+        ctx:
+          type: object
+          title: Context
+      type: object
+      required:
+      - loc
+      - msg
+      - type
+      title: ValidationError
+    ScenarioFailureType:
+      type: string
+      enum:
+      - SATCAT
+      - NO_EPHEMERIS_OVERLAP
+      - PROPAGATION
+      title: ScenarioFailureType
+    HardBodyShape:
+      type: string
+      enum:
+      - SQUARE
+      - CIRCLE
+      title: HardBodyShape
     ScreeningRead:
       properties:
         id:
@@ -513,6 +567,248 @@ components:
       - primary_sources_count
       - secondary_sources_count
       title: ScreeningRead
+    satcat__schemas__models__Designation:
+      type: string
+      enum:
+      - OPERATIONAL
+      - PREDICTIVE
+      - DEFINITIVE
+      - THEORETICAL
+      - TLE
+      title: Designation
+    FailingValidityCause:
+      type: string
+      enum:
+      - 'NULL'
+      - LOW_DV
+      - DILUTION
+      - MANUAL
+      - VIOLATION
+      - SINGLE_COVARIANCE
+      title: FailingValidityCause
+    OffsetPageResult_MitigationScenarioRead_:
+      properties:
+        pagination:
+          $ref: '#/components/schemas/OffsetPagination'
+        items:
+          items:
+            $ref: '#/components/schemas/MitigationScenarioRead'
+          type: array
+          title: Items
+        total_count:
+          type: integer
+          title: Total Count
+      type: object
+      required:
+      - pagination
+      - items
+      - total_count
+      title: OffsetPageResult[MitigationScenarioRead]
+    UserProfilePreview:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        username:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Username
+        full_name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Full Name
+        avatar_url:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Avatar Url
+        email:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Email
+      type: object
+      required:
+      - id
+      title: UserProfilePreview
+    JobStatus:
+      type: string
+      enum:
+      - CREATED
+      - PENDING
+      - RUNNING
+      - SUCCESS
+      - FAILURE
+      - CANCELED
+      title: JobStatus
+    ScreeningType:
+      type: string
+      enum:
+      - ON_ORBIT
+      - LAUNCH
+      title: ScreeningType
+    ScreeningSubmit:
+      properties:
+        screening_params:
+          anyOf:
+          - $ref: '#/components/schemas/ScreeningParams'
+          - type: 'null'
+          default:
+            threshold_radius_km: 15.0
+            default_secondary_hbr_m: 5.0
+        screening_secondaries_catalog:
+          type: string
+          title: Screening Secondaries Catalog
+          default: SP
+      type: object
+      title: ScreeningSubmit
+    ScreeningParams:
+      properties:
+        threshold_radius_km:
+          type: number
+          title: Threshold Radius Km
+          default: 15
+        default_secondary_hbr_m:
+          type: number
+          title: Default Secondary Hbr M
+          default: 5
+        propagation_start_time:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Propagation Start Time
+        propagation_duration_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Duration S
+        propagation_timestep_s:
+          anyOf:
+          - type: number
+          - type: 'null'
+          title: Propagation Timestep S
+        title:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Title
+        notes:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Notes
+      type: object
+      title: ScreeningParams
+    Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post:
+      properties:
+        opm_file:
+          type: string
+          contentMediaType: application/octet-stream
+          title: Opm File
+          description: OPM file to upload
+      type: object
+      title: Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
+    ScenarioRead:
+      properties:
+        id:
+          type: string
+          format: uuid
+          title: Id
+        name:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Name
+        started_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Started At
+        completed_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Completed At
+        updated_at:
+          anyOf:
+          - type: string
+            format: date-time
+          - type: 'null'
+          title: Updated At
+        cdm_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Cdm Id
+        cdm_key:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Cdm Key
+        status:
+          type: string
+          title: Status
+        constellation:
+          anyOf:
+          - type: string
+          - type: 'null'
+          title: Constellation
+        asset_norad_cat_id:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Asset Norad Cat Id
+        autogenerated:
+          type: boolean
+          title: Autogenerated
+        completed_tradespaces:
+          anyOf:
+          - type: integer
+          - type: 'null'
+          title: Completed Tradespaces
+          default: 0
+        ephemeris_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Ephemeris Id
+        propagation_id:
+          anyOf:
+          - type: string
+            format: uuid
+          - type: 'null'
+          title: Propagation Id
+        failure_message:
+          anyOf:
+          - $ref: '#/components/schemas/ScenarioFailureType'
+          - type: 'null'
+      type: object
+      required:
+      - id
+      - status
+      - autogenerated
+      title: ScenarioRead
+    OffsetPagination:
+      properties:
+        offset:
+          type: integer
+          title: Offset
+          description: Offset in the collection to begin the page.
+          default: 0
+        count:
+          type: integer
+          title: Count
+          description: Number of items to retrieve. 0 returns all items.
+          default: 0
+      type: object
+      title: OffsetPagination
     SpacecraftConjunctionStateRead:
       properties:
         id:
@@ -948,25 +1244,6 @@ components:
       - y_dot_km
       - z_dot_km
       title: SpacecraftConjunctionStateRead
-    ScenarioFailureType:
-      type: string
-      enum:
-      - SATCAT
-      - NO_EPHEMERIS_OVERLAP
-      - PROPAGATION
-      title: ScenarioFailureType
-    ScreeningType:
-      type: string
-      enum:
-      - ON_ORBIT
-      - LAUNCH
-      title: ScreeningType
-    SortDirection:
-      type: string
-      enum:
-      - asc
-      - desc
-      title: SortDirection
     MitigationScenarioRead:
       properties:
         key:
@@ -1166,122 +1443,6 @@ components:
       - primary_rso_id
       - secondary_rso_id
       title: MitigationScenarioRead
-    HardBodyShape:
-      type: string
-      enum:
-      - SQUARE
-      - CIRCLE
-      title: HardBodyShape
-    ScenarioRead:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Name
-        started_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Started At
-        completed_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Completed At
-        updated_at:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Updated At
-        cdm_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Cdm Id
-        cdm_key:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Cdm Key
-        status:
-          type: string
-          title: Status
-        constellation:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Constellation
-        asset_norad_cat_id:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Asset Norad Cat Id
-        autogenerated:
-          type: boolean
-          title: Autogenerated
-        completed_tradespaces:
-          anyOf:
-          - type: integer
-          - type: 'null'
-          title: Completed Tradespaces
-          default: 0
-        ephemeris_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Ephemeris Id
-        propagation_id:
-          anyOf:
-          - type: string
-            format: uuid
-          - type: 'null'
-          title: Propagation Id
-        failure_message:
-          anyOf:
-          - $ref: '#/components/schemas/ScenarioFailureType'
-          - type: 'null'
-      type: object
-      required:
-      - id
-      - status
-      - autogenerated
-      title: ScenarioRead
-    Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post:
-      properties:
-        opm_file:
-          type: string
-          contentMediaType: application/octet-stream
-          title: Opm File
-          description: OPM file to upload
-      type: object
-      title: Body_create_mitigation_scenario_from_opm_conjunction_messages__cdm_id__mitigation_scenarios_opm_post
-    OffsetPageResult_MitigationScenarioRead_:
-      properties:
-        pagination:
-          $ref: '#/components/schemas/OffsetPagination'
-        items:
-          items:
-            $ref: '#/components/schemas/MitigationScenarioRead'
-          type: array
-          title: Items
-        total_count:
-          type: integer
-          title: Total Count
-      type: object
-      required:
-      - pagination
-      - items
-      - total_count
-      title: OffsetPageResult[MitigationScenarioRead]
     RSORead:
       properties:
         id:
@@ -1317,167 +1478,6 @@ components:
       required:
       - id
       title: RSORead
-    ScreeningParams:
-      properties:
-        threshold_radius_km:
-          type: number
-          title: Threshold Radius Km
-          default: 15
-        default_secondary_hbr_m:
-          type: number
-          title: Default Secondary Hbr M
-          default: 5
-        propagation_start_time:
-          anyOf:
-          - type: string
-            format: date-time
-          - type: 'null'
-          title: Propagation Start Time
-        propagation_duration_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Duration S
-        propagation_timestep_s:
-          anyOf:
-          - type: number
-          - type: 'null'
-          title: Propagation Timestep S
-        title:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Title
-        notes:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Notes
-      type: object
-      title: ScreeningParams
-    ScreeningSubmit:
-      properties:
-        screening_params:
-          anyOf:
-          - $ref: '#/components/schemas/ScreeningParams'
-          - type: 'null'
-          default:
-            threshold_radius_km: 15.0
-            default_secondary_hbr_m: 5.0
-        screening_secondaries_catalog:
-          type: string
-          title: Screening Secondaries Catalog
-          default: SP
-      type: object
-      title: ScreeningSubmit
-    HTTPValidationError:
-      properties:
-        detail:
-          items:
-            $ref: '#/components/schemas/ValidationError'
-          type: array
-          title: Detail
-      type: object
-      title: HTTPValidationError
-    FailingValidityCause:
-      type: string
-      enum:
-      - 'NULL'
-      - LOW_DV
-      - DILUTION
-      - MANUAL
-      - VIOLATION
-      - SINGLE_COVARIANCE
-      title: FailingValidityCause
-    JobStatus:
-      type: string
-      enum:
-      - CREATED
-      - PENDING
-      - RUNNING
-      - SUCCESS
-      - FAILURE
-      - CANCELED
-      title: JobStatus
-    satcat__schemas__models__Designation:
-      type: string
-      enum:
-      - OPERATIONAL
-      - PREDICTIVE
-      - DEFINITIVE
-      - THEORETICAL
-      - TLE
-      title: Designation
-    ValidationError:
-      properties:
-        loc:
-          items:
-            anyOf:
-            - type: string
-            - type: integer
-          type: array
-          title: Location
-        msg:
-          type: string
-          title: Message
-        type:
-          type: string
-          title: Error Type
-        input:
-          title: Input
-        ctx:
-          type: object
-          title: Context
-      type: object
-      required:
-      - loc
-      - msg
-      - type
-      title: ValidationError
-    UserProfilePreview:
-      properties:
-        id:
-          type: string
-          format: uuid
-          title: Id
-        username:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Username
-        full_name:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Full Name
-        avatar_url:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Avatar Url
-        email:
-          anyOf:
-          - type: string
-          - type: 'null'
-          title: Email
-      type: object
-      required:
-      - id
-      title: UserProfilePreview
-    OffsetPagination:
-      properties:
-        offset:
-          type: integer
-          title: Offset
-          description: Offset in the collection to begin the page.
-          default: 0
-        count:
-          type: integer
-          title: Count
-          description: Number of items to retrieve. 0 returns all items.
-          default: 0
-      type: object
-      title: OffsetPagination
   securitySchemes:
     Oauth2Scheme:
       type: oauth2
