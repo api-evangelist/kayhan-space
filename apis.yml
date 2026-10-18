@@ -238,6 +238,8 @@ apis:
   humanURL: https://docs.satcat.com
   baseURL: https://api.satcat.com/api/satcat
   tags:
+  - Natural Language Processing
+  tags_raw:
   - NLP
   properties:
   - type: OpenAPI
